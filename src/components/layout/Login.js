@@ -6,13 +6,19 @@ import { GoogleOutlined, FacebookOutlined } from '@ant-design/icons';
 import AuthContext from '../context/auth/authContext';
 import logo from '../../static/logo.png';
 
+const buttonStyle = {
+  width: '220px',
+  borderColor: '#0f74a8',
+  boxShadow: '0 6px 6px -6px #b1b1b1',
+};
+
 const Login = () => {
   const authContext = useContext(AuthContext);
   const {
     signIn_fb,
     signIn_google,
     close_modal,
-    auth_modal_show
+    auth_modal_show,
   } = authContext;
 
   const closeModal = () => {
@@ -26,7 +32,7 @@ const Login = () => {
         style={{ borderRadius: '25px', borderTopColor: '#d39e00' }}
         bodyStyle={{
           textAlign: 'center',
-          borderTop: '#d39e00'
+          borderTop: '#d39e00',
         }}
         closable
         maskClosable={true}
@@ -40,7 +46,7 @@ const Login = () => {
         <div style={{ padding: '0 0', margin: '0 0' }}>
           <img
             src={logo}
-            style={{ height: '170px', width: '300px' }}
+            style={{ height: '190px', width: '300px' }}
             alt={
               <div>
                 <strong style={{ color: '#0f74a8' }}>Speaker</strong>
@@ -51,11 +57,7 @@ const Login = () => {
         </div>
         <br />
         <Button
-          style={{
-            width: '200px',
-            borderColor: '#0f74a8',
-            boxShadow: '0 8px 6px -6px black'
-          }}
+          style={buttonStyle}
           icon={<GoogleOutlined />}
           type='ghost'
           onClick={signIn_google}
@@ -63,15 +65,12 @@ const Login = () => {
           size='large'
           block='true'
         >
-          Google
+          Sign in with Google
         </Button>
         <br />
         <br />
         <Button
-          style={{
-            width: '200px',
-            boxShadow: '0 8px 6px -6px black'
-          }}
+          style={buttonStyle}
           icon={<FacebookOutlined />}
           type='primary'
           onClick={signIn_fb}
@@ -79,7 +78,7 @@ const Login = () => {
           size='large'
           block='true'
         >
-          Facebook
+          Sign in with Facebook
         </Button>
       </Modal>
     </div>

@@ -1,8 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-// import FooterSection from './components/layout/FooterSection';
-
 import Profile from '../src/components/pages/Profile';
 import Home from '../src/components/pages/Home';
 import About from '../src/components/pages/About';

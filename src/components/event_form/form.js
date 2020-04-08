@@ -102,18 +102,12 @@ export class form extends Component {
   };
 
   submit = () => {
-    console.log(
-      'values: ',
-      this.state.step_one_fields,
-      this.state.step_two_fields
-    );
     message.success('Processing complete!');
   };
 
   render() {
     const { step, step_one_fields, step_two_fields } = this.state;
     const values3 = Object.assign(step_one_fields, step_two_fields);
-    console.log(values3);
     return (
       <Fragment>
         <Navbar heading={'Add Event'} />

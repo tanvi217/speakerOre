@@ -11,18 +11,22 @@ import Navbar from '../layout/Navbar';
 import FooterSection from '../layout/FooterSection';
 import 'antd/dist/antd.css';
 import './style.css';
-import { Layout, Breadcrumb, Button, Radio } from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
+import { Layout, Button, Radio } from 'antd';
+import BreadcrumbHead from '../layout/BreadcrumbHead';
 
 const { Content } = Layout;
 
+const radioStyle = {
+  borderColor: '#328fce',
+};
+
 const EventsPage = () => {
   const authContext = useContext(AuthContext);
-  const { isSubscribed, role, auth_modal_visible, show_modal } = authContext;
+  const { isSubscribed, role, show_modal } = authContext;
 
   const [option, setOption] = useState('all');
 
-  const onChange = e => {
+  const onChange = (e) => {
     setOption(e.target.value);
     console.log(e.target.value);
   };
@@ -30,14 +34,7 @@ const EventsPage = () => {
   const subscribedUser = (
     <Fragment>
       <Navbar heading={'Events'} />
-      <Breadcrumb style={{ margin: '16px 0', padding: '10px 100px' }}>
-        <Breadcrumb.Item>
-          <a href='/'>
-            <HomeOutlined />
-          </a>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>Events</Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbHead heading={'Events'} />
       <Content className='site-layout' style={{ padding: '0 100px' }}>
         <Layout
           className='site-layout-background'
@@ -48,10 +45,14 @@ const EventsPage = () => {
             style={{
               padding: '0 5px 0 50px',
               minHeight: 780,
-              float: 'right'
+              float: 'right',
             }}
           >
-            <Radio.Group defaultValue='all' onChange={onChange}>
+            <Radio.Group
+              defaultValue='all'
+              onChange={onChange}
+              style={radioStyle}
+            >
               <Radio.Button value='all'>All</Radio.Button>
               <Radio.Button value='bookmarks'>Bookmarks</Radio.Button>
               <Radio.Button value='my_events'>My Events</Radio.Button>
@@ -78,20 +79,13 @@ const EventsPage = () => {
   const user = (
     <Fragment>
       <Navbar heading={'Events'} />
-      <Breadcrumb style={{ margin: '16px 0', padding: '10px 100px' }}>
-        <Breadcrumb.Item>
-          <a href='/'>
-            <HomeOutlined />
-          </a>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>Events</Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbHead heading={'Events'} />
       <Content
         className='site-layout'
         style={{
           padding: '0 100px',
           filter: 'blur(8px)',
-          WebkitFilter: 'blur(8px)'
+          WebkitFilter: 'blur(8px)',
         }}
       >
         <Layout
@@ -103,7 +97,7 @@ const EventsPage = () => {
             style={{
               padding: '0 5px 0 50px',
               minHeight: 780,
-              float: 'right'
+              float: 'right',
             }}
           >
             <EventSearch />

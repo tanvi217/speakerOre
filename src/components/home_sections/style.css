@@ -11,13 +11,13 @@ h3 {
 */
 
 /* Html, Body */
-html,
+/* html,
 body {
   height: 100%;
 }
 
 body {
-  color: #0f74a8;
+  color: #328fce;
 }
 h1,
 h2,
@@ -26,10 +26,10 @@ h4,
 h5,
 h6 {
   font-family: 'Raleway', sans-serif;
-  color: #0f74a8;
-}
+  color: #328fce;
+} */
 p {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'benton-sans', 'Helvetica', 'sans-serif';
   font-size: 20px;
   font-weight: 300;
   line-height: 24px;

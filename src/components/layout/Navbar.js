@@ -1,21 +1,43 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
-import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import Login from './Login';
-import './style.css';
+import './nav_style.css';
 import AuthContext from '../context/auth/authContext';
-import Background from '../../static/nav_bg.jpg';
+import Background from '../../static/nav_bg0.jpg';
+import { Drawer, Button, Menu } from 'antd';
+
 import logo from '../../static/logo.png';
+import LeftMenuGuest from './LeftMenuGuest';
+import LeftMenuAuth from './LeftMenuAuth';
+
+const logo_style = {
+  width: '200px',
+  height: '100px',
+  margin: '16px 0px 16px 0',
+  marginTop: '0px',
+  float: 'left',
+};
+
+const mid = {
+  fontWweight: '600',
+  color: 'white',
+  margin: '0',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  fontSize: '2rem',
+  transform: 'translate(-50%, -50%)',
+};
 
 const wimg = {
-  backgroundImage: `url(${Background})`,
   minHeight: '180px',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
-  position: 'relative'
+  position: 'relative',
+  backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${Background})`,
 };
 
 const nav_style = {
@@ -26,7 +48,7 @@ const nav_style = {
   transition: 'background-color 1s ease 0s',
   fontSize: '15px',
   paddingLeft: '80px',
-  paddingRight: '100px'
+  paddingRight: '100px',
 };
 
 const bg = {
@@ -37,144 +59,62 @@ const bg = {
   transition: 'background-color 1s ease 0s',
   fontSize: '15px',
   paddingLeft: '80px',
-  paddingRight: '100px'
+  paddingRight: '100px',
 };
-
-const a_style = {
-  color: '#0f74a8'
-};
-
-const { SubMenu } = Menu;
 
 const Navbar = ({ title, isHome, heading }) => {
   const authContext = useContext(AuthContext);
+  const { current, setCurrent } = useState('mail');
+  const { visible, setVisible } = useState(false);
 
-  const {
-    isAuthenticated,
-    show_modal,
-    auth_modal_visible,
-    loadUser,
-    logout
-  } = authContext;
+  const { isAuthenticated, auth_modal_visible, loadUser } = authContext;
 
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line
   }, []);
 
-  const showModal = () => {
-    show_modal();
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(true);
   };
 
   const isSubscribed = true;
 
-  const authLinks = (
-    <div style={isHome ? {} : wimg}>
-      <Menu mode='horizontal' style={isHome ? nav_style : bg}>
-        <Menu.Item key='logo' style={{ textDecoration: 'none' }}>
-          <Link to='/' style={a_style}>
-            SpeakerOre
-          </Link>
-        </Menu.Item>
-
-        <SubMenu
-          title={
-            <span className='submenu-title-wrapper'>
-              <Link to={'/profile'} style={a_style}>
-                Profile
-              </Link>
-            </span>
-          }
-          style={{ float: 'right' }}
-        >
-          <Menu.ItemGroup>
-            <Menu.Item key='settings'>Settings</Menu.Item>
-            <Menu.Item key='logout' onClick={logout}>
-              Logout
-            </Menu.Item>
-          </Menu.ItemGroup>
-        </SubMenu>
-        <Menu.Item key='about' style={{ float: 'right' }}>
-          <Link to='/about' style={a_style}>
-            About
-          </Link>
-        </Menu.Item>
-        <Menu.Item key='add_event' style={{ float: 'right' }}>
-          <Link to='/add_event' style={a_style}>
-            Add Event
-          </Link>
-        </Menu.Item>
-        <Menu.Item key='subscribe' style={{ float: 'right' }}>
-          <Link to='/subscribe' style={a_style}>
-            Subscribe
-          </Link>
-        </Menu.Item>
-        {isSubscribed && (
-          <Menu.Item key='events' style={{ float: 'right' }}>
-            <Link to='/events' style={a_style}>
-              Events
-            </Link>
-          </Menu.Item>
-        )}
-      </Menu>
-      {!isHome && (
-        <div>
-          <div className='text-block'>
-            <h4>{heading}</h4>
+  const Links = (
+    <div>
+      <nav className='menuBar'>
+        <div className='menuCon'>
+          <div className='rightMenu'>
+            {isAuthenticated ? <LeftMenuAuth /> : <LeftMenuGuest />}
+            <Button className='barsMenu' type='primary' onClick={showDrawer}>
+              <span className='barsBtn'></span>
+            </Button>
+            <Drawer
+              title='Basic Drawer'
+              placement='right'
+              closable={false}
+              onClose={onClose}
+              visible={visible}
+            >
+              {isAuthenticated ? <LeftMenuAuth /> : <LeftMenuGuest />}
+            </Drawer>
           </div>
+        </div>
+      </nav>
+      {!isHome && (
+        <div style={wimg}>
+          <h5 style={mid}>{heading}</h5>
         </div>
       )}
     </div>
   );
 
-  const guestLinks = (
-    <div style={isHome ? {} : null}>
-      <Menu mode='horizontal' style={isHome ? nav_style : bg}>
-        <Menu.Item key='logo' style={{ textDecoration: 'none' }}>
-          <Link to='/' style={a_style}>
-            <strong style={{ color: '#0f74a8' }}>Speaker</strong>
-            <span style={{ color: '#d39e00' }}>Ore</span>
-          </Link>
-        </Menu.Item>
-        <Menu.SubMenu
-          onTitleClick={showModal}
-          title={'Login'}
-          style={{ float: 'right' }}
-        ></Menu.SubMenu>
-        <Menu.Item key='about' style={{ float: 'right' }}>
-          <Link to='/about' style={a_style}>
-            About
-          </Link>
-        </Menu.Item>
-        <Menu.Item key='events' style={{ float: 'right' }}>
-          <Link to='/events' style={a_style}>
-            Events
-          </Link>
-        </Menu.Item>
-        <Menu.Item key='add_event' style={{ float: 'right' }}>
-          <Link to='/add_event' style={a_style}>
-            Add Event
-          </Link>
-        </Menu.Item>
-        <Menu.Item key='subscribe' style={{ float: 'right' }}>
-          <Link to='/subscribe' style={a_style}>
-            Subscribe
-          </Link>
-        </Menu.Item>
-      </Menu>
-      {!isHome &&
-        // <div>
-        //   <div className='text-block'>
-        //     <h4>{heading}</h4>
-        //   </div>
-        // </div>
-        null}
-    </div>
-  );
-
   return (
     <Fragment>
-      {isAuthenticated ? authLinks : guestLinks}
+      {Links}
       {auth_modal_visible && <Login />}
     </Fragment>
   );
@@ -183,13 +123,13 @@ const Navbar = ({ title, isHome, heading }) => {
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
   isHome: PropTypes.bool.isRequired,
-  heading: PropTypes.string.isRequired
+  heading: PropTypes.string.isRequired,
 };
 
 Navbar.defaultProps = {
   title: 'SpeakerOre',
   isHome: false,
-  heading: ''
+  heading: '',
 };
 
 export default Navbar;

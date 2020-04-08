@@ -1,41 +1,63 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Form, DatePicker, Input, Button } from 'antd';
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
 
 const formItemLayout = {
   labelCol: {
     xs: {
-      span: 24
+      span: 24,
     },
     sm: {
-      span: 8
-    }
+      span: 8,
+    },
   },
   wrapperCol: {
     xs: {
-      span: 15
+      span: 15,
     },
     sm: {
-      span: 10
-    }
-  }
+      span: 10,
+    },
+  },
 };
 
 const tailLayout = {
   wrapperCol: {
     offset: 8,
-    span: 10
-  }
+    span: 10,
+  },
 };
 
 export class event_basic_details extends Component {
-  onFinish = values => {
-    console.log('Received values of form: ', values);
+  state = {
+    coordinates: {
+      lat: null,
+      long: null,
+    },
+    address: '',
+  };
+
+  onFinish = (values) => {
     this.props.nextStep();
   };
 
-  onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
+  onFinishFailed = (errorInfo) => {
+    // console.log('Failed:', errorInfo);
+  };
+
+  handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    const latLng = await getLatLng(results[0]);
+    this.setState({
+      address: value,
+    });
+    this.setState({
+      coordinates: latLng,
+    });
   };
 
   render() {
@@ -47,7 +69,7 @@ export class event_basic_details extends Component {
       city,
       state,
       country,
-      postalcode
+      postalcode,
     } = this.props.values;
     const { handleChange, handleChangeDate } = this.props;
     return (
@@ -66,7 +88,7 @@ export class event_basic_details extends Component {
           city: city,
           state: state,
           country: country,
-          postalcode: postalcode
+          postalcode: postalcode,
         }}
       >
         <Form.Item
@@ -75,8 +97,8 @@ export class event_basic_details extends Component {
           rules={[
             {
               required: true,
-              message: 'Please fill in event name'
-            }
+              message: 'Please fill in event name',
+            },
           ]}
         >
           <Input
@@ -91,8 +113,8 @@ export class event_basic_details extends Component {
           rules={[
             {
               required: true,
-              message: 'Please fill in event date'
-            }
+              message: 'Please fill in event date',
+            },
           ]}
         >
           <DatePicker
@@ -115,19 +137,23 @@ export class event_basic_details extends Component {
           label={'Street'}
           rules={[
             {
-              required: true
-            }
+              required: true,
+            },
           ]}
         >
-          <Input onChange={handleChange('street')} placeholder='street' />
+          <Input
+            id='street'
+            onChange={handleChange('street')}
+            placeholder='street'
+          />
         </Form.Item>
         <Form.Item
           name='city'
           label={'City'}
           rules={[
             {
-              required: true
-            }
+              required: true,
+            },
           ]}
         >
           <Input onChange={handleChange('city')} placeholder='City' />
@@ -137,8 +163,8 @@ export class event_basic_details extends Component {
           label={'State'}
           rules={[
             {
-              required: true
-            }
+              required: true,
+            },
           ]}
         >
           <Input onChange={handleChange('state')} placeholder='State' />
@@ -148,8 +174,8 @@ export class event_basic_details extends Component {
           label={'Country'}
           rules={[
             {
-              required: true
-            }
+              required: true,
+            },
           ]}
         >
           <Input onChange={handleChange('country')} placeholder='Country' />
@@ -160,8 +186,8 @@ export class event_basic_details extends Component {
           rules={[
             {
               required: true,
-              message: 'Postal code is required'
-            }
+              message: 'Postal code is required',
+            },
           ]}
         >
           <Input

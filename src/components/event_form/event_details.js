@@ -32,12 +32,11 @@ const tailLayout = {
 
 export class event_details extends Component {
   onFinish = values => {
-    console.log('Received values of form: ', values);
     this.props.nextStep();
   };
 
   onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
+    // console.log('Failed:', errorInfo);
   };
 
   prefixSelector = (

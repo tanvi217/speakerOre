@@ -2,26 +2,35 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #003699;
-  --dark-color: #333333;
+  --primary-color: #328fce;
+  --dark-color: #f5cc23;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
 }
 
+.ant-btn-primary {
+  background-color: #328fce;
+}
+
+.ant-radio-group {
+  border-color: #328fce;
+}
+
 * {
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   margin: 0;
   padding: 0;
 }
 
 html,
 body {
-  font-family: 'Raleway', sans-serif;
+  /* font-family: 'Raleway', sans-serif; */
+  font-family: 'benton-sans', 'Helvetica', 'sans-serif';
   font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;
-  color: #333;
+  /* color: #333; */
   height: 100%;
 }
 
