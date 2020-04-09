@@ -40,7 +40,7 @@ const LeftMenuGuest = () => {
   };
 
   return (
-    <Menu mode='horizontal' expandIcon>
+    <Menu mode='horizontal'>
       <Menu.Item key='title' style={leftItems}>
         <Link to='/'>
           <strong style={{ color: '#000000' }}>SPEAKER</strong>

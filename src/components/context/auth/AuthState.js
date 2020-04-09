@@ -10,24 +10,24 @@ import {
   SIGN_IN_FAIL,
   SHOW_MODAL,
   CLOSE_MODAL,
-  USER_LOADED
+  USER_LOADED,
 } from '../types';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: 'AIzaSyBhOhfy95TDK6C8U8kjgd1anwIXV6TD0dE',
-    authDomain: 'speakerore-e254d.firebaseapp.com'
+    authDomain: 'speakerore-e254d.firebaseapp.com',
   });
 }
 
 var provider_google = new firebase.auth.GoogleAuthProvider();
 var provider_fb = new firebase.auth.FacebookAuthProvider();
 
-const AuthState = props => {
+const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
-    isSubscribed: true,
+    isSubscribed: false,
     loading: false,
     user: null,
     error: null,
@@ -53,7 +53,7 @@ const AuthState = props => {
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
         start_date: '10/03/2020',
-        end_date: '12/03/2020'
+        end_date: '12/03/2020',
       },
       {
         id: 2,
@@ -73,8 +73,8 @@ const AuthState = props => {
         categories: ['music', 'festival'],
         tags: ['concert', 'fun'],
         start_date: '10/03/2020',
-        end_date: '12/03/2020'
-      }
+        end_date: '12/03/2020',
+      },
     ],
     subscription_start_time: '',
     subscription_end_time: '',
@@ -99,7 +99,7 @@ const AuthState = props => {
         tags: ['concert', 'fun'],
         start_date: '10/03/2020',
         end_date: '12/03/2020',
-        status: 'accepted'
+        status: 'accepted',
       },
       {
         id: 4,
@@ -120,7 +120,7 @@ const AuthState = props => {
         tags: ['concert', 'belgium'],
         start_date: '10/03/2020',
         end_date: '12/03/2020',
-        status: 'declined'
+        status: 'declined',
       },
       {
         id: 5,
@@ -141,9 +141,9 @@ const AuthState = props => {
         tags: ['concert', 'belgium'],
         start_date: '10/03/2020',
         end_date: '12/03/2020',
-        status: 'pending'
-      }
-    ]
+        status: 'pending',
+      },
+    ],
   };
   const [state, dispatch] = useReducer(authReducer, initialState);
 
@@ -152,7 +152,7 @@ const AuthState = props => {
       setAuthToken(localStorage.token);
     }
 
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         dispatch({ type: USER_LOADED, payload: user });
       }
@@ -176,20 +176,20 @@ const AuthState = props => {
     firebase
       .auth()
       .signInWithPopup(provider_google)
-      .then(function(result) {
+      .then(function (result) {
         var token = result.credential;
         var user = result.user;
         console.log(user, token);
         dispatch({ type: SIGN_IN_GOOGLE, payload: result });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         // var errorCode = error.code;
         // var errorMessage = error.message;
         // var email = error.email;
         // var credential = error.credential;
         dispatch({
           type: SIGN_IN_FAIL,
-          payload: error
+          payload: error,
         });
       });
   };
@@ -197,13 +197,13 @@ const AuthState = props => {
     firebase
       .auth()
       .signInWithPopup(provider_fb)
-      .then(function(result) {
+      .then(function (result) {
         dispatch({ type: SIGN_IN_FB, payload: result });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         dispatch({
           type: SIGN_IN_FAIL,
-          payload: error
+          payload: error,
         });
       });
   };
@@ -228,7 +228,7 @@ const AuthState = props => {
         signIn_fb,
         logout,
         show_modal,
-        close_modal
+        close_modal,
       }}
     >
       {props.children}

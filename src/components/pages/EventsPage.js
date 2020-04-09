@@ -16,8 +16,25 @@ import BreadcrumbHead from '../layout/BreadcrumbHead';
 
 const { Content } = Layout;
 
+const buttonStyle = {
+  background: '#f5cc23',
+  borderColor: '#f5cc23',
+  color: '#ffffff',
+  marginLeft: '10px',
+};
+
 const radioStyle = {
   borderColor: '#328fce',
+};
+
+const unsubscribed = {
+  padding: '0 100px',
+  filter: 'blur(8px)',
+  WebkitFilter: 'blur(8px)',
+};
+
+const subscribed = {
+  padding: '0 100px',
 };
 
 const EventsPage = () => {
@@ -31,11 +48,14 @@ const EventsPage = () => {
     console.log(e.target.value);
   };
 
-  const subscribedUser = (
+  return (
     <Fragment>
       <Navbar heading={'Events'} />
       <BreadcrumbHead heading={'Events'} />
-      <Content className='site-layout' style={{ padding: '0 100px' }}>
+      <Content
+        className='site-layout'
+        style={isSubscribed ? subscribed : unsubscribed}
+      >
         <Layout
           className='site-layout-background'
           style={{ padding: '35px 48px' }}
@@ -68,58 +88,25 @@ const EventsPage = () => {
             {option === 'all' && <Events />}
             {option === 'bookmarks' && <Bookmark />}
             {option === 'my_events' && <MyEvents />}
-            {option === 'archive' && <Archives />}
+            {isSubscribed && option === 'archive' && <Archives />}
           </Content>
         </Layout>
       </Content>
-      <FooterSection />
-    </Fragment>
-  );
 
-  const user = (
-    <Fragment>
-      <Navbar heading={'Events'} />
-      <BreadcrumbHead heading={'Events'} />
-      <Content
-        className='site-layout'
-        style={{
-          padding: '0 100px',
-          filter: 'blur(8px)',
-          WebkitFilter: 'blur(8px)',
-        }}
-      >
-        <Layout
-          className='site-layout-background'
-          style={{ padding: '35px 48px' }}
-        >
-          <EventFilter />
-          <Content
-            style={{
-              padding: '0 5px 0 50px',
-              minHeight: 780,
-              float: 'right',
-            }}
-          >
-            <EventSearch />
-            <br />
-            <br />
-            <Events />
-          </Content>
-        </Layout>
-      </Content>
       <div className='bg-text'>
-        <Button size='large' href='/subscribe'>
+        <Button size='large' href='/subscribe' style={buttonStyle}>
           {'Subscribe to check out events'}
         </Button>
         <br />
         <br />
-        <a onClick={() => show_modal()}>Already Subscribed? Log in here</a>
+        <a onClick={() => show_modal()} style={{ color: '#328fce' }}>
+          Already Subscribed? Log in here
+        </a>
       </div>
+
       <FooterSection />
     </Fragment>
   );
-
-  return <Fragment>{isSubscribed ? subscribedUser : user}</Fragment>;
 };
 
 export default EventsPage;
