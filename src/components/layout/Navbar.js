@@ -51,15 +51,15 @@ const nav_style = {
   paddingRight: '100px',
 };
 
-const bg = {
-  border: 'none',
-  color: '#ffffff',
+const bgHome = {
+  // border: 'none',
+  // color: '#ffffff',
   background: 'transparent',
   zIndex: '100',
-  transition: 'background-color 1s ease 0s',
-  fontSize: '15px',
-  paddingLeft: '80px',
-  paddingRight: '100px',
+  // transition: 'background-color 1s ease 0s',
+  // fontSize: '15px',
+  // paddingLeft: '80px',
+  // paddingRight: '100px',
 };
 
 const Navbar = ({ title, isHome, heading }) => {
@@ -84,7 +84,7 @@ const Navbar = ({ title, isHome, heading }) => {
   const isSubscribed = true;
 
   const Links = (
-    <div>
+    <div style={isHome ? bgHome : {}}>
       <nav className='menuBar'>
         <div className='menuCon'>
           <div className='rightMenu'>

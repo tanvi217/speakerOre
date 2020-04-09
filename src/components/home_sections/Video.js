@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 import media from '../../static/helping.mp4';
@@ -8,56 +8,39 @@ import { Button } from 'antd';
 
 import './style.css';
 
-// const home = {
-//   background: 'none',
-//   height: '100%'
-// };
-
-// const home_bg_video = {
-//   position: 'fixed',
-//   top: '50%',
-//   left: '50%',
-//   WebkitTransform: 'translateX(-50%) translateY(-50%)',
-//   transform: 'translateX(-50%) translateY(-50%)',
-//   minWidth: '100%',
-//   minHeight: '100%',
-//   width: 'auto',
-//   height: 'auto',
-//   // zIndex: '-1',
-//   // background: 'url('../../static/logo.png') no-repeat',
-//   backgroundSize: 'cover'
-// };
-
 const button_style = {
   fontFamily: 'sans-serif, Raleway',
-  color: '#d3d3d3',
+  borderColor: '#f5cc23',
   WebkitTransition: 'all .4s',
-  transition: 'all .4s'
+  transition: 'all .4s',
+  color: '#f5cc23',
 };
 
 const Video = () => {
   return (
-    <section className='home'>
-      <ReactPlayer
-        playsinline
-        url={media}
-        poster={logo}
-        playing
-        loop={true}
-        muted
-        className='home_bg_video'
-      />
+    <Fragment>
+      <div className='video_wrapper'>
+        <ReactPlayer
+          playsinline
+          url={media}
+          poster={logo}
+          playing
+          loop={true}
+          muted
+          width='100%'
+          height='100%'
+        />
+      </div>
+
       <div className='home_overlay'>
         <div className='home_content'>
           <div className='home_content_inner'>
             <div className='home_heading1'>
               <h1 className='home_heading1'>
-                <span>
-                  Speaker<span style={{ color: '#d39e00' }}>Ore</span>
-                </span>
+                Speaker<span style={{ color: '#f5cc23' }}>Ore</span>
               </h1>
               <br />
-              <h6 className='home_heading2'>Gold mine for speakers</h6>
+              <h5>Gold mine for speakers</h5>
             </div>
             <div>
               <Button
@@ -72,7 +55,7 @@ const Video = () => {
           </div>
         </div>
       </div>
-    </section>
+    </Fragment>
   );
 };
 
