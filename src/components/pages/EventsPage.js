@@ -93,16 +93,18 @@ const EventsPage = () => {
         </Layout>
       </Content>
 
-      <div className='bg-text'>
-        <Button size='large' href='/subscribe' style={buttonStyle}>
-          {'Subscribe to check out events'}
-        </Button>
-        <br />
-        <br />
-        <a onClick={() => show_modal()} style={{ color: '#328fce' }}>
-          Already Subscribed? Log in here
-        </a>
-      </div>
+      {!isSubscribed && (
+        <div className='bg-text'>
+          <Button size='large' href='/subscribe' style={buttonStyle}>
+            {'Subscribe to check out events'}
+          </Button>
+          <br />
+          <br />
+          <a onClick={() => show_modal()} style={{ color: '#328fce' }}>
+            Already Subscribed? Log in here
+          </a>
+        </div>
+      )}
 
       <FooterSection />
     </Fragment>

@@ -13,7 +13,7 @@ const Events = () => {
 
   return (
     <div style={eventStyle}>
-      {events.map(event => (
+      {events.map((event) => (
         <EventItem key={event.id} event={event}></EventItem>
       ))}
     </div>
@@ -22,9 +22,9 @@ const Events = () => {
 
 const eventStyle = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(1, 2fr)',
+  gridTemplateColumns: 'repeat(3, 2fr)',
   gridGap: '2rem',
-  align: 'center'
+  align: 'center',
 };
 
 export default Events;

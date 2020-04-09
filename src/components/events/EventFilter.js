@@ -1,6 +1,14 @@
 import React, { useContext, useState } from 'react';
 import 'antd/dist/antd.css';
-import { Radio, Layout, DatePicker, Select, Collapse, Checkbox } from 'antd';
+import {
+  Radio,
+  Layout,
+  DatePicker,
+  Select,
+  Collapse,
+  Checkbox,
+  Button,
+} from 'antd';
 import EventsFilterContext from '../context/eventsFilter/eventsFilterContext';
 import moment from 'moment';
 import { CaretRightOutlined } from '@ant-design/icons';
@@ -29,7 +37,7 @@ const EventFilter = () => {
     height: '30px',
     lineHeight: '30px',
     marginLeft: '40px',
-    float: 'none'
+    float: 'none',
   };
 
   const checkStyle = {
@@ -37,22 +45,22 @@ const EventFilter = () => {
     height: '30px',
     lineHeight: '30px',
     marginLeft: '40px',
-    width: '100%'
+    width: '100%',
   };
 
   const options = ['Latest', 'Bookmarked', 'Upcoming Events'];
 
-  const onChangeRadio = e => {
+  const onChangeRadio = (e) => {
     console.log('radio checked', e.target.value);
     setFilter(e.target.value);
   };
 
-  const onChangeCategory = checkedValues => {
+  const onChangeCategory = (checkedValues) => {
     console.log('Categories = ', checkedValues);
     setFilter_categories(checkedValues);
   };
 
-  const onChangeLocation = checkedValues => {
+  const onChangeLocation = (checkedValues) => {
     console.log('Location = ', checkedValues);
     setFilter_locations(checkedValues);
   };
@@ -62,7 +70,7 @@ const EventFilter = () => {
     console.log('From: ', dateStrings);
   };
 
-  const disabledDate = current => {
+  const disabledDate = (current) => {
     return current && current < moment().endOf('day');
   };
 
@@ -123,7 +131,7 @@ const EventFilter = () => {
           className='site-collapse-custom-panel'
         >
           <Radio.Group value={filter} onChange={onChangeRadio}>
-            {options.map(option => (
+            {options.map((option) => (
               <Radio style={radioStyle} value={option} key={option}>
                 {option}
               </Radio>
