@@ -17,6 +17,33 @@ const { Sider } = Layout;
 const { Option } = Select;
 const { Panel } = Collapse;
 
+const radioStyle = {
+  display: 'block',
+  height: '30px',
+  lineHeight: '30px',
+  marginLeft: '40px',
+  float: 'none',
+};
+
+const checkStyle = {
+  display: 'block',
+  height: '30px',
+  lineHeight: '30px',
+  marginLeft: '40px',
+  width: '100%',
+};
+
+const filterStyle = {
+  textAlign: 'center',
+  fontWeight: 600,
+  padding: '20px',
+};
+
+const sideHeadings = {
+  fontWeight: 500,
+  color: '#bbbbbb',
+};
+
 const EventFilter = () => {
   const [filter, setFilter] = useState('');
   const [filter_date, setFilter_date] = useState('');
@@ -31,22 +58,6 @@ const EventFilter = () => {
   for (let i = 0; i < categories.length; i++) {
     children.push(<Option key={categories[i]}>{categories[i]}</Option>);
   }
-
-  const radioStyle = {
-    display: 'block',
-    height: '30px',
-    lineHeight: '30px',
-    marginLeft: '40px',
-    float: 'none',
-  };
-
-  const checkStyle = {
-    display: 'block',
-    height: '30px',
-    lineHeight: '30px',
-    marginLeft: '40px',
-    width: '100%',
-  };
 
   const options = ['Latest', 'Bookmarked', 'Upcoming Events'];
 
@@ -81,6 +92,7 @@ const EventFilter = () => {
       style={{ height: '300px' }}
       theme='light'
     >
+      <div style={filterStyle}>Filter results</div>
       <Collapse
         bordered={false}
         defaultActiveKey={['1', '2', '3', '4']}
@@ -90,7 +102,12 @@ const EventFilter = () => {
         className='site-collapse-custom-collapse'
         style={{ width: '300px' }}
       >
-        <Panel header='CATEGORY' key='1' className='site-collapse-custom-panel'>
+        <Panel
+          header='CATEGORY'
+          key='1'
+          className='site-collapse-custom-panel'
+          style={sideHeadings}
+        >
           <Select
             size='default'
             mode='multiple'
@@ -101,13 +118,23 @@ const EventFilter = () => {
             {children}
           </Select>
         </Panel>
-        <Panel header='LOCATION' key='2' className='site-collapse-custom-panel'>
+        <Panel
+          header='LOCATION'
+          key='2'
+          className='site-collapse-custom-panel'
+          style={sideHeadings}
+        >
           <Checkbox.Group
             options={locations}
             onChange={onChangeLocation}
           ></Checkbox.Group>
         </Panel>
-        <Panel header='DATE' key='3' className='site-collapse-custom-panel'>
+        <Panel
+          header='DATE'
+          key='3'
+          className='site-collapse-custom-panel'
+          style={sideHeadings}
+        >
           <h5>Start Date</h5>
           <DatePicker
             size='small'
@@ -123,12 +150,14 @@ const EventFilter = () => {
             style={{ width: '100%', padding: '5px 5px' }}
             disabledDate={disabledDate}
             onChange={onChangeDate}
+            style={sideHeadings}
           />
         </Panel>
         <Panel
           header='OTHER FILTERS'
           key='4'
           className='site-collapse-custom-panel'
+          style={sideHeadings}
         >
           <Radio.Group value={filter} onChange={onChangeRadio}>
             {options.map((option) => (

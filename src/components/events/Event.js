@@ -1,6 +1,7 @@
 import React, { useContext, Fragment } from 'react';
 import EventContext from '../context/events/eventContext';
 import Navbar from '../layout/Navbar';
+import BreadcrumbHead from '../layout/BreadcrumbHead';
 import FooterSection from '../layout/FooterSection';
 
 import {
@@ -11,9 +12,9 @@ import {
   Tag,
   Layout,
   Row,
-  Descriptions
+  Descriptions,
 } from 'antd';
-import { HomeOutlined, HeartTwoTone } from '@ant-design/icons';
+import { HeartTwoTone } from '@ant-design/icons';
 import Paragraph from 'antd/lib/skeleton/Paragraph';
 
 import './style.css';
@@ -26,7 +27,7 @@ const Event = ({ match }) => {
   const eventContext = useContext(EventContext);
 
   const {
-    params: { event_id }
+    params: { event_id },
   } = match;
 
   const { events } = eventContext;
@@ -47,7 +48,7 @@ const Event = ({ match }) => {
     description,
     phone,
     email,
-    website
+    website,
   } = events[0];
 
   const loc =
@@ -56,23 +57,13 @@ const Event = ({ match }) => {
   return (
     <Fragment>
       <Navbar heading={'Event - ' + name} />
-      <Breadcrumb style={{ margin: '16px 0', padding: '10px 100px' }}>
-        <Breadcrumb.Item>
-          <a href='/'>
-            <HomeOutlined />
-          </a>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <a href='/events'>Events</a>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>{name}</Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbHead heading={['Events', name]} />
       <Content
         className='site-layout'
         style={{
           padding: '0 100px',
           display: 'flex',
-          alignItems: 'flex-start'
+          alignItems: 'flex-start',
         }}
       >
         <Card
@@ -80,7 +71,7 @@ const Event = ({ match }) => {
           style={{
             padding: '15px',
             flex: '2',
-            margin: '0 5px 0 0'
+            margin: '0 5px 0 0',
           }}
         >
           <h1>{name}</h1>
@@ -125,7 +116,7 @@ const Event = ({ match }) => {
           style={{
             padding: '5px',
             flex: '1',
-            margin: '0px 0 0 10px'
+            margin: '0px 0 0 10px',
           }}
         >
           <Meta title='Website' description={website} />

@@ -5,8 +5,8 @@ import Event_details from './event_details';
 import Navbar from '../layout/Navbar';
 import Confirmation from './confirm';
 import Event_basic_details from './event_basic_details';
-import { Steps, message, Button, Breadcrumb, Form } from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
+import { Steps, message, Button, Form } from 'antd';
+import BreadcrumbHead from '../layout/BreadcrumbHead';
 import FooterSection from '../layout/FooterSection';
 import moment from 'moment';
 
@@ -15,16 +15,16 @@ const { Step } = Steps;
 const steps = [
   {
     title: 'Event Preliminary Details',
-    content: 'First-content'
+    content: 'First-content',
   },
   {
     title: 'Event Details',
-    content: 'Second-content'
+    content: 'Second-content',
   },
   {
     title: 'Confirmation',
-    content: 'Last-content'
-  }
+    content: 'Last-content',
+  },
 ];
 
 export class form extends Component {
@@ -40,64 +40,64 @@ export class form extends Component {
       city: '',
       state: '',
       country: '',
-      postalcode: ''
+      postalcode: '',
     },
-    step_two_fields: { about: '', tags: [], email: '', phone: '', website: '' }
+    step_two_fields: { about: '', tags: [], email: '', phone: '', website: '' },
   };
 
   nextStep = () => {
     const { step } = this.state;
     this.setState({
-      step: step + 1
+      step: step + 1,
     });
   };
 
   prevStep = () => {
     const { step } = this.state;
     this.setState({
-      step: step - 1
+      step: step - 1,
     });
   };
 
-  handleChange1 = input => e => {
+  handleChange1 = (input) => (e) => {
     const step_one_fields = { ...this.state.step_one_fields };
 
     step_one_fields[input] = e.target.value;
     this.setState({
-      step_one_fields
+      step_one_fields,
     });
   };
 
-  handleChange2 = input => e => {
+  handleChange2 = (input) => (e) => {
     const step_two_fields = { ...this.state.step_two_fields };
     step_two_fields[input] = e.target.value;
     this.setState({
-      step_two_fields
+      step_two_fields,
     });
   };
 
-  handleChangeDate = input => (dates, dateString) => {
+  handleChangeDate = (input) => (dates, dateString) => {
     const step_one_fields = { ...this.state.step_one_fields };
     if (input === 'start_date') {
       step_one_fields.start_date_moment = dates;
       step_one_fields.start_date = dateString;
       this.setState({
-        step_one_fields
+        step_one_fields,
       });
     } else {
       step_one_fields.end_date_moment = dates;
       step_one_fields.end_date = dateString;
       this.setState({
-        step_one_fields
+        step_one_fields,
       });
     }
   };
 
-  handleChangeTag = input => new_tags => {
+  handleChangeTag = (input) => (new_tags) => {
     const step_two_fields = { ...this.state.step_two_fields };
     step_two_fields[input] = new_tags;
     this.setState({
-      step_two_fields
+      step_two_fields,
     });
   };
 
@@ -111,17 +111,10 @@ export class form extends Component {
     return (
       <Fragment>
         <Navbar heading={'Add Event'} />
-        <Breadcrumb style={{ margin: '16px 0', padding: '10px 100px' }}>
-          <Breadcrumb.Item>
-            <a href='/'>
-              <HomeOutlined />
-            </a>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>Add Event</Breadcrumb.Item>
-        </Breadcrumb>
-        <div id='container' style={{ padding: '10px 200px' }}>
+        <BreadcrumbHead heading={['Add Event']} />
+        <div id='container' style={{ padding: '10px 300px' }}>
           <Steps current={step} style={{ margin: '16px 0' }}>
-            {steps.map(item => (
+            {steps.map((item) => (
               <Step key={item.title} title={item.title} />
             ))}
           </Steps>

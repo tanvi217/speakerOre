@@ -6,8 +6,10 @@ import Meta from 'antd/lib/card/Meta';
 import {
   LikeOutlined,
   CalendarFilled,
-  EnvironmentFilled
+  EnvironmentFilled,
 } from '@ant-design/icons';
+
+const cardHead = { color: '#328fce', textDecorationColor: '#d39e00' };
 
 const EventItem = ({ event }) => {
   const {
@@ -20,7 +22,7 @@ const EventItem = ({ event }) => {
     start_date,
     end_date,
     categories,
-    tags
+    tags,
   } = event;
   const location = street + ', ' + city + ', ' + country;
   const isLoading = false;
@@ -34,12 +36,11 @@ const EventItem = ({ event }) => {
           to={`/event/${id}`}
           target='_blank'
           rel='noopener noreferrer'
-          style={{ color: '#0f74a8', textDecorationColor: '#d39e00' }}
+          style={cardHead}
         >
           {name}
         </Link>
       }
-      headStyle={{ color: 'black' }}
       extra={<LikeOutlined />}
       hoverable
       loading={isLoading}
@@ -47,26 +48,26 @@ const EventItem = ({ event }) => {
       <Meta description={about}></Meta>
       <br />
       <Meta
-        description={loc_arr.map(el => (
+        description={loc_arr.map((el) => (
           <Fragment key={el}>{el}</Fragment>
         ))}
       ></Meta>
       <br />
       <Meta
-        description={date_arr.map(el => (
+        description={date_arr.map((el) => (
           <Fragment key={el}>{el}</Fragment>
         ))}
       ></Meta>
       <br />
       <Meta
-        description={categories.map(el => (
+        description={categories.map((el) => (
           <Fragment key={el}>{el + ' | '}</Fragment>
         ))}
       ></Meta>
       <br />
       <div>
         {tags.map((tag, index) => (
-          <Tag color='#0f74a8' key={index}>
+          <Tag color='#328fce' key={index}>
             {tag.toUpperCase()}
           </Tag>
         ))}

@@ -6,7 +6,14 @@ const breadcrumb = {
   boxShadow: '0 8px 6px -6px #ececec',
 };
 
-const BreadcrumbHead = (props) => {
+const BreadcrumbHead = ({ heading }) => {
+  var paths = [];
+
+  for (var i = 0; i < heading.length; i++) {
+    paths.push(
+      <Breadcrumb.Item href={heading[i]}>{heading[i]}</Breadcrumb.Item>
+    );
+  }
   return (
     <div style={breadcrumb}>
       <Breadcrumb
@@ -18,7 +25,8 @@ const BreadcrumbHead = (props) => {
             <HomeOutlined style={{ fontSize: '16px', color: '#328fce' }} />
           </a>
         </Breadcrumb.Item>
-        <Breadcrumb.Item>{props.heading}</Breadcrumb.Item>
+
+        {paths}
       </Breadcrumb>
     </div>
   );

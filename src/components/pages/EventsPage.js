@@ -51,7 +51,7 @@ const EventsPage = () => {
   return (
     <Fragment>
       <Navbar heading={'Events'} />
-      <BreadcrumbHead heading={'Events'} />
+      <BreadcrumbHead heading={['Events']} />
       <Content
         className='site-layout'
         style={isSubscribed ? subscribed : unsubscribed}

@@ -1,7 +1,8 @@
 import React, { Fragment, useContext } from 'react';
 import Navbar from '../layout/Navbar';
-import { PageHeader, Breadcrumb } from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
+import { PageHeader } from 'antd';
+import BreadcrumbHead from '../layout/BreadcrumbHead';
+
 import FooterSection from '../layout/FooterSection';
 import AuthContext from '../context/auth/authContext';
 
@@ -14,14 +15,7 @@ const Profile = () => {
   return (
     <Fragment>
       <Navbar heading={'Profile'} />
-      <Breadcrumb style={{ margin: '16px 0', padding: '10px 100px' }}>
-        <Breadcrumb.Item>
-          <a href='/'>
-            <HomeOutlined />
-          </a>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>Profile</Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbHead heading={['Profile']} />
       <PageHeader
         title={displayName}
         className='site-page-header'
