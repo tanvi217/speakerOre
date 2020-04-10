@@ -46,7 +46,7 @@ const Login = () => {
         <div style={{ padding: '0 0', margin: '0 0' }}>
           <img
             src={logo}
-            style={{ height: '190px', width: '300px' }}
+            style={{ height: '120px', width: '300px' }}
             alt={
               <div>
                 <strong style={{ color: '#0f74a8' }}>Speaker</strong>

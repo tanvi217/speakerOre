@@ -21,13 +21,25 @@ const logo_style = {
 };
 
 const mid = {
-  fontWweight: '600',
-  color: 'white',
+  fontWeight: '100',
+  color: '#e2e2e2',
   margin: '0',
   position: 'absolute',
   top: '50%',
   left: '50%',
-  fontSize: '2rem',
+  fontSize: '1.5rem',
+  transform: 'translate(-50%, -50%)',
+};
+
+const sub = {
+  fontWeight: '100',
+  color: '#bbbbbb',
+  margin: '0',
+  position: 'absolute',
+  fontSize: '20px',
+  top: '70%',
+  left: '50%',
+  // fontSize: '2rem',
   transform: 'translate(-50%, -50%)',
 };
 
@@ -52,17 +64,11 @@ const nav_style = {
 };
 
 const bgHome = {
-  // border: 'none',
-  // color: '#ffffff',
   background: 'transparent',
   zIndex: '100',
-  // transition: 'background-color 1s ease 0s',
-  // fontSize: '15px',
-  // paddingLeft: '80px',
-  // paddingRight: '100px',
 };
 
-const Navbar = ({ title, isHome, heading }) => {
+const Navbar = ({ title, isHome, heading, subheading }) => {
   const authContext = useContext(AuthContext);
   const { current, setCurrent } = useState('mail');
   const { visible, setVisible } = useState(false);
@@ -106,7 +112,8 @@ const Navbar = ({ title, isHome, heading }) => {
       </nav>
       {!isHome && (
         <div style={wimg}>
-          <h5 style={mid}>{heading}</h5>
+          <span style={mid}>{heading}</span>
+          <span style={sub}>{subheading}</span>
         </div>
       )}
     </div>
@@ -130,6 +137,7 @@ Navbar.defaultProps = {
   title: 'SpeakerOre',
   isHome: false,
   heading: '',
+  subheading: '',
 };
 
 export default Navbar;

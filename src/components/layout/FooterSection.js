@@ -26,7 +26,7 @@ const tailLayout = {
 };
 
 const imgStyle = {
-  height: '150px',
+  height: '100px',
   width: '250px',
 };
 
