@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 import FooterSection from '../layout/FooterSection';
 import ydownWave from '../../static/ydownWave.svg';
+import gdownWave from '../../static/gdownWave.svg';
 
 import Monthly from './Monthly';
 import Quaterly from './Quaterly';
@@ -12,12 +13,32 @@ import Yearly from './Yearly';
 import './style.css';
 const { Content } = Layout;
 
+const mid = {
+  margin: '0',
+  position: 'absolute',
+  top: '90%',
+  left: '20%',
+  fontSize: '0.8rem',
+  transform: 'translate(-50%, -50%)',
+  float: 'right',
+};
+
+const graywave = {
+  // top: '-10%',
+  // left: '50%',
+  // transform: 'translate(50%, 50%)',
+  position: 'absolute',
+  // marginBottom: '100px',
+};
+
 const waveStyle = {
+  position: 'relative',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
+  minHeight: '250px',
   backgroundSize: 'cover',
-  position: 'relative',
-  backgroundImage: `url(${ydownWave})`,
+  backgroundImage: `url(${ydownWave}), url(${gdownWave})`,
+  // backgroundImage: `url(${ydownWave})`,
 };
 
 const layoutStyle = {
@@ -42,9 +63,11 @@ const Subscribe = () => {
           <Quaterly />
           <Yearly />
         </Layout>
-        <div style={waveStyle}></div>
       </Content>
-      <FooterSection />
+      <div style={waveStyle}>
+        <hr style={mid} />
+        <span style={mid}>© 2020 SpeakerOre All rights reserved.</span>
+      </div>
     </Fragment>
   );
 };

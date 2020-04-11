@@ -25,8 +25,9 @@ var provider_fb = new firebase.auth.FacebookAuthProvider();
 
 const AuthState = (props) => {
   const initialState = {
-    token: localStorage.getItem('token'),
-    isAuthenticated: null,
+    // token: localStorage.getItem('token'),
+    token: null,
+    isAuthenticated: false,
     isSubscribed: true,
     loading: false,
     user: null,
@@ -148,13 +149,15 @@ const AuthState = (props) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   const loadUser = () => {
-    if (localStorage.token) {
-      setAuthToken(localStorage.token);
-    }
+    // if (localStorage.token) {
+    //   setAuthToken(localStorage.token);
+    // }
 
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
+        console.log(user);
         dispatch({ type: USER_LOADED, payload: user });
+        console.log(user);
       }
     });
   };

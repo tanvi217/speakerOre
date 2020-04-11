@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Profile from '../src/components/pages/Profile';
@@ -17,12 +17,15 @@ import AuthState from './components/context/auth/AuthState';
 import EventsFilterState from './components/context/eventsFilter/EventsFilterState';
 import setAuthToken from '../src/components/utils/setAuthToken';
 
+import AuthContext from './components/context/auth/authContext';
+
 import 'antd/dist/antd.css';
 import './App.css';
 
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
+// if (localStorage.token) {
+//   console.log('there');
+//   setAuthToken(localStorage.token);
+// }
 
 const App = () => {
   return (

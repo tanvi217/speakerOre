@@ -6,7 +6,7 @@ import Login from './Login';
 import './nav_style.css';
 import AuthContext from '../context/auth/authContext';
 import Background from '../../static/nav_bg0.jpg';
-import { Drawer, Button, Menu } from 'antd';
+import { Drawer, Button } from 'antd';
 
 import logo from '../../static/logo.png';
 import LeftMenuGuest from './LeftMenuGuest';
@@ -78,6 +78,7 @@ const Navbar = ({ title, isHome, heading, subheading }) => {
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line
+    console.log(isAuthenticated);
   }, []);
 
   const showDrawer = () => {
@@ -86,8 +87,6 @@ const Navbar = ({ title, isHome, heading, subheading }) => {
   const onClose = () => {
     setVisible(true);
   };
-
-  const isSubscribed = true;
 
   const Links = (
     <div style={isHome ? bgHome : {}}>
@@ -98,15 +97,6 @@ const Navbar = ({ title, isHome, heading, subheading }) => {
             <Button className='barsMenu' type='primary' onClick={showDrawer}>
               <span className='barsBtn'></span>
             </Button>
-            <Drawer
-              title='Basic Drawer'
-              placement='right'
-              closable={false}
-              onClose={onClose}
-              visible={visible}
-            >
-              {isAuthenticated ? <LeftMenuAuth /> : <LeftMenuGuest />}
-            </Drawer>
           </div>
         </div>
       </nav>

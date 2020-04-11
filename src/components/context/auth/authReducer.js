@@ -5,21 +5,24 @@ import {
   SIGN_IN_FAIL,
   SHOW_MODAL,
   CLOSE_MODAL,
-  USER_LOADED
+  USER_LOADED,
 } from '../types';
 
 export default (state, action) => {
+  console.log(action.type);
   switch (action.type) {
     case USER_LOADED:
       return {
         ...state,
         isAuthenticated: true,
+        token: action.payload.getIdToken(),
         loading: false,
-        user: action.payload
+        user: action.payload,
+        error: null,
       };
     case SIGN_IN_GOOGLE:
     case SIGN_IN_FB:
-      localStorage.setItem('token', action.payload.credential.idToken);
+      // localStorage.setItem('token', action.payload.credential.idToken);
       return {
         ...state,
         isAuthenticated: true,
@@ -27,40 +30,40 @@ export default (state, action) => {
         loading: false,
         user: action.payload.user,
         error: null,
-        auth_modal_visible: false
+        auth_modal_visible: false,
       };
 
     case SHOW_MODAL:
       return {
         ...state,
-        auth_modal_visible: true
+        auth_modal_visible: true,
       };
 
     case CLOSE_MODAL:
       return {
         ...state,
-        auth_modal_visible: false
+        auth_modal_visible: false,
       };
 
     case SIGN_IN_FAIL:
-      localStorage.removeItem('token');
+      // localStorage.removeItem('token');
       return {
         ...state,
         token: null,
         isAuthenticated: false,
         loading: false,
         user: null,
-        error: action.payload
+        error: action.payload,
       };
     case LOGOUT:
-      localStorage.removeItem('token');
+      // localStorage.removeItem('token');
       return {
         ...state,
         token: null,
         isAuthenticated: false,
         loading: false,
         user: null,
-        error: null
+        error: null,
       };
     default:
       return state;
