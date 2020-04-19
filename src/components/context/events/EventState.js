@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import EventContext from './eventContext';
 import eventReducer from './eventReducer';
 
-const EventState = props => {
+const EventState = (props) => {
   const initialState = {
     events: [
       {
@@ -25,7 +25,7 @@ const EventState = props => {
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
         start_date: '10/03/2020',
-        end_date: '12/03/2020'
+        end_date: '12/03/2020',
       },
       {
         id: 2,
@@ -45,8 +45,8 @@ const EventState = props => {
         categories: ['music', 'festival'],
         tags: ['concert', 'fun'],
         start_date: '10/03/2020',
-        end_date: '12/03/2020'
-      }
+        end_date: '12/03/2020',
+      },
     ],
     archives: [
       {
@@ -67,7 +67,7 @@ const EventState = props => {
         categories: ['music', 'festival'],
         tags: ['concert', 'fun'],
         start_date: '10/03/2020',
-        end_date: '12/03/2020'
+        end_date: '12/03/2020',
       },
       {
         id: 2,
@@ -87,7 +87,7 @@ const EventState = props => {
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
         start_date: '10/03/2020',
-        end_date: '12/03/2020'
+        end_date: '12/03/2020',
       },
       {
         id: 3,
@@ -107,7 +107,7 @@ const EventState = props => {
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
         start_date: '10/03/2020',
-        end_date: '12/03/2020'
+        end_date: '12/03/2020',
       },
       {
         id: 4,
@@ -127,11 +127,11 @@ const EventState = props => {
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
         start_date: '10/03/2020',
-        end_date: '12/03/2020'
-      }
+        end_date: '12/03/2020',
+      },
     ],
     current: null,
-    isLoading: false
+    isLoading: false,
   };
 
   const [state] = useReducer(eventReducer, initialState);
@@ -142,7 +142,7 @@ const EventState = props => {
         events: state.events,
         current: state.current,
         archives: state.archives,
-        isLoading: state.isLoading
+        isLoading: state.isLoading,
       }}
     >
       {props.children}

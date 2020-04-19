@@ -14,27 +14,31 @@ const MyEvents = () => {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: status => (
+      render: (status) => (
         <span>
           {status === 'accepted' && <Badge status='success' text='Accepted' />}
           {status === 'declined' && <Badge status='error' text='Declined' />}
           {status === 'pending' && <Badge status='processing' text='Pending' />}
         </span>
-      )
+      ),
     },
     {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
         <span>
-          <a style={{ marginRight: 16, color: '#0f74a8' }}>Edit</a>
+          <a style={{ marginRight: '1%', color: '#328fce' }}>Edit</a>
           <a>Delete</a>
         </span>
-      )
-    }
+      ),
+    },
   ];
 
-  return <Table columns={columns} dataSource={events} />;
+  return events.length === 0 ? (
+    'No event applications.'
+  ) : (
+    <Table columns={columns} dataSource={events} />
+  );
 };
 
 export default MyEvents;

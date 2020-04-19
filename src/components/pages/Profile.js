@@ -1,6 +1,6 @@
 import React, { Fragment, useContext } from 'react';
 import Navbar from '../layout/Navbar';
-import { Card, Layout, Tabs, Timeline } from 'antd';
+import { Card, Layout, Tabs, Timeline, Row, Col } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 
 import FooterSection from '../layout/FooterSection';
@@ -15,14 +15,14 @@ function callback(key) {
 }
 
 const layoutStyle = {
-  padding: '35px 48px',
+  padding: '2% 3%',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
 };
 
 const layout = {
-  padding: '0 100px',
+  padding: '1.5% 5%',
 };
 
 const imgStyle = {
@@ -30,13 +30,13 @@ const imgStyle = {
 };
 
 const bgStyle = {
-  padding: '10px 10px',
+  padding: '1% 1%',
 };
 
 const tabStyle = {
   flex: 4,
-  margin: '0 25px 0 25px',
-  padding: '25px',
+  margin: '0 2%',
+  padding: '2%',
   background: 'white',
 };
 
@@ -54,9 +54,8 @@ const Profile = () => {
         <Layout className='site-layout-background' style={layoutStyle}>
           <div style={imgStyle}>
             <Card
-              hoverable
               // style={{ width: 240 }}
-              cover={<img alt='example' src={photoURL} />}
+              cover={<img alt={displayName} src={photoURL} />}
             >
               <Meta title={displayName} description={email} />
             </Card>
@@ -65,20 +64,31 @@ const Profile = () => {
             <Tabs defaultActiveKey='1' onChange={callback}>
               <TabPane tab='Subscription' key='1'>
                 <div style={bgStyle}>
-                  <h4>Current Plan</h4>
-                  <h4>Transaction history</h4>
-                  <Timeline>
-                    <Timeline.Item>
-                      Create a services site 2015-09-01
-                    </Timeline.Item>
-                    <Timeline.Item>
-                      Solve initial network problems 2015-09-01
-                    </Timeline.Item>
-                    <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
-                    <Timeline.Item>
-                      Network problems being solved 2015-09-01
-                    </Timeline.Item>
-                  </Timeline>
+                  <Row>
+                    <Col span={24}>
+                      <Card title='Current Plan'></Card>
+                    </Col>
+                  </Row>
+                  <Row style={{ paddingTop: '2%' }}>
+                    <Col span={24}>
+                      <Card title='Transaction history'>
+                        <Timeline>
+                          <Timeline.Item>
+                            Create a services site 2015-09-01
+                          </Timeline.Item>
+                          <Timeline.Item>
+                            Solve initial network problems 2015-09-01
+                          </Timeline.Item>
+                          <Timeline.Item>
+                            Technical testing 2015-09-01
+                          </Timeline.Item>
+                          <Timeline.Item>
+                            Network problems being solved 2015-09-01
+                          </Timeline.Item>
+                        </Timeline>
+                      </Card>
+                    </Col>
+                  </Row>
                 </div>
               </TabPane>
               <TabPane tab='Template' key='2'>

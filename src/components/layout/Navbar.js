@@ -1,16 +1,24 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
-import { Link } from 'react-router-dom';
 import Login from './Login';
 import './nav_style.css';
 import AuthContext from '../context/auth/authContext';
-import Background from '../../static/nav_bg0.jpg';
+
+import speaker from '../../static/mspeaker.png';
+import about from '../../static/about.png';
+import profile from '../../static/profile.png';
+import dashboard from '../../static/dashboard.png';
+import detail from '../../static/detail.png';
+import subscribe from '../../static/subscribe.png';
+
 import { Drawer, Button } from 'antd';
 
 import logo from '../../static/logo.png';
-import LeftMenuGuest from './LeftMenuGuest';
-import LeftMenuAuth from './LeftMenuAuth';
+import RightMenuGuest from './RightMenuGuest';
+import RightMenuAuth from './RightMenuAuth';
+import LeftMenu from './LeftMenu';
 
 const logo_style = {
   width: '200px',
@@ -36,20 +44,11 @@ const sub = {
   color: '#bbbbbb',
   margin: '0',
   position: 'absolute',
-  fontSize: '20px',
+  fontSize: '1rem',
   top: '70%',
   left: '50%',
   // fontSize: '2rem',
   transform: 'translate(-50%, -50%)',
-};
-
-const wimg = {
-  minHeight: '180px',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  position: 'relative',
-  backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${Background})`,
 };
 
 const nav_style = {
@@ -70,34 +69,76 @@ const bgHome = {
 
 const Navbar = ({ title, isHome, heading, subheading }) => {
   const authContext = useContext(AuthContext);
-  const { current, setCurrent } = useState('mail');
-  const { visible, setVisible } = useState(false);
+  const [current, setCurrent] = useState('mail');
+  const [visible, setVisible] = useState(false);
 
   const { isAuthenticated, auth_modal_visible, loadUser } = authContext;
 
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line
-    console.log(isAuthenticated);
   }, []);
 
-  const showDrawer = () => {
-    setVisible(true);
-  };
-  const onClose = () => {
-    setVisible(true);
+  var Background = detail;
+
+  switch (heading) {
+    case 'Events':
+      Background = speaker;
+    case 'Subscribe':
+      Background = subscribe;
+    case 'About Us':
+      Background = about;
+    case 'Dashboard':
+      Background = dashboard;
+    case 'Profile':
+      Background = about;
+
+    // default:
+    //   console.log(heading === 'Events');
+    //   Background = profile;
+  }
+  // console.log(Background);
+
+  const wimg = {
+    minHeight: '180px',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    position: 'relative',
+    backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${Background})`,
   };
 
   const Links = (
     <div style={isHome ? bgHome : {}}>
       <nav className='menuBar'>
         <div className='menuCon'>
-          <div className='rightMenu'>
-            {isAuthenticated ? <LeftMenuAuth /> : <LeftMenuGuest />}
-            <Button className='barsMenu' type='primary' onClick={showDrawer}>
-              <span className='barsBtn'></span>
-            </Button>
+          <div className='leftMenu'>
+            <LeftMenu />
           </div>
+          <div className='rightMenu'>
+            {isAuthenticated ? <RightMenuAuth /> : <RightMenuGuest />}
+          </div>
+          <Button
+            className='barsMenu'
+            type='default'
+            onClick={() => setVisible(true)}
+          >
+            <span className='barsBtn'></span>
+          </Button>
+          <Drawer
+            title={
+              <a href='/'>
+                <strong style={{ color: '#000000' }}>SPEAKER</strong>
+                <span style={{ color: '#000000' }}>ORE</span>
+              </a>
+            }
+            placement='right'
+            closable={false}
+            onClose={() => setVisible(false)}
+            visible={visible}
+          >
+            {isAuthenticated ? <RightMenuAuth /> : <RightMenuGuest />}
+          </Drawer>
         </div>
       </nav>
       {!isHome && (

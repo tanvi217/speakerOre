@@ -15,27 +15,29 @@ const Archives = () => {
       title: 'Category',
       dataIndex: 'categories',
       key: 'categories',
-      render: tags => (
+      render: (tags) => (
         <span>
-          {tags.map(tag => {
+          {tags.map((tag) => {
             return (
-              <Tag color={'#d39e00'} key={tag}>
+              <Tag color={'#f5cc23'} key={tag}>
                 {tag.toUpperCase()}
               </Tag>
             );
           })}
         </span>
-      )
-    }
+      ),
+    },
   ];
 
-  return (
+  return archives.length === 0 ? (
+    'No archived events.'
+  ) : (
     <Table
       columns={columns}
       expandable={{
-        expandedRowRender: record => (
+        expandedRowRender: (record) => (
           <p style={{ margin: 0, fontSize: '15px' }}>{record.about}</p>
-        )
+        ),
       }}
       dataSource={archives}
     />

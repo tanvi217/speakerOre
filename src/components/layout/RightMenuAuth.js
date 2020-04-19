@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import AuthContext from '../context/auth/authContext';
 import { Link } from 'react-router-dom';
-import { Menu } from 'antd';
+import { Menu, Layout } from 'antd';
 import './nav_style.css';
 import { SettingOutlined, LogoutOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
+
+const { Sider } = Layout;
 
 const leftItems = {
   float: 'left',
@@ -32,20 +34,15 @@ const linkStyle = {
   fontWeight: '550',
 };
 
-const LeftMenuAuth = () => {
+const RightMenuAuth = () => {
   const authContext = useContext(AuthContext);
 
-  const { logout } = authContext;
+  const { logout, role } = authContext;
+
+  console.log(role);
 
   return (
-    <Menu mode='horizontal'>
-      <Menu.Item key='title' style={leftItems}>
-        <Link to='/'>
-          <strong style={{ color: '#000000' }}>SPEAKER</strong>
-          <span style={{ color: '#000000' }}>ORE</span>
-        </Link>
-      </Menu.Item>
-
+    <Menu mode='horizontal' style={{ zIndex: 200 }}>
       <SubMenu
         title={
           <Link to={'/profile'} style={linkStyle}>
@@ -65,10 +62,6 @@ const LeftMenuAuth = () => {
           </Menu.Item>
         </Menu.ItemGroup>
       </SubMenu>
-
-      <Menu.Item disabled style={rightItems}>
-        |
-      </Menu.Item>
 
       <Menu.Item key='add_event' style={rightItems}>
         <Link to='/add_event' style={linkItems}>
@@ -93,8 +86,16 @@ const LeftMenuAuth = () => {
           About
         </Link>
       </Menu.Item>
+
+      {role === 'moderator' && (
+        <Menu.Item key='dashboard' style={rightItems}>
+          <Link to='/dashboard' style={linkItems}>
+            Dashboard
+          </Link>
+        </Menu.Item>
+      )}
     </Menu>
   );
 };
 
-export default LeftMenuAuth;
+export default RightMenuAuth;

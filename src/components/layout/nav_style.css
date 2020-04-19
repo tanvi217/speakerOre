@@ -12,7 +12,7 @@
 }
 
 .menuBar {
-  padding: 0 100px;
+  padding: 0 5%;
   /* border-bottom: solid 1px #e8e8e8; */
   overflow: hidden;
   box-shadow: 0 0 40px #f3f1f1;
@@ -20,6 +20,8 @@
 
 .logo {
   /* display: inline-block; */
+  float: left;
+  color: #000000;
   font-size: 25px;
   /* padding: 0px 0px 0px 0px;
   vertical-align: middle; */
@@ -41,7 +43,7 @@
 }
 .menuCon .ant-menu-item a,
 .menuCon .ant-menu-submenu-title a {
-  padding: 0px 15px;
+  padding: 0 10px;
   font-size: 15px;
   color: #0f74a8;
   font-weight: 400;
@@ -49,11 +51,18 @@
 .menuCon .ant-menu-horizontal {
   border-bottom: none;
 }
+.menuCon .leftMenu {
+  float: left;
+}
+.menuCon .rightMenu {
+  float: right;
+}
 .barsMenu {
   float: right;
   height: 32px;
   padding: 6px;
-  margin-top: 8px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   display: none;
   background: none;
 }
@@ -61,7 +70,7 @@
   display: block;
   width: 20px;
   height: 2px;
-  background: #1890ff;
+  /* background: #1890ff; */
   position: relative;
 }
 .barsBtn:after,
@@ -72,7 +81,7 @@
   top: -6px;
   left: 0;
   height: 2px;
-  background: #1890ff;
+  /* background: #1890ff; */
 }
 .barsBtn:after {
   top: auto;

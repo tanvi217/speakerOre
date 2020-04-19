@@ -5,6 +5,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+import moment from 'moment';
 
 const formItemLayout = {
   labelCol: {
@@ -39,6 +40,10 @@ export class event_basic_details extends Component {
       long: null,
     },
     address: '',
+  };
+
+  disabledDate = (current) => {
+    return current && current < moment().endOf('day');
   };
 
   onFinish = (values) => {
@@ -76,7 +81,6 @@ export class event_basic_details extends Component {
       <Form
         {...formItemLayout}
         name='basic'
-        size={'middle'}
         onFinish={this.onFinish}
         onFinishFailed={this.onFinishFailed}
         scrollToFirstError
@@ -107,31 +111,56 @@ export class event_basic_details extends Component {
           />
         </Form.Item>
 
-        <Form.Item
-          name='start_date_moment'
-          label='Start Date'
-          rules={[
-            {
-              required: true,
-              message: 'Please fill in event date',
-            },
-          ]}
-        >
-          <DatePicker
-            style={{ width: '345px' }}
-            size='small'
-            onChange={handleChangeDate('start_date')}
-            placeholder='Start date'
-          />
+        <Form.Item label='Date' style={{ marginBottom: 0 }}>
+          <Form.Item
+            name='start_date_moment'
+            rules={[
+              {
+                required: true,
+                message: 'Please fill in event date',
+              },
+            ]}
+            style={{ display: 'inline-block' }}
+          >
+            <DatePicker
+              disabledDate={this.disabledDate}
+              onChange={handleChangeDate('start_date')}
+              placeholder='Start date'
+            />
+          </Form.Item>
+          <span
+            style={{
+              display: 'inline-block',
+              width: '24px',
+              lineHeight: '32px',
+              textAlign: 'center',
+            }}
+          >
+            -
+          </span>
+          <Form.Item
+            name='end_date_moment'
+            rules={[
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue('start_date_moment') < value) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject('Start date must be before end date!');
+                },
+              }),
+            ]}
+            style={{ display: 'inline-block' }}
+          >
+            <DatePicker
+              disabledDate={this.disabledDate}
+              onChange={handleChangeDate('end_date')}
+              placeholder='End date'
+            />
+          </Form.Item>
         </Form.Item>
-        <Form.Item name='end_date_moment' label='End Date'>
-          <DatePicker
-            style={{ width: '345px' }}
-            size='small'
-            onChange={handleChangeDate('end_date')}
-            placeholder='End date'
-          />
-        </Form.Item>
+
         <Form.Item
           name='street'
           label={'Street'}

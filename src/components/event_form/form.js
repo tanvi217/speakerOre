@@ -8,7 +8,6 @@ import Event_basic_details from './event_basic_details';
 import { Steps, message, Button, Form } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 import FooterSection from '../layout/FooterSection';
-import moment from 'moment';
 
 const { Step } = Steps;
 
@@ -112,8 +111,8 @@ export class form extends Component {
       <Fragment>
         <Navbar heading={'Add Event'} />
         <BreadcrumbHead heading={['Add Event']} />
-        <div id='container' style={{ padding: '10px 300px' }}>
-          <Steps current={step} style={{ margin: '16px 0' }}>
+        <div id='container' style={{ padding: '1.5% 15%' }}>
+          <Steps current={step} style={{ margin: '1% 0' }}>
             {steps.map((item) => (
               <Step key={item.title} title={item.title} />
             ))}

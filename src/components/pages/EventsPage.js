@@ -28,13 +28,13 @@ const radioStyle = {
 };
 
 const unsubscribed = {
-  padding: '0 100px',
+  padding: '1.5% 5%',
   filter: 'blur(8px)',
   WebkitFilter: 'blur(8px)',
 };
 
 const subscribed = {
-  padding: '0 100px',
+  padding: '1.5% 5%',
 };
 
 const EventsPage = () => {
@@ -56,28 +56,29 @@ const EventsPage = () => {
         className='site-layout'
         style={isSubscribed ? subscribed : unsubscribed}
       >
-        <Layout
-          className='site-layout-background'
-          style={{ padding: '35px 48px' }}
-        >
+        <Layout className='site-layout-background' style={{ padding: '2% 3%' }}>
           <EventFilter />
           <Content
             style={{
-              padding: '0 5px 0 50px',
+              padding: '0 0 0 3%',
               minHeight: 780,
               float: 'right',
             }}
           >
-            <Radio.Group
-              defaultValue='all'
-              onChange={onChange}
-              style={radioStyle}
-            >
-              <Radio.Button value='all'>All</Radio.Button>
-              <Radio.Button value='bookmarks'>Bookmarks</Radio.Button>
-              <Radio.Button value='my_events'>My Events</Radio.Button>
-              {role === 'RDTEAM' && (
-                <Radio.Button value='archive'>Archive</Radio.Button>
+            <Radio.Group defaultValue='all' onChange={onChange}>
+              <Radio.Button value='all' style={radioStyle}>
+                All
+              </Radio.Button>
+              <Radio.Button value='bookmarks' style={radioStyle}>
+                Bookmarks
+              </Radio.Button>
+              <Radio.Button value='my_events' style={radioStyle}>
+                My Events
+              </Radio.Button>
+              {(role === 'moderator' || role === 'RDTEAM') && (
+                <Radio.Button value='archive' style={radioStyle}>
+                  Archive
+                </Radio.Button>
               )}
             </Radio.Group>
             <br />
@@ -88,7 +89,8 @@ const EventsPage = () => {
             {option === 'all' && <Events />}
             {option === 'bookmarks' && <Bookmark />}
             {option === 'my_events' && <MyEvents />}
-            {isSubscribed && option === 'archive' && <Archives />}
+            {(role === 'moderator' || role === 'RDTEAM') &&
+              option === 'archive' && <Archives />}
           </Content>
         </Layout>
       </Content>

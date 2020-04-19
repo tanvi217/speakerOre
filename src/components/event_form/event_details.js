@@ -7,35 +7,35 @@ const { Option } = Select;
 const formItemLayout = {
   labelCol: {
     xs: {
-      span: 24
+      span: 24,
     },
     sm: {
-      span: 8
-    }
+      span: 8,
+    },
   },
   wrapperCol: {
     xs: {
-      span: 15
+      span: 15,
     },
     sm: {
-      span: 10
-    }
-  }
+      span: 10,
+    },
+  },
 };
 
 const tailLayout = {
   wrapperCol: {
     offset: 8,
-    span: 10
-  }
+    span: 10,
+  },
 };
 
 export class event_details extends Component {
-  onFinish = values => {
+  onFinish = (values) => {
     this.props.nextStep();
   };
 
-  onFinishFailed = errorInfo => {
+  onFinishFailed = (errorInfo) => {
     // console.log('Failed:', errorInfo);
   };
 
@@ -43,7 +43,7 @@ export class event_details extends Component {
     <Form.Item name='prefix' noStyle>
       <Select
         style={{
-          width: 70
+          width: 70,
         }}
       >
         <Option value='91'>+91</Option>
@@ -60,7 +60,6 @@ export class event_details extends Component {
       <Form
         {...formItemLayout}
         name='basic'
-        size={'middle'}
         onFinish={this.onFinish}
         onFinishFailed={this.onFinishFailed}
         scrollToFirstError
@@ -69,7 +68,7 @@ export class event_details extends Component {
           email: email,
           about: about,
           website: website,
-          phone: phone
+          phone: phone,
         }}
       >
         <Form.Item name='tags' label='Tags'>
@@ -89,12 +88,12 @@ export class event_details extends Component {
           rules={[
             {
               type: 'email',
-              message: 'The input is not valid E-mail!'
+              message: 'The input is not valid E-mail!',
             },
             {
               required: true,
-              message: "Please input organiser's E-mail!"
-            }
+              message: "Please input organiser's E-mail!",
+            },
           ]}
         >
           <Input onChange={handleChange('email')} placeholder='E-mail' />
@@ -105,15 +104,16 @@ export class event_details extends Component {
           rules={[
             {
               required: true,
-              message: 'Please input your phone number!'
-            }
+              message: 'Please input your phone number!',
+            },
+            {
+              type: 'number',
+              message: 'The input is not valid E-mail!',
+            },
           ]}
         >
           <Input
             addonBefore={this.prefixSelector}
-            style={{
-              width: '100%'
-            }}
             onChange={handleChange('phone')}
             placeholder='Phone Number'
           />
@@ -127,7 +127,8 @@ export class event_details extends Component {
           name='about'
           label='About'
           rules={[
-            { required: true, message: 'Please tell us about the event' }
+            { required: true, message: 'Please tell us about the event' },
+            { max: 200, message: 'Please do not exceed 200 words' },
           ]}
         >
           <Input.TextArea

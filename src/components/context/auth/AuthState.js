@@ -32,6 +32,7 @@ const AuthState = (props) => {
     loading: false,
     user: null,
     error: null,
+    role: 'moderator',
     auth_modal_visible: false,
     bookmarks: [
       {
@@ -79,7 +80,6 @@ const AuthState = (props) => {
     ],
     subscription_start_time: '',
     subscription_end_time: '',
-    role: 'RDTEAM',
     events: [
       {
         id: 3,

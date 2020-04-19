@@ -17,12 +17,16 @@ const MyEvents = () => {
         <Link to={'/event/' + record.id} style={{ color: '#0f74a8' }}>
           {text}
         </Link>
-      )
+      ),
     },
-    { title: 'Event Date', dataIndex: 'start_date', key: 'start_date' }
+    { title: 'Event Date', dataIndex: 'start_date', key: 'start_date' },
   ];
 
-  return <Table columns={columns} dataSource={events} />;
+  return events.length === 0 ? (
+    'No saved events.'
+  ) : (
+    <Table columns={columns} dataSource={events} />
+  );
 };
 
 export default MyEvents;

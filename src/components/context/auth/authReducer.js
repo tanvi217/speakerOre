@@ -9,7 +9,7 @@ import {
 } from '../types';
 
 export default (state, action) => {
-  console.log(action.type);
+  // console.log(action.type);
   switch (action.type) {
     case USER_LOADED:
       return {

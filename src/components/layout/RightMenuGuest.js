@@ -18,7 +18,7 @@ const leftItems = {
 };
 
 const rightItems = {
-  float: 'right',
+  // float: 'right',
   fontWeight: '300',
   color: '#000000',
 };
@@ -27,10 +27,10 @@ const linkItems = {
   color: '#000000',
   fontSize: '15px',
   fontWeight: '550',
-  float: 'right',
+  // float: 'right',
 };
 
-const LeftMenuGuest = () => {
+const RightMenuGuest = () => {
   const authContext = useContext(AuthContext);
 
   const { show_modal } = authContext;
@@ -41,13 +41,6 @@ const LeftMenuGuest = () => {
 
   return (
     <Menu mode='horizontal' style={{ zIndex: 200 }}>
-      <Menu.Item key='title' style={leftItems}>
-        <Link to='/'>
-          <strong style={{ color: '#000000' }}>SPEAKER</strong>
-          <span style={{ color: '#000000' }}>ORE</span>
-        </Link>
-      </Menu.Item>
-
       <Menu.Item key='log_in' style={rightItems}>
         <Button
           onClick={showModal}
@@ -58,10 +51,6 @@ const LeftMenuGuest = () => {
         >
           Login
         </Button>
-      </Menu.Item>
-
-      <Menu.Item disabled style={rightItems}>
-        |
       </Menu.Item>
 
       <Menu.Item key='add_event' style={rightItems}>
@@ -91,4 +80,4 @@ const LeftMenuGuest = () => {
   );
 };
 
-export default LeftMenuGuest;
+export default RightMenuGuest;

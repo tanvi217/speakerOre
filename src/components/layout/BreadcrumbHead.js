@@ -3,7 +3,7 @@ import { Breadcrumb } from 'antd';
 import { HomeOutlined, CaretRightOutlined } from '@ant-design/icons';
 
 const breadcrumb = {
-  boxShadow: '0 8px 6px -6px #ececec',
+  boxShadow: '0 8px 6px -6px #e2e2e2',
 };
 
 const BreadcrumbHead = ({ heading }) => {
@@ -11,18 +11,24 @@ const BreadcrumbHead = ({ heading }) => {
 
   for (var i = 0; i < heading.length; i++) {
     paths.push(
-      <Breadcrumb.Item href={heading[i]}>{heading[i]}</Breadcrumb.Item>
+      <Breadcrumb.Item
+        href={heading[i]}
+        key={i}
+        style={{ fontSize: '1rem', fontWeight: '500', color: '#808080' }}
+      >
+        {heading[i]}
+      </Breadcrumb.Item>
     );
   }
   return (
     <div style={breadcrumb}>
       <Breadcrumb
-        style={{ margin: '16px 0', padding: '10px 100px' }}
+        style={{ padding: '1.1% 5%' }}
         separator={<CaretRightOutlined style={{ color: '#f5cc23' }} />}
       >
         <Breadcrumb.Item>
           <a href='/'>
-            <HomeOutlined style={{ fontSize: '16px', color: '#328fce' }} />
+            <HomeOutlined style={{ color: '#328fce', fontSize: '1rem' }} />
           </a>
         </Breadcrumb.Item>
 

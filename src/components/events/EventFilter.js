@@ -19,9 +19,9 @@ const { Panel } = Collapse;
 
 const radioStyle = {
   display: 'block',
-  height: '30px',
+  // height: '30px',
   lineHeight: '30px',
-  marginLeft: '40px',
+  marginLeft: '1.5%',
   float: 'none',
 };
 
@@ -29,14 +29,14 @@ const checkStyle = {
   display: 'block',
   height: '30px',
   lineHeight: '30px',
-  marginLeft: '40px',
+  marginLeft: '1.5%',
   width: '100%',
 };
 
 const filterStyle = {
   textAlign: 'center',
   fontWeight: 600,
-  padding: '20px',
+  padding: '6%',
 };
 
 const sideHeadings = {
@@ -88,19 +88,30 @@ const EventFilter = () => {
   return (
     <Sider
       className='site-layout-background'
-      width={300}
-      style={{ height: '300px' }}
       theme='light'
+      breakpoint='sm'
+      width='25%'
+      collapsedWidth='0'
+      onBreakpoint={(broken) => {
+        console.log(broken);
+      }}
+      onCollapse={(collapsed, type) => {
+        console.log(collapsed, type);
+      }}
+      style={{ position: 'relative' }}
     >
-      <div style={filterStyle}>Filter results</div>
+      <div style={filterStyle}>FILTERS</div>
       <Collapse
         bordered={false}
         defaultActiveKey={['1', '2', '3', '4']}
         expandIcon={({ isActive }) => (
-          <CaretRightOutlined rotate={isActive ? 90 : 0} />
+          <CaretRightOutlined
+            rotate={isActive ? 90 : 0}
+            style={{ color: '#328fce' }}
+          />
         )}
         className='site-collapse-custom-collapse'
-        style={{ width: '300px' }}
+        style={{ position: 'absolute', width: '100%' }}
       >
         <Panel
           header='CATEGORY'
@@ -126,6 +137,7 @@ const EventFilter = () => {
         >
           <Checkbox.Group
             options={locations}
+            style={{ width: '100%', marginLeft: '1.5%' }}
             onChange={onChangeLocation}
           ></Checkbox.Group>
         </Panel>
@@ -137,8 +149,8 @@ const EventFilter = () => {
         >
           <h5>Start Date</h5>
           <DatePicker
-            size='small'
-            style={{ width: '100%', padding: '5px 5px' }}
+            // size='small'
+            style={{ width: '100%', marginLeft: '1.5%' }}
             disabledDate={disabledDate}
             onChange={onChangeDate}
           />
@@ -146,11 +158,10 @@ const EventFilter = () => {
           <br />
           <h5>End Date</h5>
           <DatePicker
-            size='small'
-            style={{ width: '100%', padding: '5px 5px' }}
+            // size='small'
+            style={{ width: '100%', marginLeft: '1.5%' }}
             disabledDate={disabledDate}
             onChange={onChangeDate}
-            style={sideHeadings}
           />
         </Panel>
         <Panel
