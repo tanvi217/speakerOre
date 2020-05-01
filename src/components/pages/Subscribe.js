@@ -2,14 +2,25 @@ import React, { Fragment } from 'react';
 import Navbar from '../layout/Navbar';
 import { Layout } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
-import FooterSection from '../layout/FooterSection';
+// import FooterSection from '../layout/FooterSection';
 import stwave from '../../static/stwave.svg';
-import gdownWave from '../../static/gdownWave.svg';
+// import gdownWave from '../../static/gdownWave.svg';
+import Background from '../../static/blueBackground.png';
 
 import Plans from '../subscribe/plans';
 
 import './style.css';
 const { Content } = Layout;
+
+const bg = {
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  backgroundImage: `url(${Background})`,
+  zIndex: '-1',
+  // display: 'grid',
+  // gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+};
 
 const mid = {
   margin: '0',

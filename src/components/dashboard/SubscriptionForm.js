@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'antd/dist/antd.css';
 import { Form, Input, InputNumber, Button, Divider } from 'antd';
 
@@ -30,7 +30,7 @@ const tailLayout = {
 const validateMessages = {
   required: '${label} is required!',
   types: {
-    number: '${label} is not a validate number!',
+    number: '${label} is not a valid number!',
   },
   number: {
     range: '${label} must be between ${min} and ${max}',

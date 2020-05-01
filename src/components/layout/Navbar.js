@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { BarsOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 import Login from './Login';
@@ -8,25 +8,15 @@ import AuthContext from '../context/auth/authContext';
 
 import speaker from '../../static/mspeaker.png';
 import about from '../../static/about.png';
-import profile from '../../static/profile.png';
 import dashboard from '../../static/dashboard.png';
 import detail from '../../static/detail.png';
 import subscribe from '../../static/subscribe.png';
 
 import { Drawer, Button } from 'antd';
 
-import logo from '../../static/logo.png';
 import RightMenuGuest from './RightMenuGuest';
 import RightMenuAuth from './RightMenuAuth';
 import LeftMenu from './LeftMenu';
-
-const logo_style = {
-  width: '200px',
-  height: '100px',
-  margin: '16px 0px 16px 0',
-  marginTop: '0px',
-  float: 'left',
-};
 
 const mid = {
   fontWeight: '100',
@@ -51,17 +41,6 @@ const sub = {
   transform: 'translate(-50%, -50%)',
 };
 
-const nav_style = {
-  border: 'none',
-  color: '#ffffff',
-  background: 'transparent',
-  zIndex: '100',
-  transition: 'background-color 1s ease 0s',
-  fontSize: '15px',
-  paddingLeft: '80px',
-  paddingRight: '100px',
-};
-
 const bgHome = {
   background: 'transparent',
   zIndex: '100',
@@ -69,7 +48,7 @@ const bgHome = {
 
 const Navbar = ({ title, isHome, heading, subheading }) => {
   const authContext = useContext(AuthContext);
-  const [current, setCurrent] = useState('mail');
+  // const [current, setCurrent] = useState('mail');
   const [visible, setVisible] = useState(false);
 
   const { isAuthenticated, auth_modal_visible, loadUser } = authContext;
@@ -106,6 +85,8 @@ const Navbar = ({ title, isHome, heading, subheading }) => {
     backgroundSize: 'cover',
     position: 'relative',
     backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${Background})`,
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
   };
 
   const Links = (
@@ -115,29 +96,33 @@ const Navbar = ({ title, isHome, heading, subheading }) => {
           <div className='leftMenu'>
             <LeftMenu />
           </div>
+
           <div className='rightMenu'>
             {isAuthenticated ? <RightMenuAuth /> : <RightMenuGuest />}
           </div>
+
           <Button
             className='barsMenu'
-            type='default'
+            type='link'
             onClick={() => setVisible(true)}
+            icon={
+              <BarsOutlined style={{ color: '#328fce', fontSize: '20px' }} />
+            }
           >
             <span className='barsBtn'></span>
           </Button>
           <Drawer
-            title={
-              <a href='/'>
-                <strong style={{ color: '#000000' }}>SPEAKER</strong>
-                <span style={{ color: '#000000' }}>ORE</span>
-              </a>
-            }
             placement='right'
             closable={false}
             onClose={() => setVisible(false)}
             visible={visible}
+            style={{ textAlign: 'center' }}
           >
-            {isAuthenticated ? <RightMenuAuth /> : <RightMenuGuest />}
+            {isAuthenticated ? (
+              <RightMenuAuth mode={'vertical'} />
+            ) : (
+              <RightMenuGuest mode={'vertical'} />
+            )}
           </Drawer>
         </div>
       </nav>

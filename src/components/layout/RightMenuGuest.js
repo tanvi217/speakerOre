@@ -8,17 +8,9 @@ const buttonStyle = {
   background: '#f5cc23',
   borderColor: '#ffffff',
   color: '#ffffff',
-  marginLeft: '10px',
-};
-
-const leftItems = {
-  float: 'left',
-  fontWeight: '300',
-  color: '#000000',
 };
 
 const rightItems = {
-  // float: 'right',
   fontWeight: '300',
   color: '#000000',
 };
@@ -27,10 +19,9 @@ const linkItems = {
   color: '#000000',
   fontSize: '15px',
   fontWeight: '550',
-  // float: 'right',
 };
 
-const RightMenuGuest = () => {
+const RightMenuGuest = ({ mode }) => {
   const authContext = useContext(AuthContext);
 
   const { show_modal } = authContext;
@@ -40,7 +31,7 @@ const RightMenuGuest = () => {
   };
 
   return (
-    <Menu mode='horizontal' style={{ zIndex: 200 }}>
+    <Menu mode={mode} style={{ zIndex: 200 }}>
       <Menu.Item key='log_in' style={rightItems}>
         <Button
           onClick={showModal}
@@ -78,6 +69,10 @@ const RightMenuGuest = () => {
       </Menu.Item>
     </Menu>
   );
+};
+
+RightMenuGuest.defaultProps = {
+  mode: 'horizontal',
 };
 
 export default RightMenuGuest;

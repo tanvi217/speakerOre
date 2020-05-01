@@ -2,7 +2,9 @@ import React, { useReducer } from 'react';
 import eventsFilterReducer from '../eventsFilter/eventsFilterReducer';
 import eventsFilterContext from '../eventsFilter/eventsFilterContext';
 
-const EventsFilterState = props => {
+import { SHOW_FILTER_DRAWER, CLOSE_FILTER_DRAWER } from '../types';
+
+const EventsFilterState = (props) => {
   const initialState = {
     categories: ['Food', 'Health', 'Film', 'Self-help'],
     locations: ['Chennai', 'Kolkata', 'Delhi', 'Mumbai'],
@@ -10,10 +12,19 @@ const EventsFilterState = props => {
     filtered_location: [],
     filtered_state_date: '',
     filtered_end_date: '',
-    isMember: true
+    isDrawerVisible: false,
+    isMember: true,
   };
 
-  const [state] = useReducer(eventsFilterReducer, initialState);
+  const [state, dispatch] = useReducer(eventsFilterReducer, initialState);
+
+  const show_drawer = () => {
+    dispatch({ type: SHOW_FILTER_DRAWER });
+  };
+
+  const close_drawer = () => {
+    dispatch({ type: CLOSE_FILTER_DRAWER });
+  };
 
   return (
     <div>
@@ -21,7 +32,10 @@ const EventsFilterState = props => {
         value={{
           categories: state.categories,
           locations: state.locations,
-          isMember: state.isMember
+          isDrawerVisible: state.isDrawerVisible,
+          isMember: state.isMember,
+          show_drawer,
+          close_drawer,
         }}
       >
         {props.children}

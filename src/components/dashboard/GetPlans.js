@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
-import { Table, Button, Divider } from 'antd';
+import { Table, Button, Divider, Spin, Alert } from 'antd';
 import SubscribeContext from '../context/subscribe/subscribeContext';
 
 const divider = {
@@ -42,16 +42,19 @@ const GetPlans = () => {
       {plans.length === 0 ? (
         'No subscription plans. Please create one.'
       ) : (
-        <Table
-          bordered
-          columns={columns}
-          expandable={{
-            expandedRowRender: (record) => (
-              <p style={{ margin: 0 }}>{record.name}</p>
-            ),
-          }}
-          dataSource={plans}
-        />
+        <Spin spinning={isLoading}>
+          <Table
+            bordered
+            columns={columns}
+            expandable={{
+              expandedRowRender: (record) => (
+                <p style={{ margin: 0 }}>{record.name}</p>
+              ),
+            }}
+            dataSource={plans}
+            rowKey='id'
+          />
+        </Spin>
       )}
     </div>
   );

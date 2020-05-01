@@ -40,6 +40,7 @@ const Archives = () => {
         ),
       }}
       dataSource={archives}
+      rowKey='id'
     />
   );
 };

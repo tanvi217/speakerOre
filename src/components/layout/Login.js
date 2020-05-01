@@ -7,19 +7,14 @@ import AuthContext from '../context/auth/authContext';
 import logo from '../../static/logo.png';
 
 const buttonStyle = {
-  width: '220px',
   borderColor: '#0f74a8',
   boxShadow: '0 6px 6px -6px #b1b1b1',
+  overflow: 'hidden',
 };
 
 const Login = () => {
   const authContext = useContext(AuthContext);
-  const {
-    signIn_fb,
-    signIn_google,
-    close_modal,
-    auth_modal_show,
-  } = authContext;
+  const { signIn_fb, signIn_google, close_modal } = authContext;
 
   const closeModal = () => {
     close_modal();
@@ -29,10 +24,11 @@ const Login = () => {
     <div>
       <Modal
         visible={true}
-        style={{ borderRadius: '25px', borderTopColor: '#d39e00' }}
         bodyStyle={{
           textAlign: 'center',
-          borderTop: '#d39e00',
+          borderTop: '5% #0f74a8',
+          borderRadius: '25px',
+          padding: '12%',
         }}
         closable
         maskClosable={true}
@@ -46,7 +42,7 @@ const Login = () => {
         <div style={{ padding: '0 0', margin: '0 0' }}>
           <img
             src={logo}
-            style={{ height: '120px', width: '300px' }}
+            style={{ height: '20%', width: '100%' }}
             alt={
               <div>
                 <strong style={{ color: '#0f74a8' }}>Speaker</strong>
@@ -61,8 +57,6 @@ const Login = () => {
           icon={<GoogleOutlined />}
           type='ghost'
           onClick={signIn_google}
-          shape='rounded'
-          size='large'
           block='true'
         >
           Sign in with Google
@@ -74,8 +68,6 @@ const Login = () => {
           icon={<FacebookOutlined />}
           type='primary'
           onClick={signIn_fb}
-          shape='omitted'
-          size='large'
           block='true'
         >
           Sign in with Facebook

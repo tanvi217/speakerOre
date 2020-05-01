@@ -7,14 +7,6 @@ import { SettingOutlined, LogoutOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 
-const { Sider } = Layout;
-
-const leftItems = {
-  float: 'left',
-  fontWeight: '300',
-  color: '#000000',
-};
-
 const rightItems = {
   float: 'right',
   fontWeight: '300',

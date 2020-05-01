@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import 'antd/dist/antd.css';
 import { Card, Button, Divider, Skeleton } from 'antd';
 import Meta from 'antd/lib/card/Meta';
@@ -31,8 +30,6 @@ const buttonStyle = {
   borderColor: '#ffffff',
   color: '#ffffff',
 };
-
-const detailStyle = { background: '#ececec' };
 
 const planItem = ({ plan, isLoading }) => {
   const { name, duration, about, description, amount } = plan;

@@ -59,17 +59,17 @@
 }
 .barsMenu {
   float: right;
-  height: 32px;
-  padding: 6px;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  /* height: '90%', */
+  /* width: 30px; */
+  margin-top: 1.5%;
+  /* margin-bottom: 1%; */
   display: none;
   background: none;
 }
 .barsBtn {
   display: block;
-  width: 20px;
-  height: 2px;
+  /* width: 6px; */
+  /* height: 2px; */
   /* background: #1890ff; */
   position: relative;
 }
@@ -106,7 +106,7 @@
   .barsMenu {
     display: inline-block;
   }
-  .leftMenu,
+  /* .leftMenu, */
   .rightMenu {
     display: none;
   }
@@ -115,7 +115,7 @@
   }
   .menuCon .ant-menu-item,
   .menuCon .ant-menu-submenu-title {
-    padding: 1px 20px;
+    padding: 1px 10px;
   }
   .logo a {
     padding: 10px 20px;

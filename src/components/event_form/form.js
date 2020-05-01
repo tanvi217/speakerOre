@@ -5,11 +5,22 @@ import Event_details from './event_details';
 import Navbar from '../layout/Navbar';
 import Confirmation from './confirm';
 import Event_basic_details from './event_basic_details';
-import { Steps, message, Button, Form } from 'antd';
+import { Steps, message } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 import FooterSection from '../layout/FooterSection';
+import Background from '../../static/blueBackground.png';
 
 const { Step } = Steps;
+
+const bg = {
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  backgroundImage: `url(${Background})`,
+  zIndex: '-1',
+  // display: 'grid',
+  // gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+};
 
 const steps = [
   {
@@ -111,39 +122,41 @@ export class form extends Component {
       <Fragment>
         <Navbar heading={'Add Event'} />
         <BreadcrumbHead heading={['Add Event']} />
-        <div id='container' style={{ padding: '1.5% 15%' }}>
-          <Steps current={step} style={{ margin: '1% 0' }}>
-            {steps.map((item) => (
-              <Step key={item.title} title={item.title} />
-            ))}
-          </Steps>
+        <div style={bg}>
+          <div id='container' style={{ padding: '1.5% 25%' }}>
+            <Steps current={step} style={{ margin: '1% 0' }}>
+              {steps.map((item) => (
+                <Step key={item.title} title={item.title} />
+              ))}
+            </Steps>
 
-          <div className='steps-content'>
-            {step === 0 && (
-              <Event_basic_details
-                handleChange={this.handleChange1}
-                handleChangeDate={this.handleChangeDate}
-                handleChangeTag={this.handleChangeTag}
-                nextStep={this.nextStep}
-                values={step_one_fields}
-              />
-            )}
-            {step === 1 && (
-              <Event_details
-                handleChange={this.handleChange2}
-                handleChangeTag={this.handleChangeTag}
-                nextStep={this.nextStep}
-                prevStep={this.prevStep}
-                values={step_two_fields}
-              />
-            )}
-            {step === 2 && (
-              <Confirmation
-                values={values3}
-                prevStep={this.prevStep}
-                submit={this.submit}
-              />
-            )}
+            <div className='steps-content'>
+              {step === 0 && (
+                <Event_basic_details
+                  handleChange={this.handleChange1}
+                  handleChangeDate={this.handleChangeDate}
+                  handleChangeTag={this.handleChangeTag}
+                  nextStep={this.nextStep}
+                  values={step_one_fields}
+                />
+              )}
+              {step === 1 && (
+                <Event_details
+                  handleChange={this.handleChange2}
+                  handleChangeTag={this.handleChangeTag}
+                  nextStep={this.nextStep}
+                  prevStep={this.prevStep}
+                  values={step_two_fields}
+                />
+              )}
+              {step === 2 && (
+                <Confirmation
+                  values={values3}
+                  prevStep={this.prevStep}
+                  submit={this.submit}
+                />
+              )}
+            </div>
           </div>
         </div>
         <FooterSection />

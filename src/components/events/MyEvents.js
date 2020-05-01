@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
-import { Table, Badge } from 'antd';
+import { Table, Badge, Divider } from 'antd';
 import AuthContext from '../context/auth/authContext';
 
 const MyEvents = () => {
@@ -28,6 +28,7 @@ const MyEvents = () => {
       render: (text, record) => (
         <span>
           <a style={{ marginRight: '1%', color: '#328fce' }}>Edit</a>
+          <Divider type='vertical' />
           <a>Delete</a>
         </span>
       ),
@@ -37,7 +38,7 @@ const MyEvents = () => {
   return events.length === 0 ? (
     'No event applications.'
   ) : (
-    <Table columns={columns} dataSource={events} />
+    <Table columns={columns} dataSource={events} rowKey='id' />
   );
 };
 

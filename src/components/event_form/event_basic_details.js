@@ -1,10 +1,7 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Form, DatePicker, Input, Button } from 'antd';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import moment from 'moment';
 
 const formItemLayout = {

@@ -9,7 +9,7 @@ import {
   InstagramOutlined,
   LinkedinOutlined,
   TwitterOutlined,
-  MailOutlined,
+  // MailOutlined,
   MessageOutlined,
 } from '@ant-design/icons';
 

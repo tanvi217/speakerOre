@@ -1,5 +1,4 @@
 import React, { Fragment, useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Events from '../events/Events';
 import Archives from '../events/Archives';
 import Bookmark from '../events/Bookmark';
@@ -24,7 +23,7 @@ const buttonStyle = {
 };
 
 const radioStyle = {
-  borderColor: '#328fce',
+  // borderColor: '#328fce',
 };
 
 const unsubscribed = {
@@ -56,8 +55,12 @@ const EventsPage = () => {
         className='site-layout'
         style={isSubscribed ? subscribed : unsubscribed}
       >
-        <Layout className='site-layout-background' style={{ padding: '2% 3%' }}>
+        <Layout
+          className='site-layout-background'
+          style={{ padding: '2% 3%', position: 'relative' }}
+        >
           <EventFilter />
+
           <Content
             style={{
               padding: '0 0 0 3%',
@@ -65,7 +68,11 @@ const EventsPage = () => {
               float: 'right',
             }}
           >
-            <Radio.Group defaultValue='all' onChange={onChange}>
+            <Radio.Group
+              defaultValue='all'
+              onChange={onChange}
+              buttonStyle='solid'
+            >
               <Radio.Button value='all' style={radioStyle}>
                 All
               </Radio.Button>

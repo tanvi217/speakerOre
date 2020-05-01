@@ -1,17 +1,11 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import { Card, Tag, Button, Divider, Skeleton } from 'antd';
+import { Card, Button, Skeleton } from 'antd';
 import Meta from 'antd/lib/card/Meta';
-import {
-  LikeOutlined,
-  CalendarOutlined,
-  EnvironmentOutlined,
-} from '@ant-design/icons';
+import { CalendarOutlined, EnvironmentOutlined } from '@ant-design/icons';
 
 const cardHead = { color: 'white', textDecorationColor: '#d39e00' };
-
-const detailStyle = { background: '#ececec' };
 
 const EventItem = ({ event, isLoading }) => {
   const {
@@ -23,8 +17,6 @@ const EventItem = ({ event, isLoading }) => {
     country,
     start_date,
     end_date,
-    categories,
-    tags,
   } = event;
   const location = street + ', ' + city + ', ' + country;
   const loc_arr = [

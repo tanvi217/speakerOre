@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
-import { Table, Button, Divider } from 'antd';
-import AuthContext from '../context/auth/authContext';
+import { Table, Button, Divider, Spin } from 'antd';
+import EventContext from '../context/events/eventContext';
 
 const Declined = () => {
-  const authContext = useContext(AuthContext);
-  const { events } = authContext;
+  const eventContext = useContext(EventContext);
+  const { events, isLoading } = eventContext;
 
   const columns = [
     { title: 'Event Name', dataIndex: 'name', key: 'name' },
@@ -39,15 +39,18 @@ const Declined = () => {
       {events.length === 0 ? (
         'No declined events'
       ) : (
-        <Table
-          columns={columns}
-          expandable={{
-            expandedRowRender: (record) => (
-              <p style={{ margin: 0 }}>{record.name}</p>
-            ),
-          }}
-          dataSource={events}
-        />
+        <Spin spinning={isLoading}>
+          <Table
+            columns={columns}
+            expandable={{
+              expandedRowRender: (record) => (
+                <p style={{ margin: 0 }}>{record.name}</p>
+              ),
+            }}
+            dataSource={events}
+            rowKey='id'
+          />
+        </Spin>
       )}
     </div>
   );

@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import ReactPlayer from 'react-player';
-import { Link } from 'react-router-dom';
 import media from '../../static/helping.mp4';
 import logo from '../../static/logo.png';
 import 'antd/dist/antd.css';

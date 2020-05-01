@@ -1,4 +1,6 @@
 export const FILTER_EVENTS = 'FILTER_EVENTS';
+export const SHOW_FILTER_DRAWER = 'SHOW_FILTER_DRAWER';
+export const CLOSE_FILTER_DRAWER = 'CLOSE_FILTER_DRAWER';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
 export const SIGN_IN_GOOGLE = 'SIGN_IN_GOOGLE';
 export const SIGN_IN_FB = 'SIGN_IN_FB';

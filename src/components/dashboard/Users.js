@@ -11,15 +11,11 @@ const columns = [
     key: 'x',
     render: () => (
       <span>
-        <Button style={{ marginRight: '1%', color: '#328fce' }}>Edit</Button>
-
-        <Button style={{ marginRight: '1%', color: '#328fce' }}>
-          Make admin
-        </Button>
-
-        <Button style={{ marginRight: '1%', color: '#328fce' }}>
-          Make member
-        </Button>
+        Edit
+        <Divider type='vertical' />
+        Make admin
+        <Divider type='vertical' />
+        Make member
       </span>
     ),
   },
@@ -27,22 +23,22 @@ const columns = [
 
 const data = [
   {
-    key: 1,
+    id: 1,
     name: 'John Brown',
     email: 'abcd@gmail.com',
   },
   {
-    key: 2,
+    id: 2,
     name: 'Jim Green',
     email: 'abcde@gmail.com',
   },
   {
-    key: 3,
+    id: 3,
     name: ' Jack',
     email: 'abcded@gmail.com',
   },
   {
-    key: 4,
+    id: 4,
     name: 'Joe Black',
     email: 'abcdgh@gmail.com',
   },
@@ -64,6 +60,7 @@ const Users = () => {
           ),
         }}
         dataSource={data}
+        rowKey='id'
       />
     </div>
   );

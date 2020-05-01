@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Profile from '../src/components/pages/Profile';
@@ -18,10 +18,10 @@ import PrivateRouteEvent from '../src/components/routing/PrivateRouteEvent';
 import EventState from './components/context/events/EventState';
 import AuthState from './components/context/auth/AuthState';
 import EventsFilterState from './components/context/eventsFilter/EventsFilterState';
-import setAuthToken from '../src/components/utils/setAuthToken';
+// import setAuthToken from '../src/components/utils/setAuthToken';
 import SubscribeState from './components/context/subscribe/SubscribeState';
 
-import AuthContext from './components/context/auth/authContext';
+// import AuthContext from './components/context/auth/authContext';
 
 import 'antd/dist/antd.css';
 import './App.css';
