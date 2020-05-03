@@ -7,6 +7,7 @@ import {
   EDIT_SUBSCRIPTION_PLAN,
   DELETE_SUBSCRIPTION_PLAN,
   CLEAR_CURRENT_SUBSCRIPTION_PLAN,
+  SET_CURRENT_SUBSCRIPTION_PLAN,
 } from '../types';
 
 const SubscribeState = (props) => {
@@ -41,7 +42,7 @@ const SubscribeState = (props) => {
       },
     ],
     isLoading: false,
-    current: 1,
+    current: null,
   };
 
   const [state, dispatch] = useReducer(subscribeReducer, initialState);
@@ -59,6 +60,10 @@ const SubscribeState = (props) => {
     dispatch({ type: EDIT_SUBSCRIPTION_PLAN, payload: subscription });
   };
 
+  const setCurrent = (subscription) => {
+    dispatch({ type: SET_CURRENT_SUBSCRIPTION_PLAN, payload: subscription });
+  };
+
   const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT_SUBSCRIPTION_PLAN });
   };
@@ -72,6 +77,7 @@ const SubscribeState = (props) => {
         createSubscriptionPlan,
         deleteSubscriptionPlan,
         editSubscriptionPlan,
+        setCurrent,
         clearCurrent,
       }}
     >

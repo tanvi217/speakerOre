@@ -9,6 +9,7 @@ import Declined from '../dashboard/Declined';
 import Pending from '../dashboard/Pending';
 import CouponForm from '../dashboard/CouponForm';
 import Subscription from '../dashboard/Subscription';
+import Coupon from '../dashboard/Coupon';
 import SocialMedia from '../dashboard/SocialMediaForm';
 
 import { Layout, Menu } from 'antd';
@@ -90,7 +91,7 @@ const Dashboard = () => {
               <Menu.Item key='coupons' disabled>
                 Coupons
               </Menu.Item>
-              <Menu.Item key='7' onClick={() => setDisplay(<CouponForm />)}>
+              <Menu.Item key='7' onClick={() => setDisplay(<Coupon />)}>
                 <CreditCardOutlined style={{ color: '#328fce' }} />
                 Discount Coupon
               </Menu.Item>

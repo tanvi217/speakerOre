@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import {
   Form,
   Input,
   InputNumber,
-  Radio,
-  Button,
   Checkbox,
+  Button,
+  Radio,
   Row,
   Col,
+  Divider,
 } from 'antd';
+import CouponContext from '../context/coupon/couponContext';
 
 const formItemLayout = {
   labelCol: {
@@ -46,22 +48,88 @@ const validateMessages = {
   },
 };
 
+const divider = {
+  color: '#a6a6a6',
+};
+
 const CouponForm = () => {
-  const [option, setOption] = useState('percentage');
-  const onFinish = (values) => {
-    console.log(values);
+  const couponContext = useContext(CouponContext);
+
+  const { createCoupon, editCoupon, clearCurrent, current } = couponContext;
+
+  const [coupon, setCoupon] = useState({
+    name: '',
+    code: '',
+    count: '',
+    option: 'amount',
+    plans: 'monthly',
+    percentage_value: '',
+    amount_value: '',
+  });
+
+  useEffect(() => {
+    if (current !== null) {
+      setCoupon(current);
+    } else {
+      setCoupon({
+        name: '',
+        code: '',
+        count: '',
+        option: 'amount',
+        plan: 'monthly',
+        percentage_value: '',
+        amount_value: '',
+      });
+    }
+  }, [couponContext, current]);
+
+  const {
+    name,
+    code,
+    count,
+    option,
+    plan,
+    percentage_value,
+    amount_value,
+  } = coupon;
+
+  const onFinish = (coupon) => {
+    if (current === null) {
+      createCoupon(coupon);
+    } else {
+      editCoupon(coupon);
+    }
+    clearAll();
+  };
+
+  const clearAll = () => {
+    clearCurrent();
   };
 
   return (
     <div id='container' style={{ padding: '3% 15%', backgroundColor: 'white' }}>
+      {current ? (
+        <Divider style={divider}>Edit Discount Coupon</Divider>
+      ) : (
+        <Divider style={divider}>Add Discount Coupon</Divider>
+      )}
       <Form
         {...formItemLayout}
         name='coupon_form'
         onFinish={onFinish}
         validateMessages={validateMessages}
+        initialValues={{
+          name: name,
+          code: code,
+          count: count,
+          option: option,
+          plan: plan,
+          percentage_value: percentage_value,
+          amount_value: amount_value,
+        }}
       >
         <Form.Item
-          name='coupon_name'
+          name='name'
           label='Coupon Name'
           rules={[
             {
@@ -72,7 +140,7 @@ const CouponForm = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name='coupon_code'
+          name='code'
           label='Coupon Code'
           rules={[
             {
@@ -83,7 +151,7 @@ const CouponForm = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name='coupon_count'
+          name='count'
           label='Count'
           rules={[
             {
@@ -142,7 +210,7 @@ const CouponForm = () => {
           </Form.Item>
         )}
 
-        <Form.Item name='plans' label='Applicable plans'>
+        <Form.Item name='plan' label='Applicable plans'>
           <Checkbox.Group>
             <Row>
               <Col>
@@ -179,11 +247,19 @@ const CouponForm = () => {
           </Checkbox.Group>
         </Form.Item>
 
-        <Form.Item {...tailLayout}>
-          <Button type='primary' htmlType='submit'>
-            Add Coupon
-          </Button>
-        </Form.Item>
+        {current ? (
+          <Form.Item {...tailLayout}>
+            <Button type='primary' htmlType='submit'>
+              Edit Plan
+            </Button>
+          </Form.Item>
+        ) : (
+          <Form.Item {...tailLayout}>
+            <Button type='primary' htmlType='submit'>
+              Add Plan
+            </Button>
+          </Form.Item>
+        )}
       </Form>
     </div>
   );

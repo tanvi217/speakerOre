@@ -52,9 +52,17 @@ const SubscriptionForm = () => {
     current,
   } = subscribeContext;
 
+  const [plan, setPlan] = useState({
+    name: '',
+    about: '',
+    duration: '',
+    description: '',
+    price: '',
+  });
+
   useEffect(() => {
     if (current !== null) {
-      setPlan(plan);
+      setPlan(current);
     } else {
       setPlan({
         name: '',
@@ -66,19 +74,10 @@ const SubscriptionForm = () => {
     }
   }, [subscribeContext, current]);
 
-  const [plan, setPlan] = useState({
-    name: '',
-    about: '',
-    duration: '',
-    description: '',
-    price: '',
-  });
-
   const { name, about, duration, description, price } = plan;
 
   const onSubmit = (plan) => {
     if (current === null) {
-      console.log(plan);
       createSubscriptionPlan(plan);
     } else {
       editSubscriptionPlan(plan);
@@ -102,10 +101,17 @@ const SubscriptionForm = () => {
         name='subscriptionForm'
         onFinish={onSubmit}
         validateMessages={validateMessages}
+        scrollToFirstError
+        initialValues={{
+          name: name,
+          about: about,
+          duration: duration,
+          description: description,
+          price: price,
+        }}
       >
         <Form.Item
-          name={'name'}
-          value={name}
+          name='name'
           label='Subscription Plan Name'
           rules={[
             {
@@ -121,8 +127,7 @@ const SubscriptionForm = () => {
         </Form.Item>
 
         <Form.Item
-          name={'duration'}
-          value={duration}
+          name='duration'
           label='Duration'
           rules={[
             {
@@ -134,8 +139,7 @@ const SubscriptionForm = () => {
         </Form.Item>
 
         <Form.Item
-          name={'description'}
-          value={description}
+          name='description'
           label='Description'
           rules={[
             {
@@ -149,7 +153,6 @@ const SubscriptionForm = () => {
 
         <Form.Item
           name='price'
-          value={price}
           label='Price'
           rules={[
             {
@@ -160,11 +163,19 @@ const SubscriptionForm = () => {
           <InputNumber />
         </Form.Item>
 
-        <Form.Item {...tailLayout}>
-          <Button type='primary' htmlType='submit'>
-            Add Plan
-          </Button>
-        </Form.Item>
+        {current ? (
+          <Form.Item {...tailLayout}>
+            <Button type='primary' htmlType='submit'>
+              Edit Plan
+            </Button>
+          </Form.Item>
+        ) : (
+          <Form.Item {...tailLayout}>
+            <Button type='primary' htmlType='submit'>
+              Add Plan
+            </Button>
+          </Form.Item>
+        )}
       </Form>
     </div>
   );

@@ -3,6 +3,7 @@ import {
   EDIT_SUBSCRIPTION_PLAN,
   DELETE_SUBSCRIPTION_PLAN,
   CLEAR_CURRENT_SUBSCRIPTION_PLAN,
+  SET_CURRENT_SUBSCRIPTION_PLAN,
 } from '../types';
 
 export default (state, action) => {
@@ -11,6 +12,11 @@ export default (state, action) => {
       return {
         ...state,
         plans: [...state.plans, action.payload],
+      };
+    case SET_CURRENT_SUBSCRIPTION_PLAN:
+      return {
+        ...state,
+        current: action.payload,
       };
     case EDIT_SUBSCRIPTION_PLAN:
       return {

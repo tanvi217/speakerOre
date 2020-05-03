@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
-import { Table, Button, Divider, Spin, Alert } from 'antd';
+import { Table, Button, Divider, Spin, Popconfirm } from 'antd';
 import SubscribeContext from '../context/subscribe/subscribeContext';
 
 const divider = {
@@ -10,7 +10,13 @@ const divider = {
 const GetPlans = () => {
   const subscribeContext = useContext(SubscribeContext);
 
-  const { plans, isLoading } = subscribeContext;
+  const {
+    plans,
+    isLoading,
+    editSubscriptionPlan,
+    deleteSubscriptionPlan,
+    setCurrent,
+  } = subscribeContext;
 
   const columns = [
     { title: 'Plan Name', dataIndex: 'name', key: 'name' },
@@ -20,13 +26,27 @@ const GetPlans = () => {
       dataIndex: '',
       render: (text, record) => (
         <span>
-          <Button style={{ marginRight: '1%' }} type='primary'>
+          <Button
+            style={{ marginRight: '1%' }}
+            type='primary'
+            onClick={() => {
+              setCurrent(record);
+              editSubscriptionPlan(record);
+            }}
+          >
             Edit
           </Button>
 
-          <Button style={{ marginRight: '1%' }} type='danger' ghost>
-            Delete
-          </Button>
+          <Popconfirm
+            title='Are you sure?'
+            okText='Yes'
+            cancelText='No'
+            onConfirm={() => deleteSubscriptionPlan(record.id)}
+          >
+            <Button style={{ marginRight: '1%' }} type='danger' ghost>
+              Delete
+            </Button>
+          </Popconfirm>
         </span>
       ),
     },

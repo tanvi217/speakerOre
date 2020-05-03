@@ -1,0 +1,95 @@
+import React, { useContext } from 'react';
+import 'antd/dist/antd.css';
+import { Table, Button, Divider, Spin, Popconfirm, Descriptions } from 'antd';
+import CouponContext from '../context/coupon/couponContext';
+
+const divider = {
+  color: '#000000',
+};
+
+const GetCoupons = () => {
+  const couponContext = useContext(CouponContext);
+
+  const {
+    coupons,
+    isLoading,
+    editCoupon,
+    deleteCoupon,
+    setCurrent,
+  } = couponContext;
+
+  const columns = [
+    { title: 'Coupon Name', dataIndex: 'name', key: 'name' },
+    {
+      title: 'Action',
+      key: 'action',
+      dataIndex: '',
+      render: (text, record) => (
+        <span>
+          <Button
+            style={{ marginRight: '1%' }}
+            type='primary'
+            onClick={() => {
+              setCurrent(record);
+              editCoupon(record);
+            }}
+          >
+            Edit
+          </Button>
+
+          <Popconfirm
+            title='Are you sure?'
+            okText='Yes'
+            cancelText='No'
+            onConfirm={() => deleteCoupon(record.id)}
+          >
+            <Button style={{ marginRight: '1%' }} type='danger' ghost>
+              Delete
+            </Button>
+          </Popconfirm>
+        </span>
+      ),
+    },
+  ];
+
+  return (
+    <div
+      id='container'
+      style={{ padding: '3% 5%', backgroundColor: '#f7f7f7' }}
+    >
+      <Divider style={divider}>Existing Coupons</Divider>
+
+      {coupons.length === 0 ? (
+        'No discount coupons plans. Please create one.'
+      ) : (
+        <Spin spinning={isLoading}>
+          <Table
+            bordered
+            columns={columns}
+            expandable={{
+              expandedRowRender: (record) => (
+                <Descriptions title={record.name}>
+                  <Descriptions.Item label='Coupon Code'>
+                    {record.code}
+                  </Descriptions.Item>
+                  <Descriptions.Item label='Coupon Count'>
+                    {record.count}
+                  </Descriptions.Item>
+                  <Descriptions.Item label='Mode'>
+                    {record.option}
+                  </Descriptions.Item>
+                  <Descriptions.Item label='Applicable Plans'>
+                    {record.plans}
+                  </Descriptions.Item>
+                </Descriptions>
+              ),
+            }}
+            dataSource={coupons}
+            rowKey='id'
+          />
+        </Spin>
+      )}
+    </div>
+  );
+};
+export default GetCoupons;
