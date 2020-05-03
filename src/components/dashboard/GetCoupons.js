@@ -31,7 +31,6 @@ const GetCoupons = () => {
             type='primary'
             onClick={() => {
               setCurrent(record);
-              editCoupon(record);
             }}
           >
             Edit

@@ -1,6 +1,15 @@
 import React, { useReducer } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import EventContext from './eventContext';
 import eventReducer from './eventReducer';
+
+import {
+  CREATE_EVENT,
+  EDIT_EVENT,
+  DELETE_EVENT,
+  SET_CURRENT_EVENT,
+  CLEAR_CURRENT_EVENT,
+} from '../types';
 
 const EventState = (props) => {
   const initialState = {
@@ -62,12 +71,13 @@ const EventState = (props) => {
         phone: '91-1234567890',
         description:
           "Tomorrowland is a Belgian electronic dance music festival held in Boom, Belgium. Tomorrowland was first held in 2005 and has since become one of the world's largest and most notable music festivals.[2] It now stretches over 2 weekends and it usually sells out in minutes.",
-        status: 'published',
+
         is_visible: 'true',
         categories: ['music', 'festival'],
         tags: ['concert', 'fun'],
         start_date: '10/03/2020',
         end_date: '12/03/2020',
+        status: 'pending',
       },
       {
         id: 2,
@@ -82,12 +92,13 @@ const EventState = (props) => {
         phone: '91-1234567890',
         description:
           "Tomorrowland is a Belgian electronic dance music festival held in Boom, Belgium. Tomorrowland was first held in 2005 and has since become one of the world's largest and most notable music festivals.[2] It now stretches over 2 weekends and it usually sells out in minutes.",
-        status: 'published',
+
         is_visible: 'true',
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
         start_date: '10/03/2020',
         end_date: '12/03/2020',
+        status: 'declined',
       },
       {
         id: 3,
@@ -102,12 +113,13 @@ const EventState = (props) => {
         phone: '91-1234567890',
         description:
           "Tomorrowland is a Belgian electronic dance music festival held in Boom, Belgium. Tomorrowland was first held in 2005 and has since become one of the world's largest and most notable music festivals.[2] It now stretches over 2 weekends and it usually sells out in minutes.",
-        status: 'published',
+
         is_visible: 'true',
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
         start_date: '10/03/2020',
         end_date: '12/03/2020',
+        status: 'accepted',
       },
       {
         id: 4,
@@ -122,19 +134,41 @@ const EventState = (props) => {
         phone: '91-1234567890',
         description:
           "Tomorrowland is a Belgian electronic dance music festival held in Boom, Belgium. Tomorrowland was first held in 2005 and has since become one of the world's largest and most notable music festivals.[2] It now stretches over 2 weekends and it usually sells out in minutes.",
-        status: 'published',
+
         is_visible: 'true',
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
         start_date: '10/03/2020',
         end_date: '12/03/2020',
+        status: 'pending',
       },
     ],
     current: null,
     isLoading: false,
   };
 
-  const [state] = useReducer(eventReducer, initialState);
+  const [state, dispatch] = useReducer(eventReducer, initialState);
+
+  const createEvent = (event) => {
+    event.id = uuidv4();
+    dispatch({ type: CREATE_EVENT, payload: event });
+  };
+
+  const deleteEvent = (id) => {
+    dispatch({ type: DELETE_EVENT, payload: id });
+  };
+
+  const editEvent = (event) => {
+    dispatch({ type: EDIT_EVENT, payload: event });
+  };
+
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_CURRENT_EVENT });
+  };
+
+  const setCurrent = (event) => {
+    dispatch({ type: SET_CURRENT_EVENT, payload: event });
+  };
 
   return (
     <EventContext.Provider
@@ -143,6 +177,11 @@ const EventState = (props) => {
         current: state.current,
         archives: state.archives,
         isLoading: state.isLoading,
+        createEvent,
+        editEvent,
+        deleteEvent,
+        clearCurrent,
+        setCurrent,
       }}
     >
       {props.children}

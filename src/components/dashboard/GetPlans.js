@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
-import { Table, Button, Divider, Spin, Popconfirm } from 'antd';
+import { Table, Button, Divider, Spin, Popconfirm, Descriptions } from 'antd';
 import SubscribeContext from '../context/subscribe/subscribeContext';
 
 const divider = {
@@ -31,7 +31,6 @@ const GetPlans = () => {
             type='primary'
             onClick={() => {
               setCurrent(record);
-              editSubscriptionPlan(record);
             }}
           >
             Edit
@@ -68,7 +67,17 @@ const GetPlans = () => {
             columns={columns}
             expandable={{
               expandedRowRender: (record) => (
-                <p style={{ margin: 0 }}>{record.name}</p>
+                <Descriptions title={record.name}>
+                  <Descriptions.Item label='Plan About'>
+                    {record.about}
+                  </Descriptions.Item>
+                  <Descriptions.Item label='Plan Duration'>
+                    {record.duration}
+                  </Descriptions.Item>
+                  <Descriptions.Item label='Price'>
+                    {record.price}
+                  </Descriptions.Item>
+                </Descriptions>
               ),
             }}
             dataSource={plans}

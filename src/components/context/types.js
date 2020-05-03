@@ -10,6 +10,12 @@ export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const LOGOUT = 'LOGOUT';
 export const USER_LOADED = 'USER_LOADED';
 
+export const CREATE_EVENT = 'CREATE_EVENT';
+export const EDIT_EVENT = 'EDIT_EVENT';
+export const DELETE_EVENT = 'DELETE_EVENT';
+export const CLEAR_CURRENT_EVENT = 'CLEAR_CURRENT_EVENT';
+export const SET_CURRENT_EVENT = 'SET_CURRENT_EVENT';
+
 export const CREATE_COUPON = 'CREATE_COUPON';
 export const EDIT_COUPON = 'EDIT_COUPON';
 export const DELETE_COUPON = 'DELETE_COUPON';

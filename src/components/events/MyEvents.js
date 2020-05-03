@@ -1,11 +1,15 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-dom';
 import 'antd/dist/antd.css';
-import { Table, Badge, Divider } from 'antd';
+import { Table, Badge, Divider, Popconfirm } from 'antd';
 import AuthContext from '../context/auth/authContext';
+import EventContext from '../context/events/eventContext';
 
 const MyEvents = () => {
+  // eslint-disable-next-line
   const authContext = useContext(AuthContext);
-  const { events } = authContext;
+  const eventContext = useContext(EventContext);
+  const { events, deleteEvent, setCurrent } = eventContext;
 
   const columns = [
     { title: 'Event Name', dataIndex: 'name', key: 'name' },
@@ -27,9 +31,24 @@ const MyEvents = () => {
       key: 'action',
       render: (text, record) => (
         <span>
-          <a style={{ marginRight: '1%', color: '#328fce' }}>Edit</a>
+          <a
+            href='/add_event'
+            style={{ marginRight: '1%', color: '#328fce' }}
+            onClick={() => {
+              setCurrent(record);
+            }}
+          >
+            Edit
+          </a>
           <Divider type='vertical' />
-          <a>Delete</a>
+          <Popconfirm
+            title='Are you sure?'
+            okText='Yes'
+            cancelText='No'
+            onConfirm={() => deleteEvent(record.id)}
+          >
+            <a>Delete</a>
+          </Popconfirm>
         </span>
       ),
     },

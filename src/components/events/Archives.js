@@ -36,7 +36,17 @@ const Archives = () => {
       columns={columns}
       expandable={{
         expandedRowRender: (record) => (
-          <p style={{ margin: 0, fontSize: '15px' }}>{record.about}</p>
+          <Descriptions title={record.name}>
+            <Descriptions.Item label='Email'>{record.email}</Descriptions.Item>
+            <Descriptions.Item label='Phone'>{record.phone}</Descriptions.Item>
+            <Descriptions.Item label='Address'>
+              {record.city + ', ' + record.country}
+            </Descriptions.Item>
+            <Descriptions.Item label='About'>{record.about}</Descriptions.Item>
+            <Descriptions.Item label='Description'>
+              {record.description}
+            </Descriptions.Item>
+          </Descriptions>
         ),
       }}
       dataSource={archives}

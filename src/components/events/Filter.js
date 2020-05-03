@@ -37,6 +37,7 @@ const sideHeadings = {
 };
 
 const EventFilter = () => {
+  // eslint-disable-next-line
   const [filter, setFilter] = useState('');
   //   const [filter_date, setFilter_date] = useState('');
   const [filter_categories, setFilter_categories] = useState([]);
