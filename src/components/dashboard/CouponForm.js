@@ -61,7 +61,7 @@ const CouponForm = () => {
         validateMessages={validateMessages}
       >
         <Form.Item
-          name={['user', 'name']}
+          name='coupon_name'
           label='Coupon Name'
           rules={[
             {
@@ -72,7 +72,7 @@ const CouponForm = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name={['user', 'code']}
+          name='coupon_code'
           label='Coupon Code'
           rules={[
             {
@@ -83,7 +83,7 @@ const CouponForm = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name={['user', 'count']}
+          name='coupon_count'
           label='Count'
           rules={[
             {
@@ -111,31 +111,36 @@ const CouponForm = () => {
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item
-          name={['user', 'percent']}
-          label='Percentage'
-          rules={[
-            {
-              type: 'number',
-              min: 0,
-              max: 100,
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item
-          name={['user', 'amount']}
-          label='Amount'
-          //   disable={option === 'percentage'}
-          rules={[
-            {
-              type: 'number',
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item>
+        {option === 'percentage' && (
+          <Form.Item
+            name='percentage_value'
+            label='Percentage'
+            rules={[
+              {
+                type: 'number',
+                min: 0,
+                max: 100,
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+        )}
+
+        {option === 'amount' && (
+          <Form.Item
+            name='amount_value'
+            label='Amount'
+            //   disable={option === 'percentage'}
+            rules={[
+              {
+                type: 'number',
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+        )}
 
         <Form.Item name='plans' label='Applicable plans'>
           <Checkbox.Group>
