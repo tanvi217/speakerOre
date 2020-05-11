@@ -29,7 +29,7 @@ const EventItem = ({ event, isLoading }) => {
     '  ',
     start_date.toString(),
     ' - ',
-    end_date,
+    end_date.toString(),
   ];
 
   return (

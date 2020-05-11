@@ -11,6 +11,7 @@ import about from '../../static/about.png';
 import dashboard from '../../static/dashboard.png';
 import detail from '../../static/detail.png';
 import subscribe from '../../static/subscribe.png';
+import audience from '../../static/nav_bg0.jpg';
 
 import { Drawer, Button } from 'antd';
 
@@ -58,7 +59,7 @@ const Navbar = ({ title, isHome, heading, subheading }) => {
     // eslint-disable-next-line
   }, []);
 
-  var Background = detail;
+  var Background = audience;
 
   switch (heading) {
     case 'Events':
@@ -71,10 +72,8 @@ const Navbar = ({ title, isHome, heading, subheading }) => {
       Background = dashboard;
     case 'Profile':
       Background = about;
-
-    // default:
-    //   console.log(heading === 'Events');
-    //   Background = profile;
+    default:
+      Background = audience;
   }
   // console.log(Background);
 

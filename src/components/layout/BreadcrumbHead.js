@@ -1,9 +1,10 @@
 import React from 'react';
 import { Breadcrumb } from 'antd';
-import { HomeOutlined, CaretRightOutlined } from '@ant-design/icons';
+import { HomeOutlined, DoubleRightOutlined } from '@ant-design/icons';
 
 const breadcrumb = {
-  boxShadow: '0 8px 6px -6px #e2e2e2',
+  boxShadow: '5px 10px 30px #e2e2e2',
+  zIndex: '200',
 };
 
 const BreadcrumbHead = ({ heading }) => {
@@ -14,7 +15,7 @@ const BreadcrumbHead = ({ heading }) => {
       <Breadcrumb.Item
         href={heading[i]}
         key={i}
-        style={{ fontSize: '1rem', fontWeight: '500', color: '#808080' }}
+        style={{ fontSize: '0.8rem', fontWeight: '500', color: '#808080' }}
       >
         {heading[i]}
       </Breadcrumb.Item>
@@ -24,11 +25,11 @@ const BreadcrumbHead = ({ heading }) => {
     <div style={breadcrumb}>
       <Breadcrumb
         style={{ padding: '1.1% 5%' }}
-        separator={<CaretRightOutlined style={{ color: '#f5cc23' }} />}
+        separator={<DoubleRightOutlined style={{ color: '#f5cc23' }} />}
       >
         <Breadcrumb.Item>
           <a href='/'>
-            <HomeOutlined style={{ color: '#328fce', fontSize: '1rem' }} />
+            <HomeOutlined style={{ color: '#328fce', fontSize: '0.8rem' }} />
           </a>
         </Breadcrumb.Item>
 

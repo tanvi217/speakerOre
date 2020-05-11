@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 import AuthContext from '../context/auth/authContext';
 import { Link } from 'react-router-dom';
-import { Menu, Layout } from 'antd';
+import { Menu } from 'antd';
 import './nav_style.css';
 import { SettingOutlined, LogoutOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 
 const rightItems = {
-  float: 'right',
   fontWeight: '300',
   color: '#000000',
 };
@@ -17,7 +16,6 @@ const linkItems = {
   color: '#000000',
   fontSize: '15px',
   fontWeight: '550',
-  float: 'right',
 };
 
 const linkStyle = {
@@ -26,7 +24,7 @@ const linkStyle = {
   fontWeight: '550',
 };
 
-const RightMenuAuth = () => {
+const RightMenuAuth = ({ mode }) => {
   const authContext = useContext(AuthContext);
 
   const { logout, role } = authContext;
@@ -34,7 +32,7 @@ const RightMenuAuth = () => {
   console.log(role);
 
   return (
-    <Menu mode='horizontal' style={{ zIndex: 200 }}>
+    <Menu mode={mode} style={{ zIndex: 200 }}>
       <SubMenu
         title={
           <Link to={'/profile'} style={linkStyle}>
@@ -88,6 +86,10 @@ const RightMenuAuth = () => {
       )}
     </Menu>
   );
+};
+
+RightMenuAuth.defaultProps = {
+  mode: 'horizontal',
 };
 
 export default RightMenuAuth;

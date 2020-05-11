@@ -35,7 +35,8 @@ const Login = () => {
         onCancel={closeModal}
         destroyOnClose={true}
         footer={null}
-        width='350px'
+        // width='50%'
+        centered
       >
         <h2>Hello again!</h2>
         <h2>Sign in to</h2>

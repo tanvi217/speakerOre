@@ -8,7 +8,7 @@ import Event_basic_details from './event_basic_details';
 import { Steps, message } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 import FooterSection from '../layout/FooterSection';
-import Background from '../../static/blueBackground.png';
+import Background from '../../static/gradient_bg.jpg';
 
 const { Step } = Steps;
 
@@ -17,9 +17,7 @@ const bg = {
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundImage: `url(${Background})`,
-  zIndex: '-1',
-  // display: 'grid',
-  // gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+  boxShadow: 'inset 5px 10px 30px #e2e2e2',
 };
 
 const steps = [
@@ -158,8 +156,8 @@ export class form extends Component {
               )}
             </div>
           </div>
+          <FooterSection />
         </div>
-        <FooterSection />
       </Fragment>
     );
   }

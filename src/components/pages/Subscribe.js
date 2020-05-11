@@ -5,7 +5,7 @@ import BreadcrumbHead from '../layout/BreadcrumbHead';
 // import FooterSection from '../layout/FooterSection';
 import stwave from '../../static/stwave.svg';
 // import gdownWave from '../../static/gdownWave.svg';
-import Background from '../../static/blueBackground.png';
+import Background from '../../static/blur_bg.jpg';
 
 import Plans from '../subscribe/plans';
 
@@ -17,9 +17,7 @@ const bg = {
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundImage: `url(${Background})`,
-  zIndex: '-1',
-  // display: 'grid',
-  // gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+  boxShadow: 'inset 5px 10px 30px #e2e2e2',
 };
 
 const mid = {
@@ -66,14 +64,15 @@ const Subscribe = () => {
         subheading={'Happy customers. Happy Team. Warm Fuzzies.'}
       />
       <BreadcrumbHead heading={['Subscribe']} />
-      <Content className='site-layout' style={contentStyle}>
-        <Layout className='site-layout-background' style={layoutStyle}>
+      <div style={bg}>
+        <Content className='site-layout' style={contentStyle}>
           <Plans />
-        </Layout>
-      </Content>
-      <div style={waveStyle}>
-        <hr style={mid} />
-        <span style={mid}>© 2020 SpeakerOre All rights reserved.</span>
+        </Content>
+
+        <div style={waveStyle}>
+          <hr style={mid} />
+          <span style={mid}>© 2020 SpeakerOre All rights reserved.</span>
+        </div>
       </div>
     </Fragment>
   );

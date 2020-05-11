@@ -12,8 +12,17 @@ import 'antd/dist/antd.css';
 import './style.css';
 import { Layout, Button, Radio } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
+import Background from '../../static/blur_bg.jpg';
 
 const { Content } = Layout;
+
+const bg = {
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  backgroundImage: `url(${Background})`,
+  boxShadow: 'inset 5px 10px 30px #e2e2e2',
+};
 
 const buttonStyle = {
   background: '#f5cc23',
@@ -51,56 +60,59 @@ const EventsPage = () => {
     <Fragment>
       <Navbar heading={'Events'} />
       <BreadcrumbHead heading={['Events']} />
-      <Content
-        className='site-layout'
-        style={isSubscribed ? subscribed : unsubscribed}
-      >
-        <Layout
-          className='site-layout-background'
-          style={{ padding: '2% 3%', position: 'relative' }}
+      <div style={bg}>
+        <Content
+          className='site-layout'
+          style={isSubscribed ? subscribed : unsubscribed}
         >
-          <EventFilter />
-
-          <Content
-            style={{
-              padding: '0 0 0 3%',
-              minHeight: 780,
-              float: 'right',
-            }}
+          <Layout
+            className='site-layout-background'
+            style={{ padding: '2% 3%', position: 'relative' }}
           >
-            <Radio.Group
-              defaultValue='all'
-              onChange={onChange}
-              buttonStyle='solid'
+            <EventFilter />
+
+            <Content
+              style={{
+                padding: '0 0 0 3%',
+                minHeight: 780,
+                float: 'right',
+              }}
             >
-              <Radio.Button value='all' style={radioStyle}>
-                All
-              </Radio.Button>
-              <Radio.Button value='bookmarks' style={radioStyle}>
-                Bookmarks
-              </Radio.Button>
-              <Radio.Button value='my_events' style={radioStyle}>
-                My Events
-              </Radio.Button>
-              {(role === 'moderator' || role === 'RDTEAM') && (
-                <Radio.Button value='archive' style={radioStyle}>
-                  Archive
+              <Radio.Group
+                defaultValue='all'
+                onChange={onChange}
+                buttonStyle='solid'
+              >
+                <Radio.Button value='all' style={radioStyle}>
+                  All
                 </Radio.Button>
-              )}
-            </Radio.Group>
-            <br />
-            <br />
-            <EventSearch />
-            <br />
-            <br />
-            {option === 'all' && <Events />}
-            {option === 'bookmarks' && <Bookmark />}
-            {option === 'my_events' && <MyEvents />}
-            {(role === 'moderator' || role === 'RDTEAM') &&
-              option === 'archive' && <Archives />}
-          </Content>
-        </Layout>
-      </Content>
+                <Radio.Button value='bookmarks' style={radioStyle}>
+                  Bookmarks
+                </Radio.Button>
+                <Radio.Button value='my_events' style={radioStyle}>
+                  My Events
+                </Radio.Button>
+                {(role === 'moderator' || role === 'RDTEAM') && (
+                  <Radio.Button value='archive' style={radioStyle}>
+                    Archive
+                  </Radio.Button>
+                )}
+              </Radio.Group>
+              <br />
+              <br />
+              <EventSearch />
+              <br />
+              <br />
+              {option === 'all' && <Events />}
+              {option === 'bookmarks' && <Bookmark />}
+              {option === 'my_events' && <MyEvents />}
+              {(role === 'moderator' || role === 'RDTEAM') &&
+                option === 'archive' && <Archives />}
+            </Content>
+          </Layout>
+        </Content>
+        <FooterSection />
+      </div>
 
       {!isSubscribed && (
         <div className='bg-text'>
@@ -114,8 +126,6 @@ const EventsPage = () => {
           </a>
         </div>
       )}
-
-      <FooterSection />
     </Fragment>
   );
 };

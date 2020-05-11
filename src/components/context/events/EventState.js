@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import EventContext from './eventContext';
 import eventReducer from './eventReducer';
+import moment from 'moment';
 
 import {
   CREATE_EVENT,
@@ -33,8 +34,8 @@ const EventState = (props) => {
         is_visible: 'true',
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
-        start_date: '10/03/2020',
-        end_date: '12/03/2020',
+        start_date: moment('2018-05-18T04:00:00.000Z'),
+        end_date: moment('2018-05-18T04:00:00.000Z'),
       },
       {
         id: 2,
@@ -53,8 +54,8 @@ const EventState = (props) => {
         is_visible: 'true',
         categories: ['music', 'festival'],
         tags: ['concert', 'fun'],
-        start_date: '10/03/2020',
-        end_date: '12/03/2020',
+        start_date: moment('2018-05-18T04:00:00.000Z'),
+        end_date: moment('2018-05-18T04:00:00.000Z'),
       },
     ],
     archives: [
@@ -75,8 +76,8 @@ const EventState = (props) => {
         is_visible: 'true',
         categories: ['music', 'festival'],
         tags: ['concert', 'fun'],
-        start_date: '10/03/2020',
-        end_date: '12/03/2020',
+        start_date: moment('2018-05-18T04:00:00.000Z'),
+        end_date: moment('2018-05-18T04:00:00.000Z'),
         status: 'pending',
       },
       {
@@ -96,8 +97,8 @@ const EventState = (props) => {
         is_visible: 'true',
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
-        start_date: '10/03/2020',
-        end_date: '12/03/2020',
+        start_date: moment('2018-05-18T04:00:00.000Z'),
+        end_date: moment('2018-05-18T04:00:00.000Z'),
         status: 'declined',
       },
       {
@@ -117,8 +118,8 @@ const EventState = (props) => {
         is_visible: 'true',
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
-        start_date: '10/03/2020',
-        end_date: '12/03/2020',
+        start_date: moment('2018-05-18T04:00:00.000Z'),
+        end_date: moment('2018-05-18T04:00:00.000Z'),
         status: 'accepted',
       },
       {
@@ -138,8 +139,8 @@ const EventState = (props) => {
         is_visible: 'true',
         categories: ['music', 'festival'],
         tags: ['concert', 'belgium'],
-        start_date: '10/03/2020',
-        end_date: '12/03/2020',
+        start_date: moment('2018-05-18T04:00:00.000Z'),
+        end_date: moment('2018-05-18T04:00:00.000Z'),
         status: 'pending',
       },
     ],
