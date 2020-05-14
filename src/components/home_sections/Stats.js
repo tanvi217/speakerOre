@@ -15,10 +15,7 @@ const Stats = () => {
   return (
     <div className='container'>
       <h1 className='stats_heading'>SpeakerOre Facts</h1>
-      <p className='subheading'>
-        Discover events for you and get great recommendations when you select
-        your interests.
-      </p>
+      <p className='subheading'>Stay informed wherever you are.</p>
       <div className='cards'>
         {stat_cards.map((stat) => (
           <StatCard key={stat.id} details={stat}>
@@ -26,6 +23,9 @@ const Stats = () => {
           </StatCard>
         ))}
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
     </div>
   );
 };

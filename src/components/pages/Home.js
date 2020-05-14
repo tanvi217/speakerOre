@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import Navbar from '../layout/Navbar';
 import Stats from '../home_sections/Stats';
 import Categories from '../home_sections/Categories';
+import Testimonials from '../home_sections/Testimonials';
 // import FooterSection from '../layout/FooterSection';
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
       <Navbar isHome={true} />
       <Stats />
       <Categories />
+      <Testimonials />
     </Fragment>
   );
 };

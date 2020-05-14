@@ -38,6 +38,9 @@ const Categories = () => {
           <CategoryCard details={category} />
         ))}
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
     </div>
   );
 };

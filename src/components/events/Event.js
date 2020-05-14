@@ -4,9 +4,9 @@ import Navbar from '../layout/Navbar';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 import FooterSection from '../layout/FooterSection';
 
-import Background from '../../static/blueBackground.png';
+import Background from '../../static/gradient_bg.jpg';
 
-import { Card, Button, Tag, Layout, Space } from 'antd';
+import { Card, Button, Tag, Space } from 'antd';
 import {
   HeartTwoTone,
   GlobalOutlined,
@@ -51,14 +51,14 @@ const heading = {
 const side_heading = {
   color: '#606060',
   fontWeight: '550',
-  backgroundColor: '#e2e2e2',
+  backgroundColor: '#E8E9EC',
   padding: '1% 1%',
 };
 
 const dates = {
   color: '#606060',
-  backgroundColor: '#E8E8E8',
-  padding: '1% 1%',
+  backgroundColor: '#E8E9EC',
+  padding: '2% 2%',
   flexGrow: '1',
   margin: '1% 1%',
 };
@@ -113,7 +113,7 @@ const Event = ({ match }) => {
             <Card
               loading={isLoading}
               style={{
-                boxShadow: '1px 1px 1px 1px #ccc',
+                boxShadow: '0 0 10px 1px #E8E9EC',
               }}
             >
               <div style={side_heading}>{name}</div>
@@ -125,6 +125,7 @@ const Event = ({ match }) => {
                 style={{
                   display: 'flex',
                   flexDirection: 'row',
+                  justifyContent: 'space-between',
                 }}
               >
                 <div style={dates}>
@@ -169,7 +170,7 @@ const Event = ({ match }) => {
               loading={isLoading}
               style={{
                 textAlign: 'center',
-                boxShadow: '1px 1px 1px 1px #ccc',
+                boxShadow: '0 0 10px 1px #E8E9EC',
               }}
             >
               <Space direction='vertical'>
@@ -193,7 +194,7 @@ const Event = ({ match }) => {
               style={{
                 margin: '5% 0 0 0',
                 textAlign: 'center',
-                boxShadow: '1px 1px 1px 1px #ccc',
+                boxShadow: '0 0 10px 1px #E8E9EC',
               }}
             >
               <Space direction='vertical'>
@@ -207,7 +208,7 @@ const Event = ({ match }) => {
               style={{
                 margin: '5% 0 0 0',
                 textAlign: 'center',
-                boxShadow: '1px 1px 1px 1px #ccc',
+                boxShadow: '0 0 10px 1px #E8E9EC',
               }}
             >
               <Space direction='vertical'>
