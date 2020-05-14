@@ -5,7 +5,7 @@ import BreadcrumbHead from '../layout/BreadcrumbHead';
 // import FooterSection from '../layout/FooterSection';
 import stwave from '../../static/stwave.svg';
 // import gdownWave from '../../static/gdownWave.svg';
-import Background from '../../static/blur_bg.jpg';
+import Background from '../../static/blueBackground.png';
 
 import Plans from '../subscribe/plans';
 

@@ -2,9 +2,7 @@ html,
 body {
   height: 100%;
 }
-body {
-  color: #0f74a8;
-}
+
 h1,
 h2,
 h3,
@@ -12,23 +10,18 @@ h4,
 h5,
 h6 {
   font-family: 'benton-sans', sans-serif;
-  color: #328fce;
+  /* color: #328fce; */
 }
 p {
   font-family: 'benton-sans', sans-serif;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 24px;
+  /* font-size: 20px; */
+  /* font-weight: 300; */
+  /* line-height: 24px; */
 }
 
 section {
   overflow: hidden;
 }
-/* .section1 {
-  background-color: #f7f7f7;
-  overflow: hidden;
-  margin-top: 100px;
-} */
 
 video {
   height: 99.2vh !important;
@@ -45,17 +38,8 @@ video {
   position: absolute;
   width: 100%;
   height: auto;
-  /* z-index: -1; */
-  /* background: url('../../static/logo.png') no-repeat; */
   background-size: cover;
   z-index: 2;
-  /* background: rgba(255, 0, 0, 0); */
-  /* background-color: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0.6),
-    rgba(0, 0, 0, 0.6)
-  ); */
-  /* opacity: 0.3; */
 }
 
 .home_bg_video {
@@ -69,8 +53,6 @@ video {
   width: auto;
   height: auto;
   z-index: -1;
-  /* background-color: rgba(0, 0, 0, 0.7); */
-  /* background: url('../../static/logo.png') no-repeat; */
   background-size: cover;
 }
 .home_overlay {
@@ -97,14 +79,58 @@ video {
 }
 
 .home_heading1 {
-  /* color: #f5f5f5; */
   font-size: 35px;
-  /* font-weight: 100; */
   margin: 0;
   display: inline-block;
 }
 .home_heading1 span {
   color: #328fce;
-  /* font-weight: 500; */
   margin: 8px 0 30px 0px;
+}
+
+.stats_heading {
+  font-weight: 700;
+  text-align: center;
+  color: '#333';
+}
+
+.subheading {
+  color: '#5d5d5d';
+  text-align: center;
+}
+
+.cards {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 2rem;
+}
+
+.icon-category {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 2rem;
+}
+
+@media (min-width: 600px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .icon-category {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .icon-category {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.container {
+  padding: '1.5% 5%';
 }

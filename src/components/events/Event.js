@@ -4,7 +4,7 @@ import Navbar from '../layout/Navbar';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 import FooterSection from '../layout/FooterSection';
 
-import Background from '../../static/blur_bg.jpg';
+import Background from '../../static/blueBackground.png';
 
 import { Card, Button, Tag, Layout, Space } from 'antd';
 import {

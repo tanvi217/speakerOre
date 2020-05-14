@@ -4,6 +4,7 @@ import media from '../../static/helping.mp4';
 import logo from '../../static/logo.png';
 import 'antd/dist/antd.css';
 import { Button } from 'antd';
+import Stats from './Stats';
 
 import './style.css';
 
@@ -53,6 +54,9 @@ const Video = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <Stats />
       </div>
     </Fragment>
   );

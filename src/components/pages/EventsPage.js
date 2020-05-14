@@ -12,7 +12,7 @@ import 'antd/dist/antd.css';
 import './style.css';
 import { Layout, Button, Radio } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
-import Background from '../../static/blur_bg.jpg';
+import Background from '../../static/blueBackground.png';
 
 const { Content } = Layout;
 
