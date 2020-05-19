@@ -134,3 +134,18 @@ video {
 .container {
   padding: '1.5% 5%';
 }
+
+.container_bg {
+  padding: '1.5% 5%';
+  background-color: #fafafc;
+}
+
+.container_inner {
+  padding: 5% 0 5% 0;
+  text-align: center;
+}
+
+.container_inner_video {
+  padding: 20% 0 20% 0;
+  text-align: center;
+}

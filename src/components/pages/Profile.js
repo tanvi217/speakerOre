@@ -5,7 +5,7 @@ import BreadcrumbHead from '../layout/BreadcrumbHead';
 
 import FooterSection from '../layout/FooterSection';
 import AuthContext from '../context/auth/authContext';
-import Background from '../../static/blueBackground.png';
+import Background from '../../static/gradient_bg.jpg';
 
 const { Meta } = Card;
 const { Content } = Layout;

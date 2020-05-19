@@ -2,7 +2,7 @@ import React, { useContext, Fragment } from 'react';
 import EventContext from '../context/events/eventContext';
 import Navbar from '../layout/Navbar';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
-import FooterSection from '../layout/FooterSection';
+import Footer from '../layout/Footer';
 
 import Background from '../../static/gradient_bg.jpg';
 
@@ -30,11 +30,12 @@ const grid_style = {
   alignItems: 'flex-start',
   justifyContent: 'space-evenly',
   alignItems: 'stretch',
+  flexWrap: 'wrap',
 };
 
 const details_section = {
-  padding: '0 2% 0 0',
-  flex: '0 0 70%',
+  flex: '0 0 65%',
+  margin: '1.5% 1%',
 };
 
 const contact_section = {
@@ -218,8 +219,8 @@ const Event = ({ match }) => {
             </Card>
           </div>
         </div>
-        <FooterSection />
       </div>
+      <Footer />
     </Fragment>
   );
 };

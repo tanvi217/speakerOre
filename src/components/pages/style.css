@@ -13,8 +13,12 @@
   text-align: center;
 }
 
+.site-layout-background {
+  background-color: #fafafc;
+}
+
 .site-card-wrapper {
-  background: #ececec;
+  background: #fafafc;
   padding: 100px;
 }
 [data-theme='dark'] .site-card-wrapper {

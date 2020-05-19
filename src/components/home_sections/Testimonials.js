@@ -13,10 +13,12 @@ const testimonials = [
 const Testimonials = () => {
   return (
     <div className='container'>
-      <div>
-        {testimonials.map((testimonial) => (
-          <Testimonial details={testimonial} />
-        ))}
+      <div className='container_inner'>
+        <div>
+          {testimonials.map((testimonial) => (
+            <Testimonial details={testimonial} />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -12,8 +12,8 @@
 }
 
 .menuBar {
-  padding: 0 5%;
-  /* border-bottom: solid 1px #e8e8e8; */
+  padding: 0.5% 5%;
+  border-bottom: solid 1px #e8e8e8;
   overflow: hidden;
   box-shadow: 0 0 40px #f3f1f1;
 }

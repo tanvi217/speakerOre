@@ -14,18 +14,17 @@ const stat_cards = [
 const Stats = () => {
   return (
     <div className='container'>
-      <h1 className='stats_heading'>SpeakerOre Facts</h1>
-      <p className='subheading'>Stay informed wherever you are.</p>
-      <div className='cards'>
-        {stat_cards.map((stat) => (
-          <StatCard key={stat.id} details={stat}>
-            {stat}
-          </StatCard>
-        ))}
+      <div className='container_inner'>
+        <h1 className='stats_heading'>SpeakerOre Facts</h1>
+        <p className='subheading'>Stay informed wherever you are.</p>
+        <div className='cards'>
+          {stat_cards.map((stat) => (
+            <StatCard key={stat.id} details={stat}>
+              {stat}
+            </StatCard>
+          ))}
+        </div>
       </div>
-      <br></br>
-      <br></br>
-      <br></br>
     </div>
   );
 };

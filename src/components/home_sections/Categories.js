@@ -27,20 +27,19 @@ const category_icons = [
 
 const Categories = () => {
   return (
-    <div className='container'>
-      <h1 className='stats_heading'>Which categories interest you?</h1>
-      <p className='subheading'>
-        Discover events for you and get great recommendations when you select
-        your interests.
-      </p>
-      <div className='icon-category'>
-        {category_icons.map((category) => (
-          <CategoryCard details={category} />
-        ))}
+    <div className='container_bg'>
+      <div className='container_inner'>
+        <h1 className='stats_heading'>Which categories interest you?</h1>
+        <p className='subheading'>
+          Discover events for you and get great recommendations when you select
+          your interests.
+        </p>
+        <div className='icon-category'>
+          {category_icons.map((category) => (
+            <CategoryCard details={category} />
+          ))}
+        </div>
       </div>
-      <br></br>
-      <br></br>
-      <br></br>
     </div>
   );
 };

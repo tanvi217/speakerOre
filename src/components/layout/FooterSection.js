@@ -66,9 +66,9 @@ const FooterSection = () => {
         <img src={Logo} style={imgStyle} />
 
         <div className='footer-icons'>
-          <a href='#'>
+          <Link href='#'>
             <FacebookOutlined style={{ color: '#808080' }} />
-          </a>
+          </Link>
           <a href='#'>
             <TwitterOutlined />
           </a>

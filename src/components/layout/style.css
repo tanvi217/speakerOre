@@ -1,4 +1,4 @@
-body,
+/* body,
 html {
   height: 100%;
 }
@@ -176,4 +176,11 @@ a {
   .footer-distributed .footer-center i {
     margin-left: 0;
   }
+}
+*/ .container {
+  padding: '1.5% 5%';
+}
+
+.footer_inner {
+  padding: '2% 0';
 }

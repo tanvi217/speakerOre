@@ -8,7 +8,7 @@ const name = {
 };
 
 const message = {
-  fontSize: '250%',
+  fontSize: '150%',
 };
 
 const stars = {

@@ -3,7 +3,7 @@ import { ArrowUpOutlined } from '@ant-design/icons';
 import { Card } from 'antd';
 
 const card_style = {
-  borderRadius: '5px',
+  borderRadius: '10px',
   boxShadow: '0 0 10px 1px #E8E9EC',
 };
 
