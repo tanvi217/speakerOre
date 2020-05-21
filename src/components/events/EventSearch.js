@@ -9,7 +9,8 @@ const EventSearch = () => {
     <Search
       size='default'
       placeholder='Search'
-      onSearch={value => console.log(value)}
+      onSearch={(value) => console.log(value)}
+      style={{ boxShadow: '0 0 10px 1px #E8E9EC', borderRadius: '12px' }}
     />
   );
 };

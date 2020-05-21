@@ -21,7 +21,7 @@ const bg = {
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundImage: `url(${Background})`,
-  boxShadow: 'inset 5px 10px 30px #e2e2e2',
+  boxShadow: 'inset 5px 10px 30px #E8E9EC',
 };
 
 const buttonStyle = {
@@ -29,20 +29,6 @@ const buttonStyle = {
   borderColor: '#f5cc23',
   color: '#ffffff',
   marginLeft: '10px',
-};
-
-const radioStyle = {
-  // borderColor: '#328fce',
-};
-
-const unsubscribed = {
-  padding: '1.5% 5%',
-  filter: 'blur(8px)',
-  WebkitFilter: 'blur(8px)',
-};
-
-const subscribed = {
-  padding: '1.5% 5%',
 };
 
 const EventsPage = () => {
@@ -61,10 +47,7 @@ const EventsPage = () => {
       <Navbar heading={'Events'} />
       <BreadcrumbHead heading={['Events']} />
       <div style={bg}>
-        <Content
-          className='site-layout'
-          style={isSubscribed ? subscribed : unsubscribed}
-        >
+        <Content className={isSubscribed ? 'subscribed' : 'unsubscribed'}>
           <Layout
             className='site-layout-background'
             style={{ padding: '2% 3%', position: 'relative' }}
@@ -81,21 +64,18 @@ const EventsPage = () => {
               <Radio.Group
                 defaultValue='all'
                 onChange={onChange}
-                buttonStyle='solid'
+                size='small'
+                style={{
+                  boxShadow: '0 0 10px 1px #E8E9EC',
+                  borderRadius: '15px',
+                  padding: '5px 5px',
+                }}
               >
-                <Radio.Button value='all' style={radioStyle}>
-                  All
-                </Radio.Button>
-                <Radio.Button value='bookmarks' style={radioStyle}>
-                  Bookmarks
-                </Radio.Button>
-                <Radio.Button value='my_events' style={radioStyle}>
-                  My Events
-                </Radio.Button>
+                <Radio.Button value='all'>All</Radio.Button>
+                <Radio.Button value='bookmarks'>Bookmarks</Radio.Button>
+                <Radio.Button value='my_events'>My Events</Radio.Button>
                 {(role === 'moderator' || role === 'RDTEAM') && (
-                  <Radio.Button value='archive' style={radioStyle}>
-                    Archive
-                  </Radio.Button>
+                  <Radio.Button value='archive'>Archive</Radio.Button>
                 )}
               </Radio.Group>
               <br />

@@ -25,7 +25,10 @@ const MyEvents = () => {
   return events.length === 0 ? (
     'No saved events.'
   ) : (
-    <Table columns={columns} dataSource={events} rowKey='id' />
+    <div>
+      <Table columns={columns} dataSource={events} rowKey='id' />
+      <br />
+    </div>
   );
 };
 

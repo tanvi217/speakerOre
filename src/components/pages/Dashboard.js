@@ -37,12 +37,11 @@ const Dashboard = () => {
     <Fragment>
       <Navbar heading={'Dashboard'} />
       <BreadcrumbHead heading={['Dashboard']} />
-      <Content className='site-layout' style={{ padding: '1.5% 5%' }}>
-        <Layout className='site-layout-background' style={{ padding: '2% 3%' }}>
+      <Content className='dashboard'>
+        <Layout style={{ padding: '2% 3%' }}>
           <Sider
             breakpoint='lg'
             theme='light'
-            width='25%'
             collapsedWidth='0'
             onBreakpoint={(broken) => {
               console.log(broken);

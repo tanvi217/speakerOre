@@ -44,6 +44,10 @@ export class form extends Component {
       start_date_moment: null,
       end_date: '',
       end_date_moment: null,
+      start_time: '',
+      start_time_moment: null,
+      end_time: '',
+      end_time_moment: null,
       street: '',
       city: '',
       state: '',
@@ -69,7 +73,6 @@ export class form extends Component {
 
   handleChange1 = (input) => (e) => {
     const step_one_fields = { ...this.state.step_one_fields };
-
     step_one_fields[input] = e.target.value;
     this.setState({
       step_one_fields,
@@ -101,6 +104,23 @@ export class form extends Component {
     }
   };
 
+  handleChangeTime = (input) => (time, timeString) => {
+    const step_one_fields = { ...this.state.step_one_fields };
+    if (input === 'start_time') {
+      step_one_fields.start_time_moment = time;
+      step_one_fields.start_time = timeString;
+      this.setState({
+        step_one_fields,
+      });
+    } else {
+      step_one_fields.end_time_moment = time;
+      step_one_fields.end_time = timeString;
+      this.setState({
+        step_one_fields,
+      });
+    }
+  };
+
   handleChangeTag = (input) => (new_tags) => {
     const step_two_fields = { ...this.state.step_two_fields };
     step_two_fields[input] = new_tags;
@@ -121,18 +141,21 @@ export class form extends Component {
         <Navbar heading={'Add Event'} />
         <BreadcrumbHead heading={['Add Event']} />
         <div style={bg}>
-          <div id='container' style={{ padding: '1.5% 25%' }}>
-            <Steps current={step} style={{ margin: '1% 0' }}>
-              {steps.map((item) => (
-                <Step key={item.title} title={item.title} />
-              ))}
-            </Steps>
+          <div className='form-container'>
+            <div className='steps'>
+              <Steps current={step}>
+                {steps.map((item) => (
+                  <Step key={item.title} title={item.title} />
+                ))}
+              </Steps>
+            </div>
 
             <div className='steps-content'>
               {step === 0 && (
                 <Event_basic_details
                   handleChange={this.handleChange1}
                   handleChangeDate={this.handleChangeDate}
+                  handleChangeTime={this.handleChangeTime}
                   handleChangeTag={this.handleChangeTag}
                   nextStep={this.nextStep}
                   values={step_one_fields}

@@ -57,12 +57,12 @@ const Footer = () => {
                 </Link>
               </div>
               <div>
-                <Link href='/help' style={text}>
+                <Link to='/help' style={text}>
                   Help & Support
                 </Link>
               </div>
               <div>
-                <Link href='/events' style={text}>
+                <Link to='/events' style={text}>
                   FAQs
                 </Link>
               </div>
@@ -87,17 +87,17 @@ const Footer = () => {
 
             <div style={sections}>
               <div>
-                <Link href='/' style={text}>
+                <Link to='/' style={text}>
                   Home
                 </Link>
               </div>
               <div>
-                <Link href='/add_event' style={text}>
+                <Link to='/add_event' style={text}>
                   Add Event
                 </Link>
               </div>
               <div>
-                <Link href='/events' style={text}>
+                <Link to='/events' style={text}>
                   Events
                 </Link>
               </div>

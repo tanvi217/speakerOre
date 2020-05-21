@@ -5,8 +5,8 @@ import { List, Button, Form } from 'antd';
 const tailLayout = {
   wrapperCol: {
     offset: 8,
-    span: 10
-  }
+    span: 10,
+  },
 };
 
 export class confirm extends Component {
@@ -15,6 +15,8 @@ export class confirm extends Component {
       eventName,
       start_date,
       end_date,
+      start_time,
+      end_time,
       street,
       city,
       state,
@@ -24,21 +26,31 @@ export class confirm extends Component {
       tags,
       phone,
       website,
-      email
+      email,
     } = this.props.values;
     const data = [
       ['Event Name', eventName],
       ['Start Date', start_date],
       ['End Date', end_date],
+      ['Start Time', start_time],
+      ['End Time', end_time],
       [
         'Full Address',
-        street + ', ' + city + ', ' + state + '\n' + country + '\n' + postalcode
+        street +
+          ', ' +
+          city +
+          ', ' +
+          state +
+          '\n' +
+          country +
+          '\n' +
+          postalcode,
       ],
       ['About', about],
       ['Tags', tags],
       ['Phone', phone],
       ['Website', website],
-      ['Email', email]
+      ['Email', email],
     ];
     return (
       <div id='container' style={{ padding: '0px 10px 10px 10px' }}>
@@ -46,7 +58,7 @@ export class confirm extends Component {
           size='default'
           bordered
           dataSource={data}
-          renderItem={item => (
+          renderItem={(item) => (
             <List.Item>
               <List.Item.Meta title={item[0]} description={item[1]} />
             </List.Item>

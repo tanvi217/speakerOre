@@ -13,14 +13,15 @@ const MyEvents = () => {
 
   const columns = [
     { title: 'Event Name', dataIndex: 'name', key: 'name' },
-    { title: 'Event Date', dataIndex: 'start_date', key: 'start_date' },
+    // { title: 'Event Date', dataIndex: 'start_date', key: 'start_date' },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+
       render: (status) => (
         <span>
-          {status === 'accepted' && <Badge status='success' text='Accepted' />}
+          {status === 'published' && <Badge status='success' text='Accepted' />}
           {status === 'declined' && <Badge status='error' text='Declined' />}
           {status === 'pending' && <Badge status='processing' text='Pending' />}
         </span>

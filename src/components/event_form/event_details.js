@@ -108,7 +108,14 @@ export class event_details extends Component {
             },
             {
               type: 'number',
-              message: 'The input is not valid E-mail!',
+              message: 'The input is not a valid number!',
+              transform: (value) => {
+                return Number(value) ? Number(value) : 0;
+              },
+            },
+            {
+              len: 10,
+              message: 'Number must have 10 digits!',
             },
           ]}
         >
@@ -118,7 +125,11 @@ export class event_details extends Component {
             placeholder='Phone Number'
           />
         </Form.Item>
-        <Form.Item name='website' label='Website'>
+        <Form.Item
+          name='website'
+          rules={[{ type: 'url', message: 'Invalid URL' }]}
+          label='Website'
+        >
           <AutoComplete placeholder='website'>
             <Input onChange={handleChange('website')} />
           </AutoComplete>

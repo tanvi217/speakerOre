@@ -27,6 +27,7 @@ const EventFilter = () => {
         console.log('here', collapsed, type);
       }}
       className='filter'
+      style={{ boxShadow: '0 0 10px 1px #E8E9EC' }}
     >
       <Filter />
     </Sider>

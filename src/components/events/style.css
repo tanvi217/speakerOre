@@ -30,6 +30,7 @@ tr:last-child td {
 @media (min-width: 600px) {
   .cards {
     grid-template-columns: repeat(1, 1fr);
+    padding: 0;
   }
 }
 
