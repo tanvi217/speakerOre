@@ -33,7 +33,7 @@ const waveStyle = {
   position: 'relative',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
-  minHeight: '250px',
+  minHeight: '280px',
   backgroundSize: 'cover',
   backgroundImage: `url(${Wave})`,
 };

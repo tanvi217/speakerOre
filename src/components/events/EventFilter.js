@@ -17,7 +17,6 @@ const EventFilter = () => {
       className='site-layout-background'
       theme='light'
       breakpoint='sm'
-      width='25%'
       collapsedWidth='0'
       onBreakpoint={(broken) => {
         broken ? show_drawer() : close_drawer();
@@ -27,23 +26,8 @@ const EventFilter = () => {
         !collapsed ? show_drawer() : close_drawer();
         console.log('here', collapsed, type);
       }}
-      style={{ position: 'relative' }}
+      className='filter'
     >
-      <Drawer
-        placement='left'
-        closable={true}
-        onClose={() => {
-          console.log('closed');
-          close_drawer();
-        }}
-        visible={isDrawerVisible}
-        style={{ textAlign: 'center', position: 'absolute' }}
-        getContainer={false}
-        mask='true'
-        maskClosable='true'
-      >
-        <Filter />
-      </Drawer>
       <Filter />
     </Sider>
   );

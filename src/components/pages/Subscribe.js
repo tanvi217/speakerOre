@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 import Navbar from '../layout/Navbar';
 import { Layout } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
-// import FooterSection from '../layout/FooterSection';
+import Footer from '../layout/Footer';
 import stwave from '../../static/stwave.svg';
 // import gdownWave from '../../static/gdownWave.svg';
-import Background from '../../static/blueBackground.png';
+import Background from '../../static/background.png';
 
 import Plans from '../subscribe/plans';
 
@@ -69,10 +69,7 @@ const Subscribe = () => {
           <Plans />
         </Content>
 
-        <div style={waveStyle}>
-          <hr style={mid} />
-          <span style={mid}>© 2020 SpeakerOre All rights reserved.</span>
-        </div>
+        <Footer />
       </div>
     </Fragment>
   );

@@ -7,12 +7,12 @@ import EventSearch from '../events/EventSearch';
 import EventFilter from '../events/EventFilter';
 import AuthContext from '../context/auth/authContext';
 import Navbar from '../layout/Navbar';
-import FooterSection from '../layout/FooterSection';
+import Footer from '../layout/Footer';
 import 'antd/dist/antd.css';
 import './style.css';
 import { Layout, Button, Radio } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
-import Background from '../../static/gradient_bg.jpg';
+import Background from '../../static/background.png';
 
 const { Content } = Layout;
 
@@ -111,7 +111,7 @@ const EventsPage = () => {
             </Content>
           </Layout>
         </Content>
-        <FooterSection />
+        <Footer />
       </div>
 
       {!isSubscribed && (

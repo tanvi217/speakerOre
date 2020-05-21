@@ -7,8 +7,8 @@ import Confirmation from './confirm';
 import Event_basic_details from './event_basic_details';
 import { Steps, message } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
-import FooterSection from '../layout/FooterSection';
-import Background from '../../static/gradient_bg.jpg';
+import Footer from '../layout/Footer';
+import Background from '../../static/background.png';
 
 const { Step } = Steps;
 
@@ -156,7 +156,7 @@ export class form extends Component {
               )}
             </div>
           </div>
-          <FooterSection />
+          <Footer />
         </div>
       </Fragment>
     );

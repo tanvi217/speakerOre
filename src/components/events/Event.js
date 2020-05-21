@@ -4,7 +4,7 @@ import Navbar from '../layout/Navbar';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 import Footer from '../layout/Footer';
 
-import Background from '../../static/gradient_bg.jpg';
+import Background from '../../static/background.png';
 
 import { Card, Button, Tag, Space } from 'antd';
 import {
@@ -219,8 +219,8 @@ const Event = ({ match }) => {
             </Card>
           </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </Fragment>
   );
 };

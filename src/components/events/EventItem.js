@@ -64,8 +64,8 @@ const EventItem = ({ event, isLoading }) => {
         ></Meta>
         <br />
         <Meta
-          description={date_arr.map((el) => (
-            <Fragment key={el}>{el}</Fragment>
+          description={date_arr.map((el, index) => (
+            <Fragment key={index}>{el}</Fragment>
           ))}
         ></Meta>
         <br />

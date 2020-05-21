@@ -5,7 +5,7 @@ import VideoSection from '../home_sections/VideoSection';
 import Stats from '../home_sections/Stats';
 import Categories from '../home_sections/Categories';
 import Testimonials from '../home_sections/Testimonials';
-// import FooterSection from '../layout/FooterSection';
+import Footer from '../layout/Footer';
 
 const Home = () => {
   return (
@@ -15,6 +15,7 @@ const Home = () => {
       <Stats />
       <Categories />
       <Testimonials />
+      <Footer />
     </Fragment>
   );
 };

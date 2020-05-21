@@ -3,9 +3,9 @@ import Navbar from '../layout/Navbar';
 import { Card, Layout, Tabs, Timeline, Row, Col } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 
-import FooterSection from '../layout/FooterSection';
+import Footer from '../layout/Footer';
 import AuthContext from '../context/auth/authContext';
-import Background from '../../static/gradient_bg.jpg';
+import Background from '../../static/background.png';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -111,7 +111,7 @@ const Profile = () => {
             </div>
           </Layout>
         </Content>
-        <FooterSection />
+        <Footer />
       </div>
     </Fragment>
   );

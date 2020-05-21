@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import Navbar from '../layout/Navbar';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
-import FooterSection from '../layout/FooterSection';
+import Footer from '../layout/Footer';
 
 import Users from '../dashboard/Users';
 import Accepted from '../dashboard/Accepted';
@@ -140,7 +140,7 @@ const Dashboard = () => {
           </Content>
         </Layout>
       </Content>
-      <FooterSection />
+      <Footer />
     </Fragment>
   );
 };

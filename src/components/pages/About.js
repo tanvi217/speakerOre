@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Navbar from '../layout/Navbar';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
-import FooterSection from '../layout/FooterSection';
+import Footer from '../layout/Footer';
 import './style.css';
 
 const About = () => {
@@ -9,7 +9,7 @@ const About = () => {
     <Fragment>
       <Navbar heading={'About Us'} />
       <BreadcrumbHead heading={['About']} />
-      <FooterSection />
+      <Footer />
     </Fragment>
   );
 };

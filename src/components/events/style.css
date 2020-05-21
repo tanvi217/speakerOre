@@ -35,6 +35,24 @@ tr:last-child td {
 
 @media (min-width: 900px) {
   .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .cards {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.filter {
+  width: 35%;
+  position: 'relative';
+}
+
+@media (min-width: 600px) {
+  .filter {
+    width: 100%;
+    position: 'relative';
   }
 }
