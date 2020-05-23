@@ -1,9 +1,10 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext, Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
 import EventContext from '../context/events/eventContext';
 import Navbar from '../layout/Navbar';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 import Footer from '../layout/Footer';
-
+import Change from './Change';
 import Background from '../../static/background.png';
 
 import { Card, Button, Tag, Space } from 'antd';
@@ -80,7 +81,13 @@ const Event = ({ match }) => {
     params: { event_id },
   } = match;
 
-  const { events, isLoading } = eventContext;
+  const {
+    events,
+    isLoading,
+    isVisible,
+    showChangeModal,
+    closeChangeModal,
+  } = eventContext;
 
   const {
     id,
@@ -108,7 +115,7 @@ const Event = ({ match }) => {
     <Fragment>
       <Navbar heading={'Event - ' + name} />
       <BreadcrumbHead heading={['Events', name]} />
-      <div style={bg}>
+      <div>
         <div style={grid_style}>
           <div style={details_section}>
             <Card
@@ -184,11 +191,12 @@ const Event = ({ match }) => {
                   <MailOutlined style={{ color: '#328fce' }} /> {email}
                 </div>
                 <div>
-                  <GlobalOutlined style={{ color: '#328fce' }} /> {website}
+                  <GlobalOutlined style={{ color: '#328fce' }} />
+                  <a href={website}>{website}</a>
                 </div>
               </Space>
             </Card>
-
+            <Change />
             <Card
               loading={isLoading}
               bordered='true'
@@ -213,7 +221,14 @@ const Event = ({ match }) => {
               }}
             >
               <Space direction='vertical'>
-                <Button type='primary'>Suggest change for this event</Button>
+                <Button
+                  type='primary'
+                  onClick={() => {
+                    showChangeModal();
+                  }}
+                >
+                  Suggest change for this event
+                </Button>
                 <Button type='primary'>E-mail organizer</Button>
               </Space>
             </Card>

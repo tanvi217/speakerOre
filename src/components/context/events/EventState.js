@@ -10,6 +10,8 @@ import {
   DELETE_EVENT,
   SET_CURRENT_EVENT,
   CLEAR_CURRENT_EVENT,
+  SHOW_CHANGE_MODAL,
+  CLOSE_CHANGE_MODAL,
 } from '../types';
 
 const EventState = (props) => {
@@ -67,7 +69,7 @@ const EventState = (props) => {
         street: '4/2 Kilpauk',
         city: 'Chennai',
         country: 'India',
-        website: 'tomorrowland.com',
+        website: 'www.tomorrowland.com',
         email: 'yolo@gmail.com',
         phone: '91-1234567890',
         description:
@@ -109,7 +111,7 @@ const EventState = (props) => {
         street: '4/2 Kilpauk',
         city: 'Chennai',
         country: 'India',
-        website: 'tomorrowland.com',
+        website: 'www.tomorrowland.com',
         email: 'yolo@gmail.com',
         phone: '91-1234567890',
         description:
@@ -146,6 +148,7 @@ const EventState = (props) => {
     ],
     current: null,
     isLoading: false,
+    isVisible: false,
   };
 
   const [state, dispatch] = useReducer(eventReducer, initialState);
@@ -171,6 +174,14 @@ const EventState = (props) => {
     dispatch({ type: SET_CURRENT_EVENT, payload: event });
   };
 
+  const showChangeModal = () => {
+    dispatch({ type: SHOW_CHANGE_MODAL });
+  };
+
+  const closeChangeModal = () => {
+    dispatch({ type: CLOSE_CHANGE_MODAL });
+  };
+
   return (
     <EventContext.Provider
       value={{
@@ -178,11 +189,14 @@ const EventState = (props) => {
         current: state.current,
         archives: state.archives,
         isLoading: state.isLoading,
+        isVisible: state.isVisible,
         createEvent,
         editEvent,
         deleteEvent,
         clearCurrent,
         setCurrent,
+        showChangeModal,
+        closeChangeModal,
       }}
     >
       {props.children}

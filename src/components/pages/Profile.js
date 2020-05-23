@@ -59,7 +59,7 @@ const Profile = () => {
     <Fragment>
       <Navbar heading={'Profile'} />
       <BreadcrumbHead heading={['Profile']} />
-      <div style={bg}>
+      <div>
         <Content className='site-layout' style={layout}>
           <Layout className='site-layout-background' style={layoutStyle}>
             <div style={imgStyle}>

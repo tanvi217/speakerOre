@@ -46,7 +46,7 @@ const EventsPage = () => {
     <Fragment>
       <Navbar heading={'Events'} />
       <BreadcrumbHead heading={['Events']} />
-      <div style={bg}>
+      <div>
         <Content className={isSubscribed ? 'subscribed' : 'unsubscribed'}>
           <Layout
             className='site-layout-background'

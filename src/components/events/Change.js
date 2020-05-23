@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
 import { Form, Input, InputNumber, Modal, Button } from 'antd';
 
-const Change = ({ visible, onCancel }) => {
+import EventContext from '../context/events/eventContext';
+
+const Change = () => {
+  const eventContext = useContext(EventContext);
+
+  const { isVisible, closeChangeModal } = eventContext;
+
   const [form] = Form.useForm();
-  useResetFormOnCloseModal({
-    form,
-    visible
-  });
+  // useResetFormOnCloseModal({
+  //   form,
+  //   visible,
+  // });
 
   const onOk = () => {
     form.submit();
@@ -15,10 +21,10 @@ const Change = ({ visible, onCancel }) => {
 
   return (
     <Modal
-      title='Basic Drawer'
-      visible={visible}
+      title='Suggestions for the event'
+      visible={isVisible}
       onOk={onOk}
-      onCancel={onCancel}
+      onCancel={closeChangeModal}
     >
       <Form form={form} layout='vertical' name='userForm'>
         <Form.Item
@@ -26,8 +32,8 @@ const Change = ({ visible, onCancel }) => {
           label='User Name'
           rules={[
             {
-              required: true
-            }
+              required: true,
+            },
           ]}
         >
           <Input />
@@ -37,8 +43,8 @@ const Change = ({ visible, onCancel }) => {
           label='Message'
           rules={[
             {
-              required: true
-            }
+              required: true,
+            },
           ]}
         >
           <Input.TextArea />

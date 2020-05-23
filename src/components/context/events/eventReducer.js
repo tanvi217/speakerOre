@@ -4,6 +4,8 @@ import {
   DELETE_EVENT,
   SET_CURRENT_EVENT,
   CLEAR_CURRENT_EVENT,
+  SHOW_CHANGE_MODAL,
+  CLOSE_CHANGE_MODAL,
 } from '../types';
 
 export default (state, action) => {
@@ -34,6 +36,16 @@ export default (state, action) => {
       return {
         ...state,
         current: action.payload,
+      };
+    case SHOW_CHANGE_MODAL:
+      return {
+        ...state,
+        isVisible: true,
+      };
+    case CLOSE_CHANGE_MODAL:
+      return {
+        ...state,
+        isVisible: false,
       };
     default:
       return state;
