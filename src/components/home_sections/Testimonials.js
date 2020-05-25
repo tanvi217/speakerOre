@@ -15,8 +15,8 @@ const Testimonials = () => {
     <div className='container'>
       <div className='container_inner'>
         <div>
-          {testimonials.map((testimonial) => (
-            <Testimonial details={testimonial} />
+          {testimonials.map((testimonial, i) => (
+            <Testimonial details={testimonial} key={i} />
           ))}
         </div>
       </div>

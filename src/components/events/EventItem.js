@@ -40,7 +40,11 @@ const EventItem = ({ event, isLoading }) => {
       hoverable
       bordered
       loading={isLoading}
-      style={{ boxShadow: '0 0 10px 1px #E8E9EC', borderRadius: '15px' }}
+      style={{
+        boxShadow: '0 0 10px 1px #E8E9EC',
+        borderRadius: '15px',
+        borderTop: '5px solid #328fce',
+      }}
       bodyStyle={{ textAlign: 'center' }}
     >
       <Skeleton loading={isLoading} active>
@@ -71,9 +75,7 @@ const EventItem = ({ event, isLoading }) => {
               style={{
                 borderRadius: '32px',
                 display: 'inline-block',
-                // color: 'white',
                 padding: '3px 12px',
-                // background: '-webkit-linear-gradient(#f5cc23, #f39213)',
                 boxShadow: '0 0 10px 1px #E8E9EC',
               }}
             >

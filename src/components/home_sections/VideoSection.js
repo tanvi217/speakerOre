@@ -13,13 +13,15 @@ const waveStyle = {
   minHeight: '250px',
   backgroundSize: 'cover',
   backgroundImage: `url(${Wave})`,
+  backgroundColor: '#fafafc',
 };
 
 const company = {
   color: 'black',
-  fontSize: '500%',
+  fontSize: '250%',
   fontWeight: 900,
   letterSpacing: '0.01em',
+  display: 'block',
 };
 
 const logo = {

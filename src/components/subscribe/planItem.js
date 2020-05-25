@@ -23,6 +23,7 @@ const aboutStyle = {
 };
 const cardStyle = {
   // margin: '0 2%',
+  boxShadow: '0 0 10px 1px #E8E9EC',
   borderRadius: '10px',
 };
 const buttonStyle = {

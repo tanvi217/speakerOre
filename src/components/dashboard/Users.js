@@ -48,7 +48,7 @@ const Users = () => {
   return (
     <div
       id='container'
-      style={{ padding: '3% 5%', backgroundColor: '#f6f6f6' }}
+      style={{ padding: '1% 5%', backgroundColor: '#f6f6f6' }}
     >
       <Divider>Users List</Divider>
       <Table

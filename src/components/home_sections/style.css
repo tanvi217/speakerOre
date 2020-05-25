@@ -91,12 +91,15 @@ video {
 .stats_heading {
   font-weight: 700;
   text-align: center;
-  color: '#333';
+  /* color: '#333'; */
+  color: #2f1359;
 }
 
 .subheading {
-  color: '#5d5d5d';
+  /* color: '#5d5d5d'; */
+  color: #2f1359;
   text-align: center;
+  padding: 2% 0 2% 0;
 }
 
 .cards {
@@ -113,6 +116,88 @@ video {
   grid-gap: 2rem;
 }
 
+a {
+  color: #2f1359;
+  /* color: #007bff; */
+  text-decoration: none;
+  background-color: transparent;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.switcher {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  padding: 0 5% 0 5%;
+}
+
+.switcher-tabs {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  padding: 2% 2%;
+  flex: 0 0 25%;
+}
+
+.switcher-info {
+  flex: 0 0 70%;
+  max-width: 70%;
+}
+
+.switcher-info-content {
+  display: none;
+  padding: 6px 12px;
+  /* border: 1px solid #ccc; */
+  border-top: none;
+
+  vertical-align: middle;
+  /* width: 100%; */
+  max-width: 100%;
+  max-height: 100%;
+  /* margin-left: 0; */
+  box-shadow: 0px 12px 24px rgba(47, 19, 89, 0.1);
+  border-radius: 10px;
+}
+
+.switcher-option {
+  /* box-shadow: 0px 12px 24px rgba(47, 19, 89, 0.1); */
+  border-radius: 10px;
+  font-size: 18px;
+  padding: 30px 15px 30px 15px;
+  font-weight: 800;
+  transition: all 0.3s;
+  cursor: pointer;
+  color: #5d5d5d;
+}
+
+.switcher-tabs a.active {
+  color: #2f1359;
+  background: #fff;
+  -webkit-box-shadow: 0px 12px 24px rgba(47, 19, 89, 0.1);
+  box-shadow: 0px 12px 24px rgba(47, 19, 89, 0.1);
+  opacity: 1;
+}
+
+.switcher-option-name {
+  color: #7e7e7e;
+  /* color: #2f1359; */
+}
+
+@media (max-width: 600px) {
+  .switcher-option-name {
+    display: none;
+  }
+  .switcher-tabs {
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+}
+
 @media (min-width: 600px) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
@@ -120,15 +205,23 @@ video {
   .icon-category {
     grid-template-columns: repeat(3, 1fr);
   }
+  /* .switcher-tabs {
+    flex: 0 0 100%;
+    max-width: 100%;
+  } */
 }
 
-@media (min-width: 900px) {
+@media (min-width: 992px) {
   .cards {
     grid-template-columns: repeat(3, 1fr);
   }
   .icon-category {
     grid-template-columns: repeat(5, 1fr);
   }
+  /* .switcher-tabs {
+    flex: 0 0 25%;
+    max-width: 25%;
+  } */
 }
 
 .container {

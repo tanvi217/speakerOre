@@ -1,7 +1,7 @@
 import React from 'react';
 
 const title = {
-  color: '#7e7e7e',
+  color: '#5d5d5d',
   letterSpacing: '0.01em',
   fontSize: '75%',
   textAlign: 'center',

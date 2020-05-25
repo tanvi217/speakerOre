@@ -64,9 +64,9 @@ const EventsPage = () => {
               <Radio.Group
                 defaultValue='all'
                 onChange={onChange}
-                size='small'
+                // size='small'
                 style={{
-                  boxShadow: '0 0 10px 1px #E8E9EC',
+                  // boxShadow: '0 0 10px 1px #E8E9EC',
                   borderRadius: '15px',
                   padding: '5px 5px',
                 }}

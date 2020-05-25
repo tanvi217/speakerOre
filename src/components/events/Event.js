@@ -59,7 +59,7 @@ const side_heading = {
 
 const dates = {
   color: '#606060',
-  backgroundColor: '#E8E9EC',
+  // backgroundColor: '#E8E9EC',
   padding: '2% 2%',
   flexGrow: '1',
   margin: '1% 1%',
@@ -161,9 +161,8 @@ const Event = ({ match }) => {
                     style={{
                       borderRadius: '32px',
                       display: 'inline-block',
-                      color: 'white',
                       padding: '3px 12px',
-                      background: '-webkit-linear-gradient(#f5cc23, #f39213)',
+                      boxShadow: '0 0 10px 1px #E8E9EC',
                     }}
                   >
                     {tag.toUpperCase()}

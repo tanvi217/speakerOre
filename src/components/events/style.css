@@ -27,20 +27,20 @@ tr:last-child td {
   grid-gap: 1rem;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 300px) {
   .cards {
     grid-template-columns: repeat(1, 1fr);
     padding: 0;
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 700px) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 900px) {
   .cards {
     grid-template-columns: repeat(3, 1fr);
   }

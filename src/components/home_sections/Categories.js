@@ -13,8 +13,8 @@ const icons = {
   fontSize: '300%',
   color: '#328fce',
   background: '-webkit-linear-gradient(#f5cc23, #f39213)',
-  webkitBackgroundClip: 'text',
-  webkitTextFillColor: 'transparent',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
 };
 
 const category_icons = [
@@ -35,8 +35,8 @@ const Categories = () => {
           your interests.
         </p>
         <div className='icon-category'>
-          {category_icons.map((category) => (
-            <CategoryCard details={category} />
+          {category_icons.map((category, i) => (
+            <CategoryCard details={category} key={i} />
           ))}
         </div>
       </div>

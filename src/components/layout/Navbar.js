@@ -11,7 +11,7 @@ import about from '../../static/about.png';
 import dashboard from '../../static/dashboard.png';
 import detail from '../../static/detail.png';
 import subscribe from '../../static/subscribe.png';
-import audience from '../../static/nav_bg0.jpg';
+import audience from '../../static/blueBackground.png';
 
 import { Drawer, Button } from 'antd';
 
@@ -83,7 +83,7 @@ const Navbar = ({ title, isHome, heading, subheading }) => {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     position: 'relative',
-    backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${Background})`,
+    backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url(${Background})`,
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
   };
