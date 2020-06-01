@@ -36,12 +36,20 @@ export default function App() {
               {loading ? <div>...loading</div> : null}
 
               {suggestions.map((suggestion) => {
-                const style = {
-                  backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
-                };
+                const className = suggestion.active
+                  ? 'suggestion-item--active'
+                  : 'suggestion-item';
+                const style = suggestion.active
+                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
 
                 return (
-                  <div {...getSuggestionItemProps(suggestion, { style })}>
+                  <div
+                    {...getSuggestionItemProps(suggestion, {
+                      className,
+                      style,
+                    })}
+                  >
                     {suggestion.description}
                   </div>
                 );

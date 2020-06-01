@@ -6,6 +6,8 @@ import {
   SHOW_MODAL,
   CLOSE_MODAL,
   USER_LOADED,
+  SHOW_ADD_TEMPLATE_MODAL,
+  CLOSE_ADD_TEMPLATE_MODAL,
 } from '../types';
 
 export default (state, action) => {
@@ -39,10 +41,22 @@ export default (state, action) => {
         auth_modal_visible: true,
       };
 
+    case SHOW_ADD_TEMPLATE_MODAL:
+      return {
+        ...state,
+        isTemplateModalVisible: true,
+      };
+
     case CLOSE_MODAL:
       return {
         ...state,
         auth_modal_visible: false,
+      };
+
+    case CLOSE_ADD_TEMPLATE_MODAL:
+      return {
+        ...state,
+        isTemplateModalVisible: false,
       };
 
     case SIGN_IN_FAIL:

@@ -5,12 +5,6 @@ import 'antd/dist/antd.css';
 import Login from './Login';
 import './nav_style.css';
 import AuthContext from '../context/auth/authContext';
-
-import speaker from '../../static/mspeaker.png';
-import about from '../../static/about.png';
-import dashboard from '../../static/dashboard.png';
-import detail from '../../static/detail.png';
-import subscribe from '../../static/subscribe.png';
 import audience from '../../static/blueBackground.png';
 
 import { Drawer, Button } from 'antd';
@@ -60,22 +54,6 @@ const Navbar = ({ title, isHome, heading, subheading }) => {
   }, []);
 
   var Background = audience;
-
-  switch (heading) {
-    case 'Events':
-      Background = speaker;
-    case 'Subscribe':
-      Background = subscribe;
-    case 'About Us':
-      Background = about;
-    case 'Dashboard':
-      Background = dashboard;
-    case 'Profile':
-      Background = about;
-    default:
-      Background = audience;
-  }
-  // console.log(Background);
 
   const wimg = {
     minHeight: '180px',

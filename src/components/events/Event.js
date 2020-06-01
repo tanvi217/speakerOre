@@ -1,6 +1,7 @@
-import React, { useContext, Fragment, useState } from 'react';
+import React, { useContext, Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EventContext from '../context/events/eventContext';
+import AuthContext from '../context/auth/authContext';
 import Navbar from '../layout/Navbar';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 import Footer from '../layout/Footer';
@@ -17,26 +18,18 @@ import {
 
 import './style.css';
 
+const GOOGLE_API_KEY = 'AIzaSyAT5Og4B22skNEgqGa2dCCKq4lt9djLlSs';
+var DISCOVERY_DOCS = [
+  'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
+];
+var SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+
 const bg = {
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundImage: `url(${Background})`,
   boxShadow: 'inset 5px 10px 30px #e2e2e2',
-};
-
-const grid_style = {
-  padding: '1.5% 5%',
-  display: 'flex',
-  alignItems: 'flex-start',
-  justifyContent: 'space-evenly',
-  alignItems: 'stretch',
-  flexWrap: 'wrap',
-};
-
-const details_section = {
-  flex: '0 0 65%',
-  margin: '1.5% 1%',
 };
 
 const contact_section = {
@@ -75,19 +68,53 @@ const text_style = {
 };
 
 const Event = ({ match }) => {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://apis.google.com/js/api.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+    // getEvents();
+  }, []);
+
+  const getEvents = () => {
+    function start() {
+      window.gapi.client
+        .init({
+          apiKey: GOOGLE_API_KEY,
+        })
+        .then(function () {
+          return window.gapi.client.request({
+            path: `https://www.googleapis.com/calendar/v3/calendars/`,
+          });
+        })
+        .then(
+          (response) => {
+            let events = response.result.items;
+
+            console.log(events);
+          },
+          function (reason) {
+            console.log(reason);
+          }
+        );
+    }
+    window.gapi.load('client', start);
+  };
+
   const eventContext = useContext(EventContext);
+  const authContext = useContext(AuthContext);
+
+  const addEventToCalender = () => {};
 
   const {
     params: { event_id },
   } = match;
 
-  const {
-    events,
-    isLoading,
-    isVisible,
-    showChangeModal,
-    closeChangeModal,
-  } = eventContext;
+  const { events, isLoading, showChangeModal } = eventContext;
+
+  const { defaultMessageTemplate } = authContext;
+  const { subject, body } = defaultMessageTemplate;
 
   const {
     id,
@@ -116,8 +143,8 @@ const Event = ({ match }) => {
       <Navbar heading={'Event - ' + name} />
       <BreadcrumbHead heading={['Events', name]} />
       <div>
-        <div style={grid_style}>
-          <div style={details_section}>
+        <div className='grid-style'>
+          <div className='details-section'>
             <Card
               loading={isLoading}
               style={{
@@ -207,7 +234,9 @@ const Event = ({ match }) => {
             >
               <Space direction='vertical'>
                 <h3 style={heading}>Event Reminder</h3>
-                <Button type='primary'>Set reminder for this event</Button>
+                <Button type='primary' onClick={addEventToCalender}>
+                  Set reminder for this event
+                </Button>
               </Space>
             </Card>
             <Card
@@ -228,7 +257,9 @@ const Event = ({ match }) => {
                 >
                   Suggest change for this event
                 </Button>
-                <Button type='primary'>E-mail organizer</Button>
+                <a href={`mailto:${email}?subject=${subject}&body=${body}`}>
+                  E-mail organizer
+                </a>
               </Space>
             </Card>
           </div>

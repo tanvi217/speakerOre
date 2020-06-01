@@ -6,6 +6,7 @@ import BreadcrumbHead from '../layout/BreadcrumbHead';
 import Footer from '../layout/Footer';
 import AuthContext from '../context/auth/authContext';
 import Background from '../../static/background.png';
+import Templates from '../../components/profile/templates';
 
 const { Meta } = Card;
 const { Content } = Layout;
@@ -15,38 +16,12 @@ function callback(key) {
   console.log(key);
 }
 
-const bg = {
+const bgStyle = {
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundImage: `url(${Background})`,
   boxShadow: 'inset 5px 10px 30px #e2e2e2',
-};
-
-const layoutStyle = {
-  padding: '2% 3%',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-};
-
-const layout = {
-  padding: '1.5% 5%',
-};
-
-const imgStyle = {
-  flex: 1,
-};
-
-const bgStyle = {
-  padding: '1% 1%',
-};
-
-const tabStyle = {
-  flex: 4,
-  margin: '0 2%',
-  padding: '2%',
-  background: 'white',
 };
 
 const Profile = () => {
@@ -60,20 +35,19 @@ const Profile = () => {
       <Navbar heading={'Profile'} />
       <BreadcrumbHead heading={['Profile']} />
       <div>
-        <Content className='site-layout' style={layout}>
-          <Layout className='site-layout-background' style={layoutStyle}>
-            <div style={imgStyle}>
+        <Content className='site-layout layout-container'>
+          <Layout className='site-layout-background layout-style'>
+            <div className='profile-img'>
               <Card
-                // style={{ width: 240 }}
-                cover={<img alt={displayName} src={photoURL} />}
+                cover={<img alt={displayName} src={photoURL} height={200} />}
               >
                 <Meta title={displayName} description={email} />
               </Card>
             </div>
-            <div style={tabStyle}>
+            <div className='tab-style'>
               <Tabs defaultActiveKey='1' onChange={callback}>
                 <TabPane tab='Subscription' key='1'>
-                  <div style={bgStyle}>
+                  <div>
                     <Row>
                       <Col span={24}>
                         <Card title='Current Plan'></Card>
@@ -102,7 +76,7 @@ const Profile = () => {
                   </div>
                 </TabPane>
                 <TabPane tab='Template' key='2'>
-                  Create your templates
+                  <Templates />
                 </TabPane>
                 <TabPane tab='Calendar' key='3'>
                   Calendar events

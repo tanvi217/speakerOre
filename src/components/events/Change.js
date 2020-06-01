@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
-import { Form, Input, InputNumber, Modal, Button } from 'antd';
+import { Form, Input, Modal } from 'antd';
 
 import EventContext from '../context/events/eventContext';
 
@@ -10,10 +10,6 @@ const Change = () => {
   const { isVisible, closeChangeModal } = eventContext;
 
   const [form] = Form.useForm();
-  // useResetFormOnCloseModal({
-  //   form,
-  //   visible,
-  // });
 
   const onOk = () => {
     form.submit();
@@ -26,18 +22,7 @@ const Change = () => {
       onOk={onOk}
       onCancel={closeChangeModal}
     >
-      <Form form={form} layout='vertical' name='userForm'>
-        <Form.Item
-          name='name'
-          label='User Name'
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+      <Form form={form} layout='vertical' name='suggestionsForm'>
         <Form.Item
           name='message'
           label='Message'

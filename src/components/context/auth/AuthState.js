@@ -2,15 +2,16 @@ import React, { useReducer } from 'react';
 import authContext from './authContext';
 import authReducer from './authReducer';
 import firebase from 'firebase';
-import setAuthToken from '../../utils/setAuthToken';
 import {
   SIGN_IN_FB,
   SIGN_IN_GOOGLE,
   LOGOUT,
   SIGN_IN_FAIL,
   SHOW_MODAL,
-  CLOSE_MODAL,
   USER_LOADED,
+  CLOSE_MODAL,
+  SHOW_ADD_TEMPLATE_MODAL,
+  CLOSE_ADD_TEMPLATE_MODAL,
 } from '../types';
 
 if (!firebase.apps.length) {
@@ -34,6 +35,21 @@ const AuthState = (props) => {
     error: null,
     role: 'moderator',
     auth_modal_visible: false,
+    isTemplateModalVisible: false,
+    messageTemplates: [
+      {
+        subject: 'Enquiry about the event',
+        body: 'Would like to get the details of the event',
+      },
+      {
+        subject: 'Interested in delivering a talk at the event',
+        body: 'Would like to deliver a talk at the event',
+      },
+    ],
+    defaultMessageTemplate: {
+      subject: 'Enquiry about the event',
+      body: 'Would like to get the details of the event',
+    },
     bookmarks: [
       {
         id: 1,
@@ -166,8 +182,16 @@ const AuthState = (props) => {
     dispatch({ type: SHOW_MODAL });
   };
 
-  const close_modal = () => {
+  const closeModal = () => {
     dispatch({ type: CLOSE_MODAL });
+  };
+
+  const showAddTemplateModal = () => {
+    dispatch({ type: SHOW_ADD_TEMPLATE_MODAL });
+  };
+
+  const closeAddTemplateModal = () => {
+    dispatch({ type: CLOSE_ADD_TEMPLATE_MODAL });
   };
 
   const logout = () => {
@@ -175,7 +199,7 @@ const AuthState = (props) => {
     dispatch({ type: LOGOUT });
   };
 
-  const signIn_google = () => {
+  const signinGoogle = () => {
     firebase
       .auth()
       .signInWithPopup(provider_google)
@@ -196,7 +220,7 @@ const AuthState = (props) => {
         });
       });
   };
-  const signIn_fb = () => {
+  const signinFb = () => {
     firebase
       .auth()
       .signInWithPopup(provider_fb)
@@ -217,21 +241,27 @@ const AuthState = (props) => {
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         isSubscribed: state.isSubscribed,
+        subject: state.subject,
+        messageTemplates: state.messageTemplates,
+        defaultMessageTemplate: state.defaultMessageTemplate,
         loading: state.loading,
         user: state.user,
         error: state.error,
         auth_modal_visible: state.auth_modal_visible,
+        isTemplateModalVisible: state.isTemplateModalVisible,
         role: state.role,
         events: state.events,
         subscription_start_time: state.subscription_start_time,
         subscription_end_time: state.subscription_end_time,
         bookmarks: state.bookmarks,
         loadUser,
-        signIn_google,
-        signIn_fb,
+        signinGoogle,
+        signinFb,
         logout,
         show_modal,
-        close_modal,
+        closeModal,
+        showAddTemplateModal,
+        closeAddTemplateModal,
       }}
     >
       {props.children}

@@ -184,3 +184,34 @@ a {
 .footer_inner {
   padding: '2% 0';
 }
+
+/* Login Modal */
+
+.login-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+  transition: background-color 0.2s;
+  margin: 10px 0;
+  height: 50px;
+  width: 100%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 1px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+  color: #2f1359;
+}
+
+.login-head {
+  color: #2f1359;
+  text-align: center;
+  text-transform: none;
+  margin: 0 0 10px;
+  font-size: 24px;
+  /* font-family: Open Sans, Helvetica, Arial, sans-serif; */
+}

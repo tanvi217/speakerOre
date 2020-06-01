@@ -5,6 +5,7 @@ import Event_details from './event_details';
 import Navbar from '../layout/Navbar';
 import Confirmation from './confirm';
 import Event_basic_details from './event_basic_details';
+// import AddressForm from './temp_form';
 import { Steps, message } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 import Footer from '../layout/Footer';

@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 import './style.css';
 
-const show_tab = (e, option) => {
+const showInfoTab = (e, option) => {
   e.preventDefault();
   var i, content, links;
   content = document.getElementsByClassName('switcher-info-content');
@@ -18,6 +18,7 @@ const show_tab = (e, option) => {
     links[i].className = links[i].className.replace(' active', '');
   }
   document.getElementById(option).style.display = 'block';
+  document.getElementById(option).style.color = '#2f1359';
   e.currentTarget.className += ' active';
 };
 
@@ -40,28 +41,31 @@ const About = () => {
               className='switcher-option active'
               href='#text'
               onClick={(e) => {
-                show_tab(e, 'text');
+                showInfoTab(e, 'text');
               }}
             >
-              <MessageOutlined style={{ fontSize: '20px' }} /> Text
+              <MessageOutlined style={{ fontSize: '20px' }} />{' '}
+              <span className='switcher-option-name'>Text</span>
             </a>
             <a
               className='switcher-option'
               href='#email'
               onClick={(e) => {
-                show_tab(e, 'email');
+                showInfoTab(e, 'email');
               }}
             >
-              <MailOutlined style={{ fontSize: '20px' }} /> Email
+              <MailOutlined style={{ fontSize: '20px' }} />{' '}
+              <span className='switcher-option-name'>Email</span>
             </a>
             <a
               className='switcher-option'
               href='#call'
               onClick={(e) => {
-                show_tab(e, 'call');
+                showInfoTab(e, 'call');
               }}
             >
-              <PhoneOutlined style={{ fontSize: '20px' }} /> Call
+              <PhoneOutlined style={{ fontSize: '20px' }} />{' '}
+              <span className='switcher-option-name'>Call</span>
             </a>
           </div>
           <div className='switcher-info'>

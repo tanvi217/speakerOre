@@ -29,8 +29,6 @@ const RightMenuAuth = ({ mode }) => {
 
   const { logout, role } = authContext;
 
-  console.log(role);
-
   return (
     <Menu mode={mode} style={{ zIndex: 200 }}>
       <SubMenu

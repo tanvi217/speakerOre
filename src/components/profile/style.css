@@ -1,0 +1,39 @@
+.message-container {
+  padding: '1.5% 5%';
+}
+
+.message-grid {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.message {
+  flex: 0 0 50%;
+  padding: 10px 20px;
+}
+
+.add-button-circular {
+  /* background-color: #31b0d5; */
+  color: #328fce;
+  padding: 10px 20px;
+  /* border-radius: 4px; */
+  /* border-color: #46b8da; */
+}
+
+.add-button {
+  position: fixed;
+  color: #328fce;
+  bottom: 5%;
+  right: 8%;
+  font-size: 50px;
+}
+
+@media (max-width: 600px) {
+  .message-grid {
+    padding: 1px;
+  }
+  .message {
+    flex: 0 0 100%;
+    padding: 5px 5px;
+  }
+}

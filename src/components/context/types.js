@@ -9,6 +9,8 @@ export const SHOW_MODAL = 'SHOW_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const LOGOUT = 'LOGOUT';
 export const USER_LOADED = 'USER_LOADED';
+export const SHOW_ADD_TEMPLATE_MODAL = 'SHOW_ADD_TEMPLATE_MODAL';
+export const CLOSE_ADD_TEMPLATE_MODAL = 'CLOSE_ADD_TEMPLATE_MODAL';
 
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const EDIT_EVENT = 'EDIT_EVENT';

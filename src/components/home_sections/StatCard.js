@@ -2,38 +2,15 @@ import React from 'react';
 import { ArrowUpOutlined } from '@ant-design/icons';
 import { Card } from 'antd';
 
-const card_style = {
-  borderRadius: '10px',
-  // boxShadow: '0 0 10px 1px #E8E9EC',
-  boxShadow: '0px 0px 15px 2px rgba(47, 19, 89, 0.1)',
-};
-
-const title = {
-  color: '#5d5d5d',
-  letterSpacing: '0.1em',
-};
-
-const stat = {
-  color: 'black',
-  fontSize: '250%',
-  fontWeight: 'bold',
-};
-
-const subtitle = {
-  color: '#5d5d5d',
-  letterSpacing: '0.1em',
-  fontWeight: 550,
-};
-
 const StatCard = ({ details }) => {
   return (
-    <Card style={card_style}>
-      <p style={title}>{details.title.toUpperCase()}</p>
-      <p style={stat}>
+    <Card className='card-style'>
+      <p className='title'>{details.title.toUpperCase()}</p>
+      <p className='stat'>
         {details.number}
         <ArrowUpOutlined style={{ color: '#328fce' }} />
       </p>
-      <p style={subtitle}>{details.subtitle.toUpperCase()}</p>
+      <p className='subtitle'>{details.subtitle.toUpperCase()}</p>
     </Card>
   );
 };

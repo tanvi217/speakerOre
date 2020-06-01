@@ -14,10 +14,20 @@ tr:last-child td {
 .content {
   display: flex;
 }
-@media (max-width: 576px) {
-  .content {
-    display: block;
-  }
+
+/* Event Page */
+
+.grid-style {
+  padding: 1.5% 5%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.details-section {
+  flex: 0 0 65%;
+  margin: 1.5% 1%;
 }
 
 .cards {
@@ -27,10 +37,31 @@ tr:last-child td {
   grid-gap: 1rem;
 }
 
-@media (min-width: 300px) {
+.filter {
+  width: 35%;
+  position: 'relative';
+}
+
+@media (min-width: 500px) {
   .cards {
     grid-template-columns: repeat(1, 1fr);
     padding: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .content {
+    display: block;
+  }
+  .details-section {
+    flex: 0 0 100%;
+  }
+}
+
+@media (min-width: 600px) {
+  .filter {
+    width: 100%;
+    position: 'relative';
   }
 }
 
@@ -43,17 +74,5 @@ tr:last-child td {
 @media (min-width: 900px) {
   .cards {
     grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.filter {
-  width: 35%;
-  position: 'relative';
-}
-
-@media (min-width: 600px) {
-  .filter {
-    width: 100%;
-    position: 'relative';
   }
 }

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './style.css';
 import 'antd/dist/antd.css';
-import { Space, Button } from 'antd';
+import { Button } from 'antd';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
 import Wave from '../../static/home_wave.svg';
@@ -13,7 +13,7 @@ const waveStyle = {
   minHeight: '250px',
   backgroundSize: 'cover',
   backgroundImage: `url(${Wave})`,
-  backgroundColor: '#fafafc',
+  backgroundColor: '#f6f5fa',
 };
 
 const company = {
@@ -35,8 +35,8 @@ const know_button = {
   color: '#ffffff',
   borderRadius: '10px',
   //   fontWeight: 'bold',
-  //   padding: '17px 27px',
-  margin: '0 12px',
+  padding: '17px 27px',
+  // margin: '0 12px',
 };
 
 const other_button = {
@@ -60,15 +60,14 @@ const VideoSection = () => {
     <div>
       <div style={gradient}>
         <div className='container'>
-          <div className='container_inner_video'>
+          <div className='container-inner-video'>
             <h1 style={company}>SpeakerOre</h1>
             <h2 style={logo}>Gold mine for speakers</h2>
-            <Button style={know_button} size='large'>
-              Know more
-            </Button>
-            <Button style={other_button} size='large'>
-              Subscribe now
-            </Button>
+            <div className='video-section__button'>
+              <a href='/about'>
+                <div className='video-button'>ABOUT US</div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
