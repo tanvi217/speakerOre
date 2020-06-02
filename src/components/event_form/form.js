@@ -55,7 +55,14 @@ export class form extends Component {
       country: '',
       postalcode: '',
     },
-    step_two_fields: { about: '', tags: [], email: '', phone: '', website: '' },
+    step_two_fields: {
+      about: '',
+      tags: [],
+      email: '',
+      phone: '',
+      website: '',
+      description: '',
+    },
   };
 
   nextStep = () => {

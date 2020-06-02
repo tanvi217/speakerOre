@@ -129,7 +129,7 @@ class AddressForm extends React.Component {
         </table>
 
         <script
-          src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&libraries=places&callback=initAutocomplete'
+          // src='https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete'
           async
           defer
         ></script>

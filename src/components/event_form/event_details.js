@@ -54,7 +54,14 @@ export class event_details extends Component {
   children = [];
 
   render() {
-    const { about, tags, phone, website, email } = this.props.values;
+    const {
+      about,
+      tags,
+      phone,
+      website,
+      email,
+      description,
+    } = this.props.values;
     const { handleChange, handleChangeTag, prevStep } = this.props;
     return (
       <Form
@@ -69,6 +76,7 @@ export class event_details extends Component {
           about: about,
           website: website,
           phone: phone,
+          description: description,
         }}
       >
         <Form.Item name='tags' label='Tags'>
@@ -88,7 +96,7 @@ export class event_details extends Component {
           rules={[
             {
               type: 'email',
-              message: 'The input is not valid E-mail!',
+              message: 'The input is not a valid E-mail!',
             },
             {
               required: true,
@@ -145,6 +153,12 @@ export class event_details extends Component {
           <Input.TextArea
             onChange={handleChange('about')}
             placeholder='About the event'
+          />
+        </Form.Item>
+        <Form.Item name='description' label='Description'>
+          <Input.TextArea
+            onChange={handleChange('description')}
+            placeholder='Details of the event'
           />
         </Form.Item>
         <div className='steps-action'>

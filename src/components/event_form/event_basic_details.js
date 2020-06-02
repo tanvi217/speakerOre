@@ -196,6 +196,7 @@ export class event_basic_details extends Component {
           rules={[
             {
               required: true,
+              message: 'Please fill in the street',
             },
           ]}
         >
@@ -211,6 +212,7 @@ export class event_basic_details extends Component {
           rules={[
             {
               required: true,
+              message: 'Please fill in the city',
             },
           ]}
         >
@@ -222,6 +224,7 @@ export class event_basic_details extends Component {
           rules={[
             {
               required: true,
+              message: 'Please fill in the state',
             },
           ]}
         >
@@ -233,6 +236,7 @@ export class event_basic_details extends Component {
           rules={[
             {
               required: true,
+              message: 'Please fill in the country',
             },
           ]}
         >
@@ -244,7 +248,7 @@ export class event_basic_details extends Component {
           rules={[
             {
               required: true,
-              message: 'Postal code is required',
+              message: 'Please fill in the postal code',
             },
           ]}
         >

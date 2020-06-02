@@ -15,7 +15,7 @@ class AddressForm extends React.Component {
   componentDidMount() {
     const script = document.createElement('script');
     script.src =
-      //   'https://maps.googleapis.com/maps/api/js?key=AIzaSyAT5Og4B22skNEgqGa2dCCKq4lt9djLlSs&libraries=places&callback=initAutocomplete';
+      //   'https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initAutocomplete';
       script.defer = true;
     script.async = true;
     document.body.appendChild(script);

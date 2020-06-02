@@ -27,6 +27,7 @@ export class confirm extends Component {
       phone,
       website,
       email,
+      description,
     } = this.props.values;
     const data = [
       ['Event Name', eventName],
@@ -51,6 +52,7 @@ export class confirm extends Component {
       ['Phone', phone],
       ['Website', website],
       ['Email', email],
+      ['Description', description],
     ];
     return (
       <div id='container' style={{ padding: '0px 10px 10px 10px' }}>
