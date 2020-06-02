@@ -3,11 +3,18 @@ import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Card, Button, Skeleton, Tag, Space } from 'antd';
 import Meta from 'antd/lib/card/Meta';
-import { CalendarOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import {
+  CalendarOutlined,
+  EnvironmentOutlined,
+  StarOutlined,
+} from '@ant-design/icons';
 
 const heading = { fontWeight: '540' };
 
-const cardHead = { color: 'white', textDecorationColor: '#d39e00' };
+const cardHead = {
+  color: 'white',
+  textDecorationColor: '#d39e00',
+};
 
 const EventItem = ({ event, isLoading }) => {
   const {
@@ -45,56 +52,73 @@ const EventItem = ({ event, isLoading }) => {
         borderRadius: '15px',
         borderTop: '5px solid #328fce',
       }}
-      bodyStyle={{ textAlign: 'center' }}
+      // bodyStyle={{ textAlign: 'center' }}
     >
       <Skeleton loading={isLoading} active>
         <div style={heading}>
-          <h3>{name.toUpperCase()}</h3>
+          <h3>
+            <span style={{ float: 'left', paddingLeft: '7px' }}>
+              {name.toUpperCase()}
+            </span>
+            <span style={{ float: 'right', paddingRight: '7px' }}>
+              <StarOutlined
+                style={{
+                  color: '#328fce',
+                  fontSize: '20px',
+                }}
+              />
+            </span>
+          </h3>
         </div>
         <br />
+        <br />
+        <br />
 
-        <div>{about}</div>
-        <br />
-        <Meta
-          description={loc_arr.map((el) => (
-            <Fragment key={el}>{el}</Fragment>
-          ))}
-        ></Meta>
-        <br />
-        <Meta
-          description={date_arr.map((el, index) => (
-            <Fragment key={index}>{el}</Fragment>
-          ))}
-        ></Meta>
-        <br />
-        <Meta
-          description={tags.map((tag, index) => (
-            <Tag
-              // color='#f5cc23'
-              key={index}
-              style={{
-                borderRadius: '32px',
-                display: 'inline-block',
-                padding: '3px 12px',
-                boxShadow: '0 0 10px 1px #E8E9EC',
-              }}
+        <div style={{ textAlign: 'center' }}>
+          <div>{about}</div>
+          <br />
+          <Meta
+            description={loc_arr.map((el) => (
+              <Fragment key={el}>{el}</Fragment>
+            ))}
+          ></Meta>
+          <br />
+          <Meta
+            description={date_arr.map((el, index) => (
+              <Fragment key={index}>{el}</Fragment>
+            ))}
+          ></Meta>
+          <br />
+          <Meta
+            description={tags.map((tag, index) => (
+              <Tag
+                // color='#f5cc23'
+                key={index}
+                style={{
+                  borderRadius: '32px',
+                  display: 'inline-block',
+                  padding: '3px 12px',
+                  backgroundColor: '#ececec',
+                  border: 'none',
+                }}
+              >
+                {tag.toUpperCase()}
+              </Tag>
+            ))}
+          ></Meta>
+          <br />
+          <br />
+          <Button type='primary' shape='round'>
+            <Link
+              to={`/event/${id}`}
+              target='_blank'
+              rel='noopener noreferrer'
+              style={cardHead}
             >
-              {tag.toUpperCase()}
-            </Tag>
-          ))}
-        ></Meta>
-        <br />
-        <br />
-        <Button type='primary' shape='round'>
-          <Link
-            to={`/event/${id}`}
-            target='_blank'
-            rel='noopener noreferrer'
-            style={cardHead}
-          >
-            Details
-          </Link>
-        </Button>
+              Details
+            </Link>
+          </Button>
+        </div>
       </Skeleton>
     </Card>
   );

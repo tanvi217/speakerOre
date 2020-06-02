@@ -257,9 +257,12 @@ const Event = ({ match }) => {
                 >
                   Suggest change for this event
                 </Button>
-                <a href={`mailto:${email}?subject=${subject}&body=${body}`}>
+                <Button
+                  href={`mailto:${email}?subject=${subject}&body=${body}`}
+                >
                   E-mail organizer
-                </a>
+                </Button>
+                <Button>Bookmark this event</Button>
               </Space>
             </Card>
           </div>
