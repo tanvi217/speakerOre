@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { BarsOutlined } from '@ant-design/icons';
+import { BarsOutlined, AudioOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 import Login from './Login';
@@ -83,7 +83,7 @@ const Navbar = ({ title, isHome, heading, subheading }) => {
             type='link'
             onClick={() => setVisible(true)}
             icon={
-              <BarsOutlined style={{ color: '#328fce', fontSize: '20px' }} />
+              <AudioOutlined style={{ color: '#328fce', fontSize: '20px' }} />
             }
           >
             <span className='barsBtn'></span>

@@ -15,13 +15,23 @@ const LeftMenu = () => {
     <Menu mode='horizontal' style={{ zIndex: 200 }}>
       <Menu.Item key='title' style={leftItems}>
         <Link to='/'>
-          <strong style={{ color: '#328fce' }}>SPEAKER</strong>
+          <strong
+            style={
+              {
+                // color: '#328fce'
+              }
+            }
+          >
+            SPEAKER
+          </strong>
           <span
-            style={{
-              background: '-webkit-linear-gradient(#f5cc23, #f39213)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
+            style={
+              {
+                // background: '-webkit-linear-gradient(#f5cc23, #f39213)',
+                // WebkitBackgroundClip: 'text',
+                // WebkitTextFillColor: 'transparent',
+              }
+            }
           >
             ORE
           </span>

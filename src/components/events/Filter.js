@@ -45,13 +45,7 @@ const EventFilter = () => {
 
   const eventsFilterContext = useContext(EventsFilterContext);
 
-  const {
-    categories,
-    locations,
-    isDrawerVisible,
-    show_drawer,
-    close_drawer,
-  } = eventsFilterContext;
+  const { categories, locations } = eventsFilterContext;
 
   const children = [];
   for (let i = 0; i < categories.length; i++) {

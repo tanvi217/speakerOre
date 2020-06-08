@@ -21,11 +21,15 @@
 }
 
 .add-button {
-  position: fixed;
+  /* position: fixed; */
   color: #328fce;
-  bottom: 5%;
-  right: 8%;
+  padding: 20px 20px;
   font-size: 50px;
+  float: right;
+  -webkit-tap-highlight-color: #e8e9ec;
+  /* border-radius: 30px; */
+  /* box-shadow: 2px 2px 5px 0px #e8e9ec; */
+  /* box-shadow: 10px -10px #e8e9ec; */
 }
 
 @media (max-width: 600px) {

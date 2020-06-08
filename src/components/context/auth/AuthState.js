@@ -16,7 +16,7 @@ import {
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
-    apiKey: 'AIzaSyBhOhfy95TDK6C8U8kjgd1anwIXV6TD0dE',
+    apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
     authDomain: 'speakerore-e254d.firebaseapp.com',
   });
 }

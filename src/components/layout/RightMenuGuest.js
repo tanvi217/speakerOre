@@ -3,9 +3,10 @@ import AuthContext from '../context/auth/authContext';
 import { Link } from 'react-router-dom';
 import { Menu, Button } from 'antd';
 import './nav_style.css';
+import { LoginOutlined } from '@ant-design/icons';
 
 const buttonStyle = {
-  background: '#f5cc23',
+  background: '-webkit-linear-gradient(#f5cc23, #f39213)',
   borderColor: '#ffffff',
   color: '#ffffff',
 };
@@ -32,18 +33,6 @@ const RightMenuGuest = ({ mode }) => {
 
   return (
     <Menu mode={mode} style={{ zIndex: 200 }}>
-      <Menu.Item key='log_in' style={rightItems}>
-        <Button
-          onClick={showModal}
-          type='primary'
-          size='middle'
-          style={buttonStyle}
-          shape='round'
-        >
-          Login
-        </Button>
-      </Menu.Item>
-
       <Menu.Item key='add_event' style={rightItems}>
         <Link to='/add_event' style={linkItems}>
           Add Event
@@ -66,6 +55,18 @@ const RightMenuGuest = ({ mode }) => {
         <Link to='/about' style={linkItems}>
           About
         </Link>
+      </Menu.Item>
+
+      <Menu.Item key='log_in' style={rightItems}>
+        <Button
+          onClick={showModal}
+          size='middle'
+          style={buttonStyle}
+          shape='round'
+        >
+          <LoginOutlined />
+          Login
+        </Button>
       </Menu.Item>
     </Menu>
   );

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import AuthContext from '../context/auth/authContext';
 import AddTemplate from './AddTemplate';
 import { Card, Skeleton, Button } from 'antd';
@@ -6,7 +6,7 @@ import {
   EditOutlined,
   StarOutlined,
   DeleteOutlined,
-  PlusCircleOutlined,
+  PlusCircleFilled,
 } from '@ant-design/icons';
 
 import './style.css';
@@ -20,10 +20,6 @@ const Templates = () => {
 
   return (
     <div className='message-container'>
-      <div>
-        <Button onClick={showAddTemplateModal}>Add Template</Button>
-        <AddTemplate />
-      </div>
       <div className='message-grid'>
         {messageTemplates.map((messageTemplate, i) => {
           return (
@@ -48,6 +44,10 @@ const Templates = () => {
             </div>
           );
         })}
+      </div>
+      <div>
+        <PlusCircleFilled className='add-button' />
+        <AddTemplate />
       </div>
     </div>
   );
