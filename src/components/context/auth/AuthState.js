@@ -171,9 +171,7 @@ const AuthState = (props) => {
 
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        console.log(user);
         dispatch({ type: USER_LOADED, payload: user });
-        console.log(user);
       }
     });
   };

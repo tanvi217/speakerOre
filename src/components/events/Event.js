@@ -1,5 +1,4 @@
-import React, { useContext, Fragment, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, Fragment, useEffect } from 'react';
 import EventContext from '../context/events/eventContext';
 import AuthContext from '../context/auth/authContext';
 import Navbar from '../layout/Navbar';
@@ -10,7 +9,6 @@ import Background from '../../static/background.png';
 
 import { Card, Button, Tag, Space } from 'antd';
 import {
-  HeartTwoTone,
   GlobalOutlined,
   MailOutlined,
   ContactsOutlined,
@@ -18,11 +16,10 @@ import {
 
 import './style.css';
 
-const GOOGLE_API_KEY = 'AIzaSyAT5Og4B22skNEgqGa2dCCKq4lt9djLlSs';
 var DISCOVERY_DOCS = [
   'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
 ];
-var SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+var SCOPES = 'https://www.googleapis.com/auth/calendar';
 
 const bg = {
   backgroundPosition: 'center',
@@ -67,6 +64,29 @@ const text_style = {
   fontSize: '17px',
 };
 
+var event = {
+  summary: 'Google I/O 2015',
+  location: '800 Howard St., San Francisco, CA 94103',
+  description: "A chance to hear more about Google's developer products.",
+  start: {
+    dateTime: '2020-09-28T09:00:00-07:00',
+    timeZone: 'America/Los_Angeles',
+  },
+  end: {
+    dateTime: '2020-10-28T17:00:00-07:00',
+    timeZone: 'America/Los_Angeles',
+  },
+  recurrence: ['RRULE:FREQ=DAILY;COUNT=2'],
+  attendees: [{ email: 'lpage@example.com' }, { email: 'sbrin@example.com' }],
+  reminders: {
+    useDefault: false,
+    overrides: [
+      { method: 'email', minutes: 24 * 60 },
+      { method: 'popup', minutes: 10 },
+    ],
+  },
+};
+
 const Event = ({ match }) => {
   useEffect(() => {
     const script = document.createElement('script');
@@ -74,38 +94,31 @@ const Event = ({ match }) => {
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
-    // getEvents();
+    handleClientLoad();
   }, []);
 
-  const getEvents = () => {
-    function start() {
-      window.gapi.client
-        .init({
-          apiKey: GOOGLE_API_KEY,
-        })
-        .then(function () {
-          return window.gapi.client.request({
-            path: `https://www.googleapis.com/calendar/v3/calendars/`,
-          });
-        })
-        .then(
-          (response) => {
-            let events = response.result.items;
+  const handleClientLoad = () => {
+    window.gapi.load('client:auth2', initClient);
+  };
 
-            console.log(events);
-          },
-          function (reason) {
-            console.log(reason);
-          }
-        );
-    }
-    window.gapi.load('client', start);
+  const initClient = () => {
+    window.gapi.client.init({
+      apiKey: `${process.env.REACT_APP_CALENDAR_API_KEY}`,
+      clientId: `${process.env.REACT_APP_CLIENT_ID}`,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES,
+    });
+  };
+
+  const addEventToCalender = () => {
+    window.gapi.client.calendar.events.insert({
+      calendarId: 'primary',
+      resource: event,
+    });
   };
 
   const eventContext = useContext(EventContext);
   const authContext = useContext(AuthContext);
-
-  const addEventToCalender = () => {};
 
   const {
     params: { event_id },
