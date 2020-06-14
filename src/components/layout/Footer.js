@@ -1,126 +1,59 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Space } from 'antd';
-import Wave from '../../static/wave_footer.svg';
+import 'antd/dist/antd.css';
 import './style.css';
-
 import {
-  FacebookFilled,
-  InstagramFilled,
-  LinkedinFilled,
-  TwitterCircleFilled,
-  MailOutlined,
+  FacebookOutlined,
+  InstagramOutlined,
+  LinkedinOutlined,
+  TwitterOutlined,
 } from '@ant-design/icons';
 
-const text = {
-  color: 'white',
-};
+import { Layout, Space } from 'antd';
 
 const icon = {
-  color: 'white',
-  fontSize: '20px',
+  color: '#2f1359',
+  fontSize: '25px',
+  border: '1.2px solid #cecece',
+  padding: '8px 8px',
+  borderRadius: '4px',
+  margin: '0 5px',
 };
 
-const footer = {
-  display: 'flex',
-  flexWrap: 'wrap',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  padding: '2.5% 0',
-};
+const { Footer } = Layout;
 
-const waveStyle = {
-  position: 'relative',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  minHeight: '280px',
-  backgroundSize: 'cover',
-  backgroundImage: `url(${Wave})`,
-};
-
-const sections = {
-  flex: '0 0 33%',
-  color: 'white',
-};
-
-const Footer = () => {
+const FooterSection = () => {
   return (
-    <div>
-      <div style={waveStyle}></div>
-      <div style={{ backgroundColor: '#328fce' }}>
-        <div className='container'>
-          <div style={footer}>
-            <div style={sections}>
-              <div>
-                <Link to='/about' style={text}>
-                  About Us
-                </Link>
-              </div>
-              <div>
-                <Link to='/help' style={text}>
-                  Help & Support
-                </Link>
-              </div>
-              <div>
-                <Link to='/events' style={text}>
-                  FAQs
-                </Link>
-              </div>
-
-              <div style={{ display: 'block' }}>
-                <Space horizontally={8}>
-                  <a href='#'>
-                    <FacebookFilled style={icon} />
-                  </a>
-                  <a href='#'>
-                    <TwitterCircleFilled style={icon} />
-                  </a>
-                  <a href='#'>
-                    <InstagramFilled style={icon} />
-                  </a>
-                  <a href='#'>
-                    <LinkedinFilled style={icon} />
-                  </a>
-                </Space>
-              </div>
-            </div>
-
-            <div style={sections}>
-              <div>
-                <Link to='/' style={text}>
-                  Home
-                </Link>
-              </div>
-              <div>
-                <Link to='/add_event' style={text}>
-                  Add Event
-                </Link>
-              </div>
-              <div>
-                <Link to='/events' style={text}>
-                  Events
-                </Link>
-              </div>
-              <div>
-                <Link to='/subscribe' style={text}>
-                  Subscribe
-                </Link>
-              </div>
-            </div>
-
-            <div style={sections}>
-              <div>
-                <MailOutlined style={text} /> Customer Service:
-                contact@speakerore.com
-              </div>
-            </div>
-          </div>
-          <hr style={text} />
-          <h5 style={text}>© 2020 SpeakerOre All rights reserved.</h5>
+    <div className='footer-container'>
+      <div className='footer-inner'>
+        <div className='footer-links'>
+          <p>FAQ</p>
+          <p>ABOUT US</p>
+          <p>EVENTS</p>
+          <p>SUBSCRIBE</p>
+        </div>
+        <div className='footer-icons'>
+          <Space horizontally={16}>
+            <a href='#'>
+              <FacebookOutlined style={icon} />
+            </a>
+            <a href='#'>
+              <TwitterOutlined style={icon} />
+            </a>
+            <a href='#'>
+              <InstagramOutlined style={icon} />
+            </a>
+            <a href='#'>
+              <LinkedinOutlined style={icon} />
+            </a>
+          </Space>
+        </div>
+        <div className='footer-links'>
+          <p>COPYRIGHT SpeakerOre 2020</p>
+          <p>TERMS & CONDITIONS | PRIVACY | LEGAL NOTICE</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default Footer;
+export default FooterSection;
