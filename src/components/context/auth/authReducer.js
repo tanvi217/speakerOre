@@ -17,22 +17,24 @@ export default (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        token: action.payload.getIdToken(),
+        token: localStorage.getItem('token'),
         loading: false,
         user: action.payload,
         error: null,
       };
     case SIGN_IN_GOOGLE:
     case SIGN_IN_FB:
-      // localStorage.setItem('token', action.payload.credential.idToken);
+      localStorage.setItem('token', action.payload.token);
       return {
         ...state,
         isAuthenticated: true,
-        token: action.payload.credential.idToken,
         loading: false,
-        user: action.payload.user,
         error: null,
         auth_modal_visible: false,
+        isSubscribed: action.payload.isSubscribed,
+        role: action.payload.role,
+        user: action.payload.user,
+        token: action.payload.token,
       };
 
     case SHOW_MODAL:
@@ -60,7 +62,7 @@ export default (state, action) => {
       };
 
     case SIGN_IN_FAIL:
-      // localStorage.removeItem('token');
+      localStorage.removeItem('token');
       return {
         ...state,
         token: null,
@@ -70,7 +72,7 @@ export default (state, action) => {
         error: action.payload,
       };
     case LOGOUT:
-      // localStorage.removeItem('token');
+      localStorage.removeItem('token');
       return {
         ...state,
         token: null,

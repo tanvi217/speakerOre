@@ -11,7 +11,7 @@ const cardHead = {
   textAlign: 'center',
 };
 const sym = { fontSize: '1rem', textAlign: 'center' };
-const amountHead = {
+const priceHead = {
   fontWeight: 500,
   fontSize: '1.75rem',
   textAlign: 'center',
@@ -33,38 +33,37 @@ const buttonStyle = {
 };
 
 const planItem = ({ plan, isLoading }) => {
-  const { name, duration, about, description, amount } = plan;
+  const { name, duration, features, price } = plan;
 
   return (
     <Card loading={isLoading} bordered style={cardStyle}>
       <Skeleton loading={isLoading} active>
         <div style={cardHead}>{name}</div>
-        <div style={amountHead}>
+        <div style={priceHead}>
           <sup style={sym}>{'₹'}</sup>
-          <span style={amountHead}>{amount}</span>
+          <span style={priceHead}>{price}</span>
         </div>
         <div style={aboutStyle}>{'Per User every ' + duration}</div>
         <br />
-        <div style={aboutStyle}>{about}</div>
-        <br />
-        <div style={amountHead}>
+        <div style={priceHead}>
           <Button size='middle' style={buttonStyle} block>
             Get this
           </Button>
         </div>
-
         <Divider />
+        {features && (
+          <Meta
+            description={features.map((el) => (
+              <div key={el} style={{ margin: '2.5% 2.5%' }}>
+                <CheckOutlined style={{ fontSize: '16px', color: '#328fce' }} />
+                {'  here '}
+                {el}
+                <br />
+              </div>
+            ))}
+          ></Meta>
+        )}
 
-        <Meta
-          description={description.split(',').map((el) => (
-            <div key={el} style={{ margin: '2.5% 2.5%' }}>
-              <CheckOutlined style={{ fontSize: '16px', color: '#328fce' }} />
-              {'  '}
-              {el}
-              <br />
-            </div>
-          ))}
-        ></Meta>
         <br />
       </Skeleton>
     </Card>

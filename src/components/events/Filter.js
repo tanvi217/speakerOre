@@ -5,7 +5,6 @@ import EventsFilterContext from '../context/eventsFilter/eventsFilterContext';
 import moment from 'moment';
 import { CaretRightOutlined } from '@ant-design/icons';
 
-const { Sider } = Layout;
 const { Option } = Select;
 const { Panel } = Collapse;
 

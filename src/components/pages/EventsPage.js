@@ -33,7 +33,8 @@ const buttonStyle = {
 
 const EventsPage = () => {
   const authContext = useContext(AuthContext);
-  const { isSubscribed, role, show_modal } = authContext;
+  const { isSubscribed, role, show_modal, isAuthenticated } = authContext;
+  // console.log(role, isSubscribed);
 
   const [option, setOption] = useState('all');
 
@@ -101,9 +102,11 @@ const EventsPage = () => {
           </Button>
           <br />
           <br />
-          <a onClick={() => show_modal()} style={{ color: '#328fce' }}>
-            Already Subscribed? Log in here
-          </a>
+          {!isAuthenticated && (
+            <a onClick={() => show_modal()} style={{ color: '#328fce' }}>
+              Already Subscribed? Log in here
+            </a>
+          )}
         </div>
       )}
     </Fragment>
