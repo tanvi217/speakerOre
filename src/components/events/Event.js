@@ -138,10 +138,9 @@ const Event = ({ match }) => {
     state,
     country,
     postalcode,
-    start_date,
-    end_date,
+    start_time,
+    end_time,
     categories,
-    tags,
     description,
     phone,
     email,
@@ -178,11 +177,11 @@ const Event = ({ match }) => {
               >
                 <div style={dates}>
                   <div style={heading}>Start Date</div>
-                  {start_date.toString()}
+                  {start_time.toString()}
                 </div>
                 <div style={dates}>
                   <div style={heading}>End Date</div>
-                  {end_date.toString()}
+                  {end_time.toString()}
                 </div>
               </div>
               <div style={side_heading}>EVENT DETAILS</div>
@@ -194,7 +193,7 @@ const Event = ({ match }) => {
                 <p style={text_style}>{loc}</p>
               </div>
               <div style={information}>
-                {tags.map((tag, index) => (
+                {categories.map((tag, index) => (
                   <Tag
                     // color='#f5cc23'
                     key={index}

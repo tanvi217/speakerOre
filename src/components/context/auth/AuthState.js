@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
 import authContext from './authContext';
 import authReducer from './authReducer';
 import firebase from 'firebase';
@@ -13,6 +14,7 @@ import {
   SHOW_ADD_TEMPLATE_MODAL,
   CLOSE_ADD_TEMPLATE_MODAL,
 } from '../types';
+import setAuthToken from '../../utils/setAuthToken';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -26,14 +28,13 @@ var provider_fb = new firebase.auth.FacebookAuthProvider();
 
 const AuthState = (props) => {
   const initialState = {
-    // token: localStorage.getItem('token'),
-    token: null,
+    token: localStorage.getItem('token'),
     isAuthenticated: false,
-    isSubscribed: true,
+    isSubscribed: false,
     loading: false,
     user: null,
     error: null,
-    role: 'moderator',
+    role: null,
     auth_modal_visible: false,
     isTemplateModalVisible: false,
     messageTemplates: [
@@ -164,10 +165,16 @@ const AuthState = (props) => {
   };
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  const config = {
+    headers: {
+      'Content-type': 'application/json',
+    },
+  };
+
   const loadUser = () => {
-    // if (localStorage.token) {
-    //   setAuthToken(localStorage.token);
-    // }
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
 
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -201,11 +208,22 @@ const AuthState = (props) => {
     firebase
       .auth()
       .signInWithPopup(provider_google)
-      .then(function (result) {
-        var token = result.credential;
-        var user = result.user;
-        console.log(user, token);
-        dispatch({ type: SIGN_IN_GOOGLE, payload: result });
+      .then(async function (result) {
+        const userCredentials = {
+          provider: 'GOOGLE',
+          email: result.user.email,
+          name: result.user.displayName,
+          idToken: result.credential.idToken,
+          phone: result.credential.phoneNumber,
+        };
+        const response = await axios.post(
+          '/api/auth/login',
+          userCredentials,
+          config
+        );
+        response.data['user'] = result.user;
+        console.log(response.data.isSubscribed);
+        dispatch({ type: SIGN_IN_GOOGLE, payload: response.data });
       })
       .catch(function (error) {
         // var errorCode = error.code;
@@ -218,12 +236,28 @@ const AuthState = (props) => {
         });
       });
   };
+
   const signinFb = () => {
     firebase
       .auth()
       .signInWithPopup(provider_fb)
-      .then(function (result) {
-        dispatch({ type: SIGN_IN_FB, payload: result });
+      .then(async function (result) {
+        console.log(result);
+        // Validate with API - no idToken field with fb
+        const userCredentials = {
+          provider: 'FACEBOOK',
+          email: result.user.email,
+          name: result.user.displayName,
+          idToken: result.credential.idToken,
+          phone: result.credential.phoneNumber,
+        };
+        const response = await axios.post(
+          '/api/auth/login',
+          userCredentials,
+          config
+        );
+        response.data['user'] = result.user;
+        dispatch({ type: SIGN_IN_FB, payload: response.data });
       })
       .catch(function (error) {
         dispatch({

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import { Card, Button, Skeleton, Tag, Space } from 'antd';
+import { Card, Button, Skeleton, Tag } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import {
   CalendarOutlined,
@@ -24,9 +24,9 @@ const EventItem = ({ event, isLoading }) => {
     street,
     city,
     country,
-    start_date,
-    end_date,
-    tags,
+    start_time,
+    end_time,
+    categories,
   } = event;
   const location = street + ', ' + city + ', ' + country;
   const loc_arr = [
@@ -37,9 +37,9 @@ const EventItem = ({ event, isLoading }) => {
   const date_arr = [
     <CalendarOutlined style={{ color: '#328fce', fontSize: '20px' }} />,
     '  ',
-    start_date.toString(),
+    start_time.toString(),
     ' - ',
-    end_date.toString(),
+    end_time.toString(),
   ];
 
   return (
@@ -90,7 +90,7 @@ const EventItem = ({ event, isLoading }) => {
           ></Meta>
           <br />
           <Meta
-            description={tags.map((tag, index) => (
+            description={categories.map((tag, index) => (
               <Tag
                 // color='#f5cc23'
                 key={index}

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
 import useWindowSize from 'react-use/lib/useWindowSize';
-import { Drawer, Layout } from 'antd';
+import { Layout } from 'antd';
 
 import EventsFilterContext from '../context/eventsFilter/eventsFilterContext';
 import Filter from './Filter';
@@ -9,11 +9,10 @@ import Filter from './Filter';
 const { Sider } = Layout;
 
 const EventFilter = () => {
-  const { width, height } = useWindowSize();
-  // console.log(width);
+  const { width, _ } = useWindowSize();
   const eventsFilterContext = useContext(EventsFilterContext);
 
-  const { isDrawerVisible, show_drawer, close_drawer } = eventsFilterContext;
+  const { show_drawer, close_drawer } = eventsFilterContext;
 
   return (
     <Sider
@@ -24,11 +23,9 @@ const EventFilter = () => {
       collapsedWidth='0'
       onBreakpoint={(broken) => {
         broken ? show_drawer() : close_drawer();
-        console.log('broken', broken);
       }}
-      onCollapse={(collapsed, type) => {
+      onCollapse={(collapsed, _) => {
         !collapsed ? show_drawer() : close_drawer();
-        console.log('here', collapsed, type);
       }}
       className='filter'
       style={{ boxShadow: '0 0 10px 1px #E8E9EC' }}

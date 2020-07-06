@@ -65,7 +65,7 @@ const RightMenuAuth = ({ mode }) => {
         </Link>
       </Menu.Item>
 
-      {role === 'moderator' && (
+      {role === 'MODERATOR' && (
         <Menu.Item key='dashboard' style={rightItems}>
           <Link to='/dashboard' style={linkItems}>
             Dashboard

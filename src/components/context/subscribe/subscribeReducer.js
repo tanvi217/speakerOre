@@ -4,10 +4,16 @@ import {
   DELETE_SUBSCRIPTION_PLAN,
   CLEAR_CURRENT_SUBSCRIPTION_PLAN,
   SET_CURRENT_SUBSCRIPTION_PLAN,
+  GET_SUBSCRIPTION_PLANS,
 } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_SUBSCRIPTION_PLANS:
+      return {
+        ...state,
+        plans: action.payload,
+      };
     case CREATE_SUBSCRIPTION_PLAN:
       return {
         ...state,

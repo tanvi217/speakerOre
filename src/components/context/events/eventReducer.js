@@ -6,10 +6,16 @@ import {
   CLEAR_CURRENT_EVENT,
   SHOW_CHANGE_MODAL,
   CLOSE_CHANGE_MODAL,
+  GET_ALL_EVENTS,
 } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_ALL_EVENTS:
+      return {
+        ...state,
+        events: action.payload.events,
+      };
     case CREATE_EVENT:
       return {
         ...state,

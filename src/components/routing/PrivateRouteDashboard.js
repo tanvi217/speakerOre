@@ -10,7 +10,7 @@ const PrivateRouteDashboard = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        !isSubscribed && !loading && role !== 'moderator' ? (
+        !isSubscribed && !loading && role !== 'MODERATOR' ? (
           <Redirect to='/' />
         ) : (
           <Component {...props} />

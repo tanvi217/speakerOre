@@ -1,21 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PlanItem from './planItem';
 import SubscribeContext from '../context/subscribe/subscribeContext';
 
 const Plans = () => {
   const subscribeContext = useContext(SubscribeContext);
+  const { plans, isLoading, getSubscriptionPlans } = subscribeContext;
 
-  const { plans, isLoading } = subscribeContext;
-
-  if (plans.length === 0) {
-    return <h4>No subscription plans.</h4>;
-  }
+  useEffect(() => {
+    getSubscriptionPlans();
+  }, []);
 
   return (
-    <div className='cards'>
-      {plans.map((plan) => (
-        <PlanItem key={plan.id} plan={plan} isLoading={isLoading}></PlanItem>
-      ))}
+    <div>
+      {plans.length === 0 ? (
+        <h4>No subscription plans.</h4>
+      ) : (
+        <div className='cards'>
+          {plans.map((plan) => (
+            <PlanItem
+              key={plan.id}
+              plan={plan}
+              isLoading={isLoading}
+            ></PlanItem>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
