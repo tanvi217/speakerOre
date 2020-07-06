@@ -19,6 +19,7 @@ import './style.css';
 var DISCOVERY_DOCS = [
   'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
 ];
+const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 var SCOPES = 'https://www.googleapis.com/auth/calendar';
 
 const bg = {
@@ -94,20 +95,22 @@ const Event = ({ match }) => {
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
-    handleClientLoad();
+    getEvents();
   }, []);
 
-  const handleClientLoad = () => {
-    window.gapi.load('client:auth2', initClient);
-  };
-
-  const initClient = () => {
-    window.gapi.client.init({
-      apiKey: `${process.env.REACT_APP_CALENDAR_API_KEY}`,
-      clientId: `${process.env.REACT_APP_CLIENT_ID}`,
-      discoveryDocs: DISCOVERY_DOCS,
-      scope: SCOPES,
-    });
+  const getEvents = () => {
+    async function start() {
+      await window.gapi.client.init({
+        apiKey: GOOGLE_API_KEY,
+        clientId: process.env.REACT_APP_CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES
+      });
+      console.log(window.gapi);
+      window.gapi.auth2.getAuthInstance().signIn();
+      window.gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+    }
+    window.gapi.load('client:auth2', start);
   };
 
   const addEventToCalender = () => {
@@ -116,6 +119,35 @@ const Event = ({ match }) => {
       resource: event,
     });
   };
+
+  const updateSigninStatus = async () => {
+    await insertEvent();
+    window.gapi.auth2.getAuthInstance().signOut();
+  };
+
+  const insertEvent = async () => {
+    try {
+      await window.gapi.client.calendar.events.insert({
+        calendarId: 'primary',
+        sendUpdates: 'all',
+        start: {
+          dateTime: hoursFromNow(2),
+          timezone: 'Asia/Kolkata'
+        },
+        end: {
+          dateTime: hoursFromNow(3),
+          timezone: 'Asia/Kolkata'
+        },
+        summary: 'kal chutti',
+        description: 'Tomorrow is holiday'
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const hoursFromNow = n =>
+  new Date(Date.now() + n * 1000 * 60 * 60).toISOString();
 
   const eventContext = useContext(EventContext);
   const authContext = useContext(AuthContext);
@@ -138,9 +170,10 @@ const Event = ({ match }) => {
     state,
     country,
     postalcode,
-    start_time,
-    end_time,
+    start_date,
+    end_date,
     categories,
+    tags,
     description,
     phone,
     email,
@@ -177,11 +210,11 @@ const Event = ({ match }) => {
               >
                 <div style={dates}>
                   <div style={heading}>Start Date</div>
-                  {start_time.toString()}
+                  {start_date.toString()}
                 </div>
                 <div style={dates}>
                   <div style={heading}>End Date</div>
-                  {end_time.toString()}
+                  {end_date.toString()}
                 </div>
               </div>
               <div style={side_heading}>EVENT DETAILS</div>
@@ -193,7 +226,7 @@ const Event = ({ match }) => {
                 <p style={text_style}>{loc}</p>
               </div>
               <div style={information}>
-                {categories.map((tag, index) => (
+                {tags.map((tag, index) => (
                   <Tag
                     // color='#f5cc23'
                     key={index}
