@@ -1,14 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import { Table, Badge, Divider, Popconfirm } from 'antd';
-import AuthContext from '../context/auth/authContext';
+// import AuthContext from '../context/auth/authContext';
 import EventContext from '../context/events/eventContext';
 
 const MyEvents = () => {
   // eslint-disable-next-line
-  const authContext = useContext(AuthContext);
+  // const authContext = useContext(AuthContext);
   const eventContext = useContext(EventContext);
-  const { events, deleteEvent, setCurrent } = eventContext;
+  const { myEvents, deleteEvent, setCurrent, getMyEvents } = eventContext;
+
+  useEffect(() => {
+    getMyEvents();
+  }, []);
 
   const columns = [
     { title: 'Event Name', dataIndex: 'name', key: 'name' },
@@ -54,10 +58,10 @@ const MyEvents = () => {
     },
   ];
 
-  return events.length === 0 ? (
+  return myEvents.length === 0 ? (
     'No event applications.'
   ) : (
-    <Table columns={columns} dataSource={events} rowKey='id' />
+    <Table columns={columns} dataSource={myEvents} rowKey='id' />
   );
 };
 

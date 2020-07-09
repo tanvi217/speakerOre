@@ -89,23 +89,25 @@ const EventItem = ({ event, isLoading }) => {
             ))}
           ></Meta>
           <br />
-          <Meta
-            description={categories.map((tag, index) => (
-              <Tag
-                // color='#f5cc23'
-                key={index}
-                style={{
-                  borderRadius: '32px',
-                  display: 'inline-block',
-                  padding: '3px 12px',
-                  backgroundColor: '#ececec',
-                  border: 'none',
-                }}
-              >
-                {tag.toUpperCase()}
-              </Tag>
-            ))}
-          ></Meta>
+          {categories && (
+            <Meta
+              description={categories.map((tag, index) => (
+                <Tag
+                  // color='#f5cc23'
+                  key={index}
+                  style={{
+                    borderRadius: '32px',
+                    display: 'inline-block',
+                    padding: '3px 12px',
+                    backgroundColor: '#ececec',
+                    border: 'none',
+                  }}
+                >
+                  {tag.toUpperCase()}
+                </Tag>
+              ))}
+            ></Meta>
+          )}
           <br />
           <br />
           <Button type='primary' shape='round'>

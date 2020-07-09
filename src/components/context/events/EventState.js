@@ -14,6 +14,8 @@ import {
   SHOW_CHANGE_MODAL,
   CLOSE_CHANGE_MODAL,
   GET_ALL_EVENTS,
+  GET_MY_EVENTS,
+  GET_BOOKMARKED_EVENTS,
 } from '../types';
 
 const config = {
@@ -25,6 +27,8 @@ const config = {
 const EventState = (props) => {
   const initialState = {
     events: [],
+    myEvents: [],
+    bookmarkedEvents: [],
     // events: [
     //   {
     //     id: 1,
@@ -164,8 +168,17 @@ const EventState = (props) => {
 
   const getEvents = async () => {
     const response = await axios.get('api/events/all', config);
-    console.log(response.data.events);
     dispatch({ type: GET_ALL_EVENTS, payload: response.data });
+  };
+
+  const getMyEvents = async () => {
+    const response = await axios.get('api/events', config);
+    dispatch({ type: GET_MY_EVENTS, payload: response.data });
+  };
+
+  const getBookmarkedEvents = async () => {
+    const response = await axios.get('api/events/bookmark', config);
+    dispatch({ type: GET_BOOKMARKED_EVENTS, payload: response.data });
   };
 
   const createEvent = (event) => {
@@ -202,6 +215,8 @@ const EventState = (props) => {
     <EventContext.Provider
       value={{
         events: state.events,
+        myEvents: state.myEvents,
+        bookmarkedEvents: state.bookmarkedEvents,
         current: state.current,
         archives: state.archives,
         isLoading: state.isLoading,
@@ -214,6 +229,8 @@ const EventState = (props) => {
         showChangeModal,
         closeChangeModal,
         getEvents,
+        getMyEvents,
+        getBookmarkedEvents,
       }}
     >
       {props.children}

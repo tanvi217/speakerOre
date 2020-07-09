@@ -7,15 +7,30 @@ import {
   SHOW_CHANGE_MODAL,
   CLOSE_CHANGE_MODAL,
   GET_ALL_EVENTS,
+  GET_MY_EVENTS,
+  GET_BOOKMARKED_EVENTS,
 } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_MY_EVENTS:
+      return {
+        ...state,
+        myEvents: action.payload,
+      };
+
     case GET_ALL_EVENTS:
       return {
         ...state,
-        events: action.payload.events,
+        events: action.payload,
       };
+
+    case GET_BOOKMARKED_EVENTS:
+      return {
+        ...state,
+        bookmarkedEvents: action.payload,
+      };
+
     case CREATE_EVENT:
       return {
         ...state,

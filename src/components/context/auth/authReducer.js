@@ -18,13 +18,18 @@ export default (state, action) => {
         ...state,
         isAuthenticated: true,
         token: localStorage.getItem('token'),
+        isSubscribed: localStorage.getItem('isSubscribed'),
+        role: localStorage.getItem('role'),
         loading: false,
         user: action.payload,
         error: null,
       };
+
     case SIGN_IN_GOOGLE:
     case SIGN_IN_FB:
       localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('isSubscribed', action.payload.isSubscribed);
+      localStorage.setItem('role', action.payload.role);
       return {
         ...state,
         isAuthenticated: true,
@@ -63,6 +68,8 @@ export default (state, action) => {
 
     case SIGN_IN_FAIL:
       localStorage.removeItem('token');
+      localStorage.removeItem('isSubscribed');
+      localStorage.removeItem('role');
       return {
         ...state,
         token: null,
@@ -73,6 +80,8 @@ export default (state, action) => {
       };
     case LOGOUT:
       localStorage.removeItem('token');
+      localStorage.removeItem('isSubscribed');
+      localStorage.removeItem('role');
       return {
         ...state,
         token: null,

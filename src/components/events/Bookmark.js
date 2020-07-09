@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import { Table } from 'antd';
-import AuthContext from '../context/auth/authContext';
+import EventContext from '../context/events/eventContext';
 
 const MyEvents = () => {
-  const authContext = useContext(AuthContext);
-  const { events } = authContext;
+  const eventContext = useContext(EventContext);
+  const { bookmarkedEvents, getBookmarkedEvents } = eventContext;
+
+  useEffect(() => {
+    getBookmarkedEvents();
+  }, []);
 
   const columns = [
     {
@@ -22,11 +26,11 @@ const MyEvents = () => {
     { title: 'Event Date', dataIndex: 'start_time', key: 'start_time' },
   ];
 
-  return events.length === 0 ? (
+  return bookmarkedEvents.length === 0 ? (
     'No saved events.'
   ) : (
     <div>
-      <Table columns={columns} dataSource={events} rowKey='id' />
+      <Table columns={columns} dataSource={bookmarkedEvents} rowKey='id' />
       <br />
     </div>
   );

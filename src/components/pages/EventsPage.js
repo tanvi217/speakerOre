@@ -40,7 +40,6 @@ const EventsPage = () => {
 
   const onChange = (e) => {
     setOption(e.target.value);
-    console.log(e.target.value);
   };
 
   return (
