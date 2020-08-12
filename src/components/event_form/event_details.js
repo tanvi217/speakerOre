@@ -56,7 +56,7 @@ export class event_details extends Component {
   render() {
     const {
       about,
-      tags,
+      categories,
       phone,
       website,
       email,
@@ -71,7 +71,7 @@ export class event_details extends Component {
         onFinishFailed={this.onFinishFailed}
         scrollToFirstError
         initialValues={{
-          tags: tags,
+          categories: categories,
           email: email,
           about: about,
           website: website,
@@ -79,13 +79,13 @@ export class event_details extends Component {
           description: description,
         }}
       >
-        <Form.Item name='tags' label='Tags'>
+        <Form.Item name='categories' label='Categories'>
           <Select
             mode='tags'
             style={{ width: '100%' }}
             tokenSeparators={[',']}
-            onChange={handleChangeTag('tags')}
-            placeholder='Tags'
+            onChange={handleChangeTag('categories')}
+            placeholder='Categories'
           >
             {this.children}
           </Select>

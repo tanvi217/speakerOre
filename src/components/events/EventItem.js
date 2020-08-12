@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Card, Button, Skeleton, Tag } from 'antd';
@@ -6,8 +6,11 @@ import Meta from 'antd/lib/card/Meta';
 import {
   CalendarOutlined,
   EnvironmentOutlined,
-  StarOutlined,
+  BookOutlined,
+  BookFilled,
 } from '@ant-design/icons';
+
+import EventContext from '../context/events/eventContext';
 
 const heading = { fontWeight: '540' };
 
@@ -17,6 +20,12 @@ const cardHead = {
 };
 
 const EventItem = ({ event, isLoading }) => {
+  const eventContext = useContext(EventContext);
+
+  const { postBookmarkEvent, deleteBookmarkEvent } = eventContext;
+
+  const [isLiked, setIsLiked] = useState(false);
+
   const {
     id,
     name,
@@ -28,7 +37,9 @@ const EventItem = ({ event, isLoading }) => {
     end_time,
     categories,
   } = event;
+
   const location = street + ', ' + city + ', ' + country;
+
   const loc_arr = [
     <EnvironmentOutlined style={{ color: '#328fce', fontSize: '20px' }} />,
     '  ',
@@ -60,14 +71,33 @@ const EventItem = ({ event, isLoading }) => {
             <span style={{ float: 'left', paddingLeft: '7px' }}>
               {name.toUpperCase()}
             </span>
-            <span style={{ float: 'right', paddingRight: '7px' }}>
-              <StarOutlined
-                style={{
-                  color: '#328fce',
-                  fontSize: '20px',
-                }}
-              />
-            </span>
+            {isLiked ? (
+              <span style={{ float: 'right', paddingRight: '7px' }}>
+                <BookFilled
+                  style={{
+                    color: '#328fce',
+                    fontSize: '20px',
+                  }}
+                  onClick={() => {
+                    deleteBookmarkEvent(id);
+                    setIsLiked(!isLiked);
+                  }}
+                />
+              </span>
+            ) : (
+              <span style={{ float: 'right', paddingRight: '7px' }}>
+                <BookOutlined
+                  style={{
+                    color: '#328fce',
+                    fontSize: '20px',
+                  }}
+                  onClick={() => {
+                    postBookmarkEvent(id);
+                    setIsLiked(!isLiked);
+                  }}
+                />
+              </span>
+            )}
           </h3>
         </div>
         <br />

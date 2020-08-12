@@ -1,15 +1,14 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, useContext } from 'react';
 import 'antd/dist/antd.css';
 import './style.css';
 import Event_details from './event_details';
 import Navbar from '../layout/Navbar';
-import Confirmation from './confirm';
+import Confirmation from './Confirmation';
 import Event_basic_details from './event_basic_details';
 import { Steps, message } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
 import Footer from '../layout/Footer';
 import Background from '../../static/background.png';
-import EventContext from '../context/events/eventContext';
 
 const { Step } = Steps;
 
@@ -36,28 +35,30 @@ const steps = [
   },
 ];
 
+var today = new Date();
+// var date =
+//   today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+// var time =
+//   today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+// var dateTime = date + ' ' + time;
 export class form extends Component {
   state = {
     step: 0,
     step_one_fields: {
-      eventName: '',
-      start_date: '',
-      start_date_moment: null,
-      end_date: '',
-      end_date_moment: null,
-      start_time: '',
-      start_time_moment: null,
-      end_time: '',
-      end_time_moment: null,
+      name: '',
+      start_time: today.toISOString(),
+      end_time: today.toISOString(),
       street: '',
       city: '',
       state: '',
       country: '',
-      postalcode: '',
+      postalCode: '',
+      latitude: null,
+      longitude: null,
     },
     step_two_fields: {
       about: '',
-      tags: [],
+      categories: [],
       email: '',
       phone: '',
       website: '',
@@ -95,38 +96,30 @@ export class form extends Component {
     });
   };
 
-  handleChangeDate = (input) => (dates, dateString) => {
-    const step_one_fields = { ...this.state.step_one_fields };
-    if (input === 'start_date') {
-      step_one_fields.start_date_moment = dates;
-      step_one_fields.start_date = dateString;
-      this.setState({
-        step_one_fields,
-      });
-    } else {
-      step_one_fields.end_date_moment = dates;
-      step_one_fields.end_date = dateString;
-      this.setState({
-        step_one_fields,
-      });
-    }
-  };
-
   handleChangeTime = (input) => (time, timeString) => {
     const step_one_fields = { ...this.state.step_one_fields };
-    if (input === 'start_time') {
-      step_one_fields.start_time_moment = time;
-      step_one_fields.start_time = timeString;
-      this.setState({
-        step_one_fields,
-      });
-    } else {
-      step_one_fields.end_time_moment = time;
-      step_one_fields.end_time = timeString;
-      this.setState({
-        step_one_fields,
-      });
+    if (time[0]) {
+      step_one_fields.start_time = timeString[0];
     }
+    if (time[1]) {
+      step_one_fields.end_time = timeString[1];
+    }
+    this.setState({
+      step_one_fields,
+    });
+  };
+
+  onSelectTime = (time) => {
+    const step_one_fields = { ...this.state.step_one_fields };
+    if (time[0]) {
+      step_one_fields.start_time = time[0].toISOString();
+    }
+    if (time[1]) {
+      step_one_fields.end_time = time[1].toISOString();
+    }
+    this.setState({
+      step_one_fields,
+    });
   };
 
   handleChangeTag = (input) => (new_tags) => {
@@ -135,10 +128,6 @@ export class form extends Component {
     this.setState({
       step_two_fields,
     });
-  };
-
-  submit = () => {
-    message.success('Processing complete!');
   };
 
   render() {
@@ -162,8 +151,8 @@ export class form extends Component {
               {step === 0 && (
                 <Event_basic_details
                   handleChange={this.handleChange1}
-                  handleChangeDate={this.handleChangeDate}
                   handleChangeTime={this.handleChangeTime}
+                  onSelectTime={this.onSelectTime}
                   handleChangeTag={this.handleChangeTag}
                   nextStep={this.nextStep}
                   values={step_one_fields}
@@ -179,11 +168,7 @@ export class form extends Component {
                 />
               )}
               {step === 2 && (
-                <Confirmation
-                  values={values3}
-                  prevStep={this.prevStep}
-                  submit={this.submit}
-                />
+                <Confirmation values={values3} prevStep={this.prevStep} />
               )}
             </div>
           </div>

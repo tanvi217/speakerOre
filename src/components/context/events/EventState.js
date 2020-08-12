@@ -16,6 +16,7 @@ import {
   GET_ALL_EVENTS,
   GET_MY_EVENTS,
   GET_BOOKMARKED_EVENTS,
+  POST_BOOKMARK,
 } from '../types';
 
 const config = {
@@ -181,10 +182,41 @@ const EventState = (props) => {
     dispatch({ type: GET_BOOKMARKED_EVENTS, payload: response.data });
   };
 
-  const createEvent = (event) => {
-    event.id = uuidv4();
-    console.log(event);
-    dispatch({ type: CREATE_EVENT, payload: event });
+  const postBookmarkEvent = async (id) => {
+    try {
+      const res = await axios.post(`/api/events/bookmark/${id}`, config);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteBookmarkEvent = async (id) => {
+    try {
+      const res = await axios.delete(`/api/events/bookmark/${id}`, config);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const createEvent = async (formData) => {
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.post('/api/events', formData, config);
+
+      console.log(res);
+
+      dispatch({
+        type: CREATE_EVENT,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const deleteEvent = (id) => {
@@ -231,6 +263,8 @@ const EventState = (props) => {
         getEvents,
         getMyEvents,
         getBookmarkedEvents,
+        postBookmarkEvent,
+        deleteBookmarkEvent,
       }}
     >
       {props.children}

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Form, DatePicker, Input, Button, TimePicker } from 'antd';
+import { Form, DatePicker, Input, Button } from 'antd';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import moment from 'moment';
+
+const { RangePicker } = DatePicker;
 
 const formItemLayout = {
   labelCol: {
@@ -29,6 +31,8 @@ const tailLayout = {
     span: 10,
   },
 };
+
+const dateFormat = 'YYYY/MM/DD HH:mm';
 
 export class event_basic_details extends Component {
   state = {
@@ -64,18 +68,16 @@ export class event_basic_details extends Component {
 
   render() {
     const {
-      eventName,
-      start_date_moment,
-      end_date_moment,
-      start_time_moment,
-      end_time_moment,
+      name,
+      start_time,
+      end_time,
       street,
       city,
       state,
       country,
-      postalcode,
+      postalCode,
     } = this.props.values;
-    const { handleChange, handleChangeDate, handleChangeTime } = this.props;
+    const { handleChange, handleChangeTime, onSelectTime } = this.props;
     return (
       <Form
         {...formItemLayout}
@@ -84,20 +86,17 @@ export class event_basic_details extends Component {
         onFinishFailed={this.onFinishFailed}
         scrollToFirstError
         initialValues={{
-          eventName: eventName,
-          start_date_moment: start_date_moment,
-          end_date_moment: end_date_moment,
-          start_time_moment: start_time_moment,
-          end_time_moment: end_time_moment,
+          name: name,
+          time: [moment(start_time, dateFormat), moment(end_time, dateFormat)],
           street: street,
           city: city,
           state: state,
           country: country,
-          postalcode: postalcode,
+          postalCode: postalCode,
         }}
       >
         <Form.Item
-          name='eventName'
+          name='name'
           label={'Event Name'}
           rules={[
             {
@@ -106,88 +105,27 @@ export class event_basic_details extends Component {
             },
           ]}
         >
-          <Input
-            onChange={handleChange('eventName')}
-            placeholder='Event Name'
+          <Input onChange={handleChange('name')} placeholder='Event Name' />
+        </Form.Item>
+
+        <Form.Item
+          label='Time'
+          style={{ marginBottom: 0 }}
+          name='time'
+          rules={[
+            {
+              required: true,
+              message: 'Please fill in time',
+            },
+          ]}
+        >
+          <RangePicker
+            showTime={{ format: 'HH:mm' }}
+            format='YYYY-MM-DD HH:mm'
+            onChange={handleChangeTime}
+            onOk={onSelectTime}
+            format={dateFormat}
           />
-        </Form.Item>
-
-        <Form.Item label='Date' style={{ marginBottom: 0 }}>
-          <Form.Item
-            name='start_date_moment'
-            rules={[
-              {
-                required: true,
-                message: 'Please fill in event date',
-              },
-            ]}
-            style={{ display: 'inline-block' }}
-          >
-            <DatePicker
-              disabledDate={this.disabledDate}
-              onChange={handleChangeDate('start_date')}
-              placeholder='Start date'
-            />
-          </Form.Item>
-          <span
-            style={{
-              display: 'inline-block',
-              width: '24px',
-              lineHeight: '32px',
-              textAlign: 'center',
-            }}
-          >
-            -
-          </span>
-          <Form.Item
-            name='end_date_moment'
-            rules={[
-              ({ getFieldValue }) => ({
-                validator(rule, value) {
-                  if (!value || getFieldValue('start_date_moment') < value) {
-                    return Promise.resolve();
-                  }
-
-                  return Promise.reject('End date must be after start date!');
-                },
-              }),
-            ]}
-            style={{ display: 'inline-block' }}
-          >
-            <DatePicker
-              disabledDate={this.disabledDate}
-              onChange={handleChangeDate('end_date')}
-              placeholder='End date'
-            />
-          </Form.Item>
-        </Form.Item>
-
-        <Form.Item label='Time' style={{ marginBottom: 0 }}>
-          <Form.Item
-            name='start_time_moment'
-            style={{ display: 'inline-block' }}
-          >
-            <TimePicker
-              onChange={handleChangeTime('start_time')}
-              placeholder='Start Time'
-            />
-          </Form.Item>
-          <span
-            style={{
-              display: 'inline-block',
-              width: '24px',
-              lineHeight: '32px',
-              textAlign: 'center',
-            }}
-          >
-            -
-          </span>
-          <Form.Item name='end_time_moment' style={{ display: 'inline-block' }}>
-            <TimePicker
-              onChange={handleChangeTime('end_time')}
-              placeholder='End time'
-            />
-          </Form.Item>
         </Form.Item>
 
         <Form.Item
@@ -243,7 +181,7 @@ export class event_basic_details extends Component {
           <Input onChange={handleChange('country')} placeholder='Country' />
         </Form.Item>
         <Form.Item
-          name='postalcode'
+          name='postalCode'
           label={'Postal code'}
           rules={[
             {
@@ -253,7 +191,7 @@ export class event_basic_details extends Component {
           ]}
         >
           <Input
-            onChange={handleChange('postalcode')}
+            onChange={handleChange('postalCode')}
             placeholder='Postal code'
           />
         </Form.Item>
