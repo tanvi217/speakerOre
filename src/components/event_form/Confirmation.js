@@ -32,7 +32,13 @@ const Confirmation = ({ values, prevStep }) => {
 
   const eventContext = useContext(EventContext);
 
-  const { createEvent } = eventContext;
+  const {
+    createEvent,
+    editEvent,
+    current,
+    clearCurrent,
+    currentEventId,
+  } = eventContext;
 
   const onSubmitForm = async () => {
     const formData = {
@@ -53,9 +59,22 @@ const Confirmation = ({ values, prevStep }) => {
       longitude,
       postalCode,
     };
-    createEvent(formData).then(() => {
-      message.success('Event has been successfully submitted');
-    });
+
+    if (current) {
+      createEvent(formData).then(() => {
+        message.success('Event has been successfully submitted');
+      });
+    } else {
+      editEvent(currentEventId, formData).then(() => {
+        message.success('Event has been successfully edited');
+      });
+      clearAll();
+    }
+
+    const clearAll = () => {
+      clearCurrent();
+    };
+
     // const responseStatus = await createEvent(formData);
     // console.log(responseStatus);
     // if (responseStatus == 201) {
@@ -98,13 +117,23 @@ const Confirmation = ({ values, prevStep }) => {
           <Button type='default' onClick={prevStep}>
             Previous
           </Button>
-          <Button
-            type='primary'
-            onClick={onSubmitForm}
-            style={{ marginLeft: '10px' }}
-          >
-            Done
-          </Button>
+          {current ? (
+            <Button
+              type='primary'
+              onClick={onSubmitForm}
+              style={{ marginLeft: '10px' }}
+            >
+              Edit Event
+            </Button>
+          ) : (
+            <Button
+              type='primary'
+              onClick={onSubmitForm}
+              style={{ marginLeft: '10px' }}
+            >
+              Submit Event
+            </Button>
+          )}
         </Form.Item>
       </div>
     </div>

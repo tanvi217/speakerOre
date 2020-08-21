@@ -7,7 +7,7 @@ import Footer from '../layout/Footer';
 import Change from './Change';
 import Background from '../../static/background.png';
 
-import { Card, Button, Tag, Space } from 'antd';
+import { Card, Button, Tag, Space, Spin } from 'antd';
 import {
   GlobalOutlined,
   MailOutlined,
@@ -65,53 +65,87 @@ const text_style = {
   fontSize: '17px',
 };
 
-var event = {
-  summary: 'Google I/O 2015',
-  location: '800 Howard St., San Francisco, CA 94103',
-  description: "A chance to hear more about Google's developer products.",
-  start: {
-    dateTime: '2020-09-28T09:00:00-07:00',
-    timeZone: 'America/Los_Angeles',
-  },
-  end: {
-    dateTime: '2020-10-28T17:00:00-07:00',
-    timeZone: 'America/Los_Angeles',
-  },
-  recurrence: ['RRULE:FREQ=DAILY;COUNT=2'],
-  attendees: [{ email: 'lpage@example.com' }, { email: 'sbrin@example.com' }],
-  reminders: {
-    useDefault: false,
-    overrides: [
-      { method: 'email', minutes: 24 * 60 },
-      { method: 'popup', minutes: 10 },
-    ],
-  },
-};
+// var event = {
+//   summary: 'Google I/O 2015',
+//   location: '800 Howard St., San Francisco, CA 94103',
+//   description: "A chance to hear more about Google's developer products.",
+//   start: {
+//     dateTime: '2020-09-28T09:00:00-07:00',
+//     timeZone: 'America/Los_Angeles',
+//   },
+//   end: {
+//     dateTime: '2020-10-28T17:00:00-07:00',
+//     timeZone: 'America/Los_Angeles',
+//   },
+//   recurrence: ['RRULE:FREQ=DAILY;COUNT=2'],
+//   attendees: [{ email: 'lpage@example.com' }, { email: 'sbrin@example.com' }],
+//   reminders: {
+//     useDefault: false,
+//     overrides: [
+//       { method: 'email', minutes: 24 * 60 },
+//       { method: 'popup', minutes: 10 },
+//     ],
+//   },
+// };
 
 const Event = ({ match }) => {
+  const eventContext = useContext(EventContext);
+  const authContext = useContext(AuthContext);
+
+  const { event, getSpecificEvent, isLoading, showChangeModal } = eventContext;
+
+  const { defaultMessageTemplate } = authContext;
+  const { subject, body } = defaultMessageTemplate;
+
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://apis.google.com/js/api.js';
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-    getEvents();
+    getSpecificEvent(match.params.event_id);
   }, []);
 
-  const getEvents = () => {
-    async function start() {
-      await window.gapi.client.init({
-        apiKey: GOOGLE_API_KEY,
-        clientId: process.env.REACT_APP_CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES
-      });
-      console.log(window.gapi);
-      window.gapi.auth2.getAuthInstance().signIn();
-      window.gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-    }
-    window.gapi.load('client:auth2', start);
-  };
+  if (isLoading) return <Spin tip='loading...'></Spin>;
+
+  const {
+    name,
+    about,
+    street,
+    city,
+    state,
+    country,
+    postalcode,
+    start_time,
+    end_time,
+    categories,
+    description,
+    phone,
+    email,
+    website,
+  } = event;
+
+  const loc =
+    street + ', ' + city + ', ' + state + ', ' + country + '\n' + postalcode;
+
+  // const getEvents = () => {
+  //   async function start() {
+  //     await window.gapi.client.init({
+  //       apiKey: GOOGLE_API_KEY,
+  //       clientId: process.env.REACT_APP_CLIENT_ID,
+  //       discoveryDocs: DISCOVERY_DOCS,
+  //       scope: SCOPES,
+  //     });
+  //     console.log(window.gapi);
+  //     window.gapi.auth2.getAuthInstance().signIn();
+  //     window.gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+  //   }
+  //   window.gapi.load('client:auth2', start);
+  // };
+
+  // useEffect(() => {
+  //   const script = document.createElement('script');
+  //   script.src = 'https://apis.google.com/js/api.js';
+  //   script.async = true;
+  //   script.defer = true;
+  //   document.body.appendChild(script);
+  //   getEvents();
+  // }, []);
 
   const addEventToCalender = () => {
     window.gapi.client.calendar.events.insert({
@@ -120,68 +154,34 @@ const Event = ({ match }) => {
     });
   };
 
-  const updateSigninStatus = async () => {
-    await insertEvent();
-    window.gapi.auth2.getAuthInstance().signOut();
-  };
+  // const updateSigninStatus = async () => {
+  //   await insertEvent();
+  //   window.gapi.auth2.getAuthInstance().signOut();
+  // };
 
-  const insertEvent = async () => {
-    try {
-      await window.gapi.client.calendar.events.insert({
-        calendarId: 'primary',
-        sendUpdates: 'all',
-        start: {
-          dateTime: hoursFromNow(2),
-          timezone: 'Asia/Kolkata'
-        },
-        end: {
-          dateTime: hoursFromNow(3),
-          timezone: 'Asia/Kolkata'
-        },
-        summary: 'kal chutti',
-        description: 'Tomorrow is holiday'
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const insertEvent = async () => {
+  //   try {
+  //     await window.gapi.client.calendar.events.insert({
+  //       calendarId: 'primary',
+  //       sendUpdates: 'all',
+  //       start: {
+  //         dateTime: hoursFromNow(2),
+  //         timezone: 'Asia/Kolkata',
+  //       },
+  //       end: {
+  //         dateTime: hoursFromNow(3),
+  //         timezone: 'Asia/Kolkata',
+  //       },
+  //       summary: 'kal chutti',
+  //       description: 'Tomorrow is holiday',
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
-  const hoursFromNow = n =>
-  new Date(Date.now() + n * 1000 * 60 * 60).toISOString();
-
-  const eventContext = useContext(EventContext);
-  const authContext = useContext(AuthContext);
-
-  const {
-    params: { event_id },
-  } = match;
-
-  const { events, isLoading, showChangeModal } = eventContext;
-
-  const { defaultMessageTemplate } = authContext;
-  const { subject, body } = defaultMessageTemplate;
-
-  const {
-    id,
-    name,
-    about,
-    street,
-    city,
-    state,
-    country,
-    postalcode,
-    start_date,
-    end_date,
-    categories,
-    tags,
-    description,
-    phone,
-    email,
-    website,
-  } = events[0];
-
-  const loc =
-    street + ', ' + city + ', ' + state + ', ' + country + '\n' + postalcode;
+  // const hoursFromNow = (n) =>
+  //   new Date(Date.now() + n * 1000 * 60 * 60).toISOString();
 
   return (
     <Fragment>
@@ -208,14 +208,18 @@ const Event = ({ match }) => {
                   justifyContent: 'space-between',
                 }}
               >
-                <div style={dates}>
-                  <div style={heading}>Start Date</div>
-                  {start_date.toString()}
-                </div>
-                <div style={dates}>
-                  <div style={heading}>End Date</div>
-                  {end_date.toString()}
-                </div>
+                {start_time && (
+                  <div style={dates}>
+                    <div style={heading}>Start Date</div>
+                    {start_time.toString()}
+                  </div>
+                )}
+                {end_time && (
+                  <div style={dates}>
+                    <div style={heading}>End Date</div>
+                    {end_time.toString()}
+                  </div>
+                )}
               </div>
               <div style={side_heading}>EVENT DETAILS</div>
               <div style={information}>
@@ -225,22 +229,24 @@ const Event = ({ match }) => {
               <div style={information}>
                 <p style={text_style}>{loc}</p>
               </div>
-              <div style={information}>
-                {tags.map((tag, index) => (
-                  <Tag
-                    // color='#f5cc23'
-                    key={index}
-                    style={{
-                      borderRadius: '32px',
-                      display: 'inline-block',
-                      padding: '3px 12px',
-                      boxShadow: '0 0 10px 1px #E8E9EC',
-                    }}
-                  >
-                    {tag.toUpperCase()}
-                  </Tag>
-                ))}
-              </div>
+              {categories && (
+                <div style={information}>
+                  {categories.map((tag, index) => (
+                    <Tag
+                      // color='#f5cc23'
+                      key={index}
+                      style={{
+                        borderRadius: '32px',
+                        display: 'inline-block',
+                        padding: '3px 12px',
+                        boxShadow: '0 0 10px 1px #E8E9EC',
+                      }}
+                    >
+                      {tag.toUpperCase()}
+                    </Tag>
+                  ))}
+                </div>
+              )}
             </Card>
           </div>
           <div style={contact_section}>
@@ -258,13 +264,17 @@ const Event = ({ match }) => {
                 <div>
                   <ContactsOutlined style={{ color: '#328fce' }} /> {phone}
                 </div>
-                <div>
-                  <MailOutlined style={{ color: '#328fce' }} /> {email}
-                </div>
-                <div>
-                  <GlobalOutlined style={{ color: '#328fce' }} />
-                  <a href={website}>{website}</a>
-                </div>
+                {email && (
+                  <div>
+                    <MailOutlined style={{ color: '#328fce' }} /> {email}
+                  </div>
+                )}
+                {website && (
+                  <div>
+                    <GlobalOutlined style={{ color: '#328fce' }} />
+                    <a href={website}>{website}</a>
+                  </div>
+                )}
               </Space>
             </Card>
             <Change />

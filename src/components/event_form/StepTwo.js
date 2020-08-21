@@ -30,7 +30,7 @@ const tailLayout = {
   },
 };
 
-export class event_details extends Component {
+export class StepTwo extends Component {
   onFinish = (values) => {
     this.props.nextStep();
   };
@@ -180,4 +180,4 @@ export class event_details extends Component {
   }
 }
 
-export default event_details;
+export default StepTwo;

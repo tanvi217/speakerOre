@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import EventContext from './eventContext';
 import eventReducer from './eventReducer';
 import moment from 'moment';
@@ -7,8 +6,6 @@ import axios from 'axios';
 
 import {
   CREATE_EVENT,
-  EDIT_EVENT,
-  DELETE_EVENT,
   SET_CURRENT_EVENT,
   CLEAR_CURRENT_EVENT,
   SHOW_CHANGE_MODAL,
@@ -16,7 +13,8 @@ import {
   GET_ALL_EVENTS,
   GET_MY_EVENTS,
   GET_BOOKMARKED_EVENTS,
-  POST_BOOKMARK,
+  SET_LOADING,
+  GET_SPECIFIC_EVENT,
 } from '../types';
 
 const config = {
@@ -30,50 +28,6 @@ const EventState = (props) => {
     events: [],
     myEvents: [],
     bookmarkedEvents: [],
-    // events: [
-    //   {
-    //     id: 1,
-    //     name: 'Tomorrowland',
-    //     about:
-    //       'Tomorrowland takes place at recreation area "De Schorre" in Boom, Belgium. The town of Boom is situated between Antwerp & Brussels.  ',
-    //     street: '4/2 Kilpauk',
-    //     city: 'Chennai',
-    //     state: 'Tamil Nadu',
-    //     country: 'India',
-    //     postalcode: '600010',
-    //     website: 'tomorrowland.com',
-    //     email: 'yolo@gmail.com',
-    //     phone: '91-1234567890',
-    //     description:
-    //       "Tomorrowland is a Belgian electronic dance music festival held in Boom, Belgium. Tomorrowland was first held in 2005 and has since become one of the world's largest and most notable music festivals.[2] It now stretches over 2 weekends and it usually sells out in minutes.",
-    //     status: 'published',
-    //     is_visible: 'true',
-    //     categories: ['music', 'festival'],
-    //     tags: ['concert', 'belgium'],
-    //     start_date: moment('2018-05-18T04:00:00.000Z'),
-    //     end_date: moment('2018-05-18T04:00:00.000Z'),
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'Holi Party',
-    //     about:
-    //       'Tomorrowland takes place at recreation area "De Schorre" in Boom, Belgium. The town of Boom is situated between Antwerp & Brussels.  ',
-    //     street: '4/2 Kilpauk',
-    //     city: 'Chennai',
-    //     country: 'India',
-    //     website: 'tomorrowland.com',
-    //     email: 'yolo@gmail.com',
-    //     phone: '91-1234567890',
-    //     description:
-    //       "Tomorrowland is a Belgian electronic dance music festival held in Boom, Belgium. Tomorrowland was first held in 2005 and has since become one of the world's largest and most notable music festivals.[2] It now stretches over 2 weekends and it usually sells out in minutes.",
-    //     status: 'published',
-    //     is_visible: 'true',
-    //     categories: ['music', 'festival'],
-    //     tags: ['concert', 'fun'],
-    //     start_date: moment('2018-05-18T04:00:00.000Z'),
-    //     end_date: moment('2018-05-18T04:00:00.000Z'),
-    //   },
-    // ],
     archives: [
       {
         id: 1,
@@ -117,74 +71,69 @@ const EventState = (props) => {
         end_date: moment('2018-05-18T04:00:00.000Z'),
         status: 'declined',
       },
-      {
-        id: 3,
-        name: 'Tomorrowland',
-        about:
-          'Tomorrowland takes place at recreation area "De Schorre" in Boom, Belgium. The town of Boom is situated between Antwerp & Brussels.  ',
-        street: '4/2 Kilpauk',
-        city: 'Chennai',
-        country: 'India',
-        website: 'www.tomorrowland.com',
-        email: 'yolo@gmail.com',
-        phone: '91-1234567890',
-        description:
-          "Tomorrowland is a Belgian electronic dance music festival held in Boom, Belgium. Tomorrowland was first held in 2005 and has since become one of the world's largest and most notable music festivals.[2] It now stretches over 2 weekends and it usually sells out in minutes.",
-
-        is_visible: 'true',
-        categories: ['music', 'festival'],
-        tags: ['concert', 'belgium'],
-        start_date: moment('2018-05-18T04:00:00.000Z'),
-        end_date: moment('2018-05-18T04:00:00.000Z'),
-        status: 'accepted',
-      },
-      {
-        id: 4,
-        name: 'Tomorrowland',
-        about:
-          'Tomorrowland takes place at recreation area "De Schorre" in Boom, Belgium. The town of Boom is situated between Antwerp & Brussels.  ',
-        street: '4/2 Kilpauk',
-        city: 'Chennai',
-        country: 'India',
-        website: 'tomorrowland.com',
-        email: 'yolo@gmail.com',
-        phone: '91-1234567890',
-        description:
-          "Tomorrowland is a Belgian electronic dance music festival held in Boom, Belgium. Tomorrowland was first held in 2005 and has since become one of the world's largest and most notable music festivals.[2] It now stretches over 2 weekends and it usually sells out in minutes.",
-
-        is_visible: 'true',
-        categories: ['music', 'festival'],
-        tags: ['concert', 'belgium'],
-        start_date: moment('2018-05-18T04:00:00.000Z'),
-        end_date: moment('2018-05-18T04:00:00.000Z'),
-        status: 'pending',
-      },
     ],
+    event: {},
     current: null,
-    isLoading: false,
+    currentEventId: null,
+    isLoading: true,
     isVisible: false,
   };
 
   const [state, dispatch] = useReducer(eventReducer, initialState);
 
+  const setLoading = () => {
+    dispatch({ type: SET_LOADING });
+  };
+
   const getEvents = async () => {
+    setLoading();
     const response = await axios.get('api/events/all', config);
     dispatch({ type: GET_ALL_EVENTS, payload: response.data });
   };
 
   const getMyEvents = async () => {
+    setLoading();
     const response = await axios.get('api/events', config);
     dispatch({ type: GET_MY_EVENTS, payload: response.data });
   };
 
   const getBookmarkedEvents = async () => {
+    setLoading();
     const response = await axios.get('api/events/bookmark', config);
     dispatch({ type: GET_BOOKMARKED_EVENTS, payload: response.data });
   };
 
   const postBookmarkEvent = async (id) => {
     try {
-      const res = await axios.post(`/api/events/bookmark/${id}`, config);
+      await axios.post(`/api/events/bookmark/${id}`, config);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getSpecificEvent = async (id) => {
+    try {
+      setLoading();
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token');
+      const response = await axios.get(`/api/events/${id}`, config);
+      console.log(response.data);
+      dispatch({ type: GET_SPECIFIC_EVENT, payload: response.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const setCurrent = async (id) => {
+    try {
+      axios.defaults.headers.common['Authorization'] =
+        'Bearer ' + localStorage.getItem('token');
+      const response = await axios.get(`/api/events/${id}`, config);
+      console.log(response.data);
+      dispatch({
+        type: SET_CURRENT_EVENT,
+        payload: response.data,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -192,19 +141,13 @@ const EventState = (props) => {
 
   const deleteBookmarkEvent = async (id) => {
     try {
-      const res = await axios.delete(`/api/events/bookmark/${id}`, config);
+      await axios.delete(`/api/events/bookmark/${id}`, config);
     } catch (err) {
       console.log(err);
     }
   };
 
   const createEvent = async (formData) => {
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-      },
-    };
-
     try {
       const res = await axios.post('/api/events', formData, config);
 
@@ -219,20 +162,26 @@ const EventState = (props) => {
     }
   };
 
-  const deleteEvent = (id) => {
-    dispatch({ type: DELETE_EVENT, payload: id });
+  const deleteEvent = async (id) => {
+    try {
+      const res = await axios.delete(`/api/events/${id}`, config);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const editEvent = (event) => {
-    dispatch({ type: EDIT_EVENT, payload: event });
+  const editEvent = async (id, formData) => {
+    try {
+      const res = await axios.put(`/api/events/${id}`, formData, config);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT_EVENT });
-  };
-
-  const setCurrent = (event) => {
-    dispatch({ type: SET_CURRENT_EVENT, payload: event });
   };
 
   const showChangeModal = () => {
@@ -247,12 +196,14 @@ const EventState = (props) => {
     <EventContext.Provider
       value={{
         events: state.events,
+        event: state.event,
         myEvents: state.myEvents,
         bookmarkedEvents: state.bookmarkedEvents,
         current: state.current,
         archives: state.archives,
         isLoading: state.isLoading,
         isVisible: state.isVisible,
+        currentEventId: state.currentEventId,
         createEvent,
         editEvent,
         deleteEvent,
@@ -265,6 +216,7 @@ const EventState = (props) => {
         getBookmarkedEvents,
         postBookmarkEvent,
         deleteBookmarkEvent,
+        getSpecificEvent,
       }}
     >
       {props.children}

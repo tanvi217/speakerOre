@@ -7,7 +7,8 @@ import About from '../src/components/pages/About';
 import EventsPage from './components/pages/EventsPage';
 import Subscribe from './components/pages/Subscribe';
 import NotFound from './components/pages/NotFound';
-import EventForm from './components/event_form/form';
+import EventForm from './components/event_form/EventForm';
+import EditEventForm from './components/event_form/EditEventForm';
 import Event from './components/events/Event';
 import Dashboard from './components/pages/Dashboard';
 
@@ -45,12 +46,13 @@ const App = () => {
                   <Route exact path='/about' component={About} />
                   <Route exact path='/subscribe' component={Subscribe} />
                   <Route exact path='/events' component={EventsPage} />
-                  <PrivateRouteEvent
-                    exact
-                    path='/event/:event_id'
-                    component={Event}
-                  />
+                  <Route exact path='/events/:event_id' component={Event} />
                   <Route exact path='/add_event' component={EventForm} />
+                  <Route
+                    exact
+                    path='/edit-event/:eventId'
+                    component={EditEventForm}
+                  />
                   <PrivateRoute exact path='/profile' component={Profile} />
                   <PrivateRouteDashboard
                     exact

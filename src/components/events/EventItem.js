@@ -142,7 +142,7 @@ const EventItem = ({ event, isLoading }) => {
           <br />
           <Button type='primary' shape='round'>
             <Link
-              to={`/event/${id}`}
+              to={`/events/${id}`}
               target='_blank'
               rel='noopener noreferrer'
               style={cardHead}
