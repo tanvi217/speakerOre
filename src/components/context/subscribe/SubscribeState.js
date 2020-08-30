@@ -1,6 +1,5 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 import SubscribeContext from './subscribeContext';
 import subscribeReducer from './subscribeReducer';
 import {
@@ -12,6 +11,12 @@ import {
   GET_SUBSCRIPTION_PLANS,
 } from '../types';
 import setAuthToken from '../../utils/setAuthToken';
+
+const config = {
+  headers: {
+    'Content-type': 'application/json',
+  },
+};
 
 const SubscribeState = (props) => {
   const initialState = {
@@ -52,12 +57,6 @@ const SubscribeState = (props) => {
   const [state, dispatch] = useReducer(subscribeReducer, initialState);
 
   const getSubscriptionPlans = async () => {
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-      },
-    };
-
     try {
       const res = await axios.get('/api/subscription', config);
       dispatch({ type: GET_SUBSCRIPTION_PLANS, payload: res.data });
@@ -66,9 +65,15 @@ const SubscribeState = (props) => {
     }
   };
 
-  const createSubscriptionPlan = (subscription) => {
-    subscription.id = uuidv4();
-    dispatch({ type: CREATE_SUBSCRIPTION_PLAN, payload: subscription });
+  const createSubscriptionPlan = async (plan) => {
+    try {
+      console.log(plan);
+      const res = await axios.post('/api/subscription', plan, config);
+      console.log(res);
+      dispatch({ type: CREATE_SUBSCRIPTION_PLAN, payload: res.data });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const deleteSubscriptionPlan = (id) => {
@@ -80,6 +85,7 @@ const SubscribeState = (props) => {
   };
 
   const setCurrent = (subscription) => {
+    console.log(subscription);
     dispatch({ type: SET_CURRENT_SUBSCRIPTION_PLAN, payload: subscription });
   };
 

@@ -115,6 +115,7 @@ const AuthState = (props) => {
         );
         response.data['user'] = result.user;
         console.log(response.data.isSubscribed);
+        console.log(response.data.role);
         dispatch({ type: SIGN_IN_GOOGLE, payload: response.data });
       })
       .catch(function (error) {

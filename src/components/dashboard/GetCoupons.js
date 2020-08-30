@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import { Table, Button, Divider, Spin, Popconfirm, Descriptions } from 'antd';
 import CouponContext from '../context/coupon/couponContext';
@@ -10,8 +10,14 @@ const divider = {
 const GetCoupons = () => {
   const couponContext = useContext(CouponContext);
 
+  useEffect(() => {
+    getCoupons();
+    console.log(coupons);
+  }, []);
+
   const {
     coupons,
+    getCoupons,
     isLoading,
     editCoupon,
     deleteCoupon,
@@ -19,7 +25,7 @@ const GetCoupons = () => {
   } = couponContext;
 
   const columns = [
-    { title: 'Coupon Name', dataIndex: 'name', key: 'name' },
+    { title: 'Coupon Code', dataIndex: 'code', key: 'code' },
     {
       title: 'Action',
       key: 'action',
@@ -67,18 +73,15 @@ const GetCoupons = () => {
             columns={columns}
             expandable={{
               expandedRowRender: (record) => (
-                <Descriptions title={record.name}>
-                  <Descriptions.Item label='Coupon Code'>
-                    {record.code}
+                <Descriptions title={record.code}>
+                  <Descriptions.Item label='Expires on'>
+                    {record.end_date.toString()}
                   </Descriptions.Item>
                   <Descriptions.Item label='Coupon Count'>
                     {record.count}
                   </Descriptions.Item>
                   <Descriptions.Item label='Mode'>
-                    {record.option}
-                  </Descriptions.Item>
-                  <Descriptions.Item label='Applicable Plans'>
-                    {record.plans}
+                    {record.price} || {record.percentage}
                   </Descriptions.Item>
                 </Descriptions>
               ),

@@ -1,13 +1,21 @@
 import {
+  GET_ALL_COUPONS,
   CREATE_COUPON,
   EDIT_COUPON,
   DELETE_COUPON,
   CLEAR_CURRENT_COUPON,
   SET_CURRENT_COUPON,
+  COUPON_LOADING,
 } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_ALL_COUPONS:
+      return {
+        ...state,
+        coupons: action.payload,
+        isLoading: false,
+      };
     case CREATE_COUPON:
       return {
         ...state,
@@ -34,6 +42,11 @@ export default (state, action) => {
       return {
         ...state,
         current: action.payload,
+      };
+    case COUPON_LOADING:
+      return {
+        ...state,
+        isLoading: true,
       };
     default:
       return state;

@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import { Table, Button, Divider, Spin, Popconfirm, Descriptions } from 'antd';
 import SubscribeContext from '../context/subscribe/subscribeContext';
+import Meta from 'antd/lib/card/Meta';
 
 const divider = {
   color: '#000000',
@@ -10,9 +11,14 @@ const divider = {
 const GetPlans = () => {
   const subscribeContext = useContext(SubscribeContext);
 
+  useEffect(() => {
+    getSubscriptionPlans();
+  }, []);
+
   const {
     plans,
     isLoading,
+    getSubscriptionPlans,
     editSubscriptionPlan,
     deleteSubscriptionPlan,
     setCurrent,
@@ -68,8 +74,17 @@ const GetPlans = () => {
             expandable={{
               expandedRowRender: (record) => (
                 <Descriptions title={record.name}>
-                  <Descriptions.Item label='Plan About'>
-                    {record.about}
+                  <Descriptions.Item label='Plan Features'>
+                    {record.features && (
+                      <Meta
+                        description={record.features.map((el) => (
+                          <div key={el}>
+                            {el}
+                            <br />
+                          </div>
+                        ))}
+                      ></Meta>
+                    )}
                   </Descriptions.Item>
                   <Descriptions.Item label='Plan Duration'>
                     {record.duration}

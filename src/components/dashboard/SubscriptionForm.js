@@ -56,25 +56,28 @@ const SubscriptionForm = () => {
     name: '',
     about: '',
     duration: '',
-    description: '',
+    features: '',
     price: '',
   });
 
   useEffect(() => {
     if (current !== null) {
       setPlan(current);
+      console.log(plan);
     } else {
       setPlan({
         name: '',
         about: '',
-        duration: '',
-        description: '',
+        duration: null,
+        features: null,
         price: '',
       });
     }
   }, [subscribeContext, current]);
 
-  const { name, about, duration, description, price } = plan;
+  const { name, about, duration, features, price } = plan;
+
+  console.log(plan);
 
   const onSubmit = (plan) => {
     if (current === null) {
@@ -106,7 +109,7 @@ const SubscriptionForm = () => {
           name: name,
           about: about,
           duration: duration,
-          description: description,
+          features: features,
           price: price,
         }}
       >
@@ -118,6 +121,7 @@ const SubscriptionForm = () => {
               required: true,
             },
           ]}
+          value={name}
         >
           <Input />
         </Form.Item>
@@ -134,19 +138,21 @@ const SubscriptionForm = () => {
               required: true,
             },
           ]}
+          value={duration}
         >
-          <Input />
+          <InputNumber />
         </Form.Item>
 
         <Form.Item
-          name='description'
-          label='Description'
+          name='features'
+          label='Features'
           rules={[
             {
               required: true,
             },
           ]}
           extra='Seperate bullet points by comma'
+          value={features}
         >
           <Input.TextArea autoSize />
         </Form.Item>
@@ -159,6 +165,7 @@ const SubscriptionForm = () => {
               required: true,
             },
           ]}
+          value={price}
         >
           <InputNumber />
         </Form.Item>

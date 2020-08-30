@@ -56,7 +56,6 @@ const planItem = ({ plan, isLoading }) => {
             description={features.map((el) => (
               <div key={el} style={{ margin: '2.5% 2.5%' }}>
                 <CheckOutlined style={{ fontSize: '16px', color: '#328fce' }} />
-                {'  here '}
                 {el}
                 <br />
               </div>
