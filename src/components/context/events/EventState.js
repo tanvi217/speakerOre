@@ -117,7 +117,6 @@ const EventState = (props) => {
       axios.defaults.headers.common['Authorization'] =
         'Bearer ' + localStorage.getItem('token');
       const response = await axios.get(`/api/events/${id}`, config);
-      console.log(response.data);
       dispatch({ type: GET_SPECIFIC_EVENT, payload: response.data });
     } catch (err) {
       console.log(err);

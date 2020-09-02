@@ -5,6 +5,8 @@ import {
   CLEAR_CURRENT_SUBSCRIPTION_PLAN,
   SET_CURRENT_SUBSCRIPTION_PLAN,
   GET_SUBSCRIPTION_PLANS,
+  GET_SPECIFIC_SUBSCRIPTION_PLAN,
+  SET_PLAN_LOADING,
 } from '../types';
 
 export default (state, action) => {
@@ -13,6 +15,18 @@ export default (state, action) => {
       return {
         ...state,
         plans: action.payload,
+        isLoading: false,
+      };
+    case SET_PLAN_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_SPECIFIC_SUBSCRIPTION_PLAN:
+      return {
+        ...state,
+        isLoading: false,
+        plan: action.payload,
       };
     case CREATE_SUBSCRIPTION_PLAN:
       return {

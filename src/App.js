@@ -11,6 +11,7 @@ import EventForm from './components/event_form/EventForm';
 import EditEventForm from './components/event_form/EditEventForm';
 import Event from './components/events/Event';
 import Dashboard from './components/pages/Dashboard';
+import SubscriptionDetail from './components/pages/SubscriptionDetail';
 
 import PrivateRoute from '../src/components/routing/PrivateRoute';
 import PrivateRouteDashboard from './components/routing/PrivateRouteDashboard';
@@ -45,6 +46,11 @@ const App = () => {
                   <Route exact path='/' component={Home} />
                   <Route exact path='/about' component={About} />
                   <Route exact path='/subscribe' component={Subscribe} />
+                  <Route
+                    exact
+                    path='/subscribe/:subscription_id'
+                    component={SubscriptionDetail}
+                  />
                   <Route exact path='/events' component={EventsPage} />
                   <Route exact path='/events/:event_id' component={Event} />
                   <Route exact path='/add_event' component={EventForm} />

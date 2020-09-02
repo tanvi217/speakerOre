@@ -110,3 +110,59 @@
     margin: 0;
   }
 }
+
+/* Subscription Detail page */
+
+.subscription-detail {
+  padding: 1.5% 5%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.detail-section {
+  flex: 0 0 65%;
+  margin: 1.5% 1%;
+}
+
+.order-section {
+  flex: 0 0 30%;
+  margin: 1.5% 1%;
+}
+
+.plan-card {
+  margin: 0 2%;
+  box-shadow: 0 0 10px 1px #e8e9ec;
+  border-radius: 10px;
+}
+
+.yellow-button {
+  background: #f5cc23;
+  border-color: #ffffff;
+  color: #ffffff;
+  display: block;
+}
+
+.card-head {
+  font-weight: 550;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.sym {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.price-head {
+  font-weight: 500;
+  font-size: 1.75rem;
+  text-align: center;
+}
+
+.about-section {
+  color: #a6a6a6;
+  font-size: 0.7rem;
+  text-align: center;
+}

@@ -16,13 +16,13 @@ import Background from '../../static/background.png';
 
 const { Content } = Layout;
 
-const bg = {
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  backgroundImage: `url(${Background})`,
-  boxShadow: 'inset 5px 10px 30px #E8E9EC',
-};
+// const bg = {
+//   backgroundPosition: 'center',
+//   backgroundRepeat: 'no-repeat',
+//   backgroundSize: 'cover',
+//   backgroundImage: `url(${Background})`,
+//   boxShadow: 'inset 5px 10px 30px #E8E9EC',
+// };
 
 const buttonStyle = {
   background: '#f5cc23',
@@ -64,7 +64,6 @@ const EventsPage = () => {
               <Radio.Group
                 defaultValue='all'
                 onChange={onChange}
-                // size='small'
                 style={{
                   // boxShadow: '0 0 10px 1px #E8E9EC',
                   borderRadius: '15px',
@@ -86,7 +85,7 @@ const EventsPage = () => {
               {option === 'all' && <Events />}
               {option === 'bookmarks' && <Bookmark />}
               {option === 'my_events' && <MyEvents />}
-              {(role === 'moderator' || role === 'RDTEAM') &&
+              {(role === 'MODERATOR' || role === 'RDTEAM') &&
                 option === 'archive' && <Archives />}
             </Content>
           </Layout>

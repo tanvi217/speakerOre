@@ -9,8 +9,9 @@ import {
   CLEAR_CURRENT_SUBSCRIPTION_PLAN,
   SET_CURRENT_SUBSCRIPTION_PLAN,
   GET_SUBSCRIPTION_PLANS,
+  GET_SPECIFIC_SUBSCRIPTION_PLAN,
+  SET_PLAN_LOADING,
 } from '../types';
-import setAuthToken from '../../utils/setAuthToken';
 
 const config = {
   headers: {
@@ -21,45 +22,32 @@ const config = {
 const SubscribeState = (props) => {
   const initialState = {
     plans: [],
-    // plans: [
-    //   {
-    //     id: 1,
-    //     name: 'Platinum',
-    //     duration: 'Month',
-    //     about: 'Suspendisse quis est Suspendisse kafjlk',
-    //     description:
-    //       'Suspendisse quis est dignissim, Suspendisse quis, Suspendisse quis suscipit, Suspendisse quis est',
-    //     amount: 50,
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'Silver',
-    //     duration: '4 Months',
-    //     about: 'Suspendisse quis est Suspendisse',
-    //     description:
-    //       'Suspendisse,Suspendisse quis est,Suspendisse quis est dignissim,Suspendisse dignissim',
-    //     amount: 15,
-    //   },
-    //   {
-    //     id: 3,
-    //     name: 'Gold',
-    //     duration: 'Year',
-    //     about: 'quis est Suspendisse quis est Suspendisse',
-    //     description:
-    //       'Suspendisse quis est dignissim, Suspendisse quis, Suspendisse est dignissim, Suspendisse dignissim',
-    //     amount: 25,
-    //   },
-    // ],
+    plan: null,
     isLoading: false,
     current: null,
   };
 
   const [state, dispatch] = useReducer(subscribeReducer, initialState);
 
+  const setLoading = () => {
+    dispatch({ type: SET_PLAN_LOADING });
+  };
+
   const getSubscriptionPlans = async () => {
     try {
+      setLoading();
       const res = await axios.get('/api/subscription', config);
       dispatch({ type: GET_SUBSCRIPTION_PLANS, payload: res.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getSubscriptionPlan = async (id) => {
+    try {
+      setLoading();
+      const res = await axios.get(`/api/subscription/${id}`, config);
+      dispatch({ type: GET_SPECIFIC_SUBSCRIPTION_PLAN, payload: res.data });
     } catch (err) {
       console.log(err);
     }
@@ -85,7 +73,6 @@ const SubscribeState = (props) => {
   };
 
   const setCurrent = (subscription) => {
-    console.log(subscription);
     dispatch({ type: SET_CURRENT_SUBSCRIPTION_PLAN, payload: subscription });
   };
 
@@ -98,8 +85,10 @@ const SubscribeState = (props) => {
       value={{
         plans: state.plans,
         isLoading: state.isLoading,
+        plan: state.plan,
         current: state.current,
         getSubscriptionPlans,
+        getSubscriptionPlan,
         createSubscriptionPlan,
         deleteSubscriptionPlan,
         editSubscriptionPlan,
