@@ -7,7 +7,7 @@ import stwave from '../../static/stwave.svg';
 // import gdownWave from '../../static/gdownWave.svg';
 import Background from '../../static/background.png';
 
-import Plans from '../subscribe/plans';
+import Plans from '../subscribe/Plans';
 
 import './style.css';
 const { Content } = Layout;

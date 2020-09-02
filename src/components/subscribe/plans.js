@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import PlanItem from './planItem';
+import PlanItem from './PlanItem';
 import SubscribeContext from '../context/subscribe/subscribeContext';
 
 const Plans = () => {

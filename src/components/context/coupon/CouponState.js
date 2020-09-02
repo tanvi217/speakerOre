@@ -34,7 +34,6 @@ const CouponState = (props) => {
   const getCoupons = async () => {
     setLoading();
     const response = await axios.get('api/subscription/coupon', config);
-    console.log(response.data);
     dispatch({ type: GET_ALL_COUPONS, payload: response.data });
   };
 

@@ -150,10 +150,10 @@ const EventForm = () => {
 
   const handleTimeChange = (input) => (time, timeString) => {
     if (time[0]) {
-      setStepOneFields({ ...setStepOneFields, start_time: timeString[0] });
+      setStepOneFields({ ...stepOneFields, start_time: timeString[0] });
     }
     if (time[1]) {
-      setStepOneFields({ ...setStepOneFields, end_time: timeString[1] });
+      setStepOneFields({ ...stepOneFields, end_time: timeString[1] });
     }
   };
 

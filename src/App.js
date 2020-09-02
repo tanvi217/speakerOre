@@ -14,12 +14,12 @@ import Dashboard from './components/pages/Dashboard';
 
 import PrivateRoute from '../src/components/routing/PrivateRoute';
 import PrivateRouteDashboard from './components/routing/PrivateRouteDashboard';
-import PrivateRouteEvent from '../src/components/routing/PrivateRouteEvent';
+// import PrivateRouteEvent from '../src/components/routing/PrivateRouteEvent';
 
 import EventState from './components/context/events/EventState';
 import AuthState from './components/context/auth/AuthState';
 import EventsFilterState from './components/context/eventsFilter/EventsFilterState';
-import setAuthToken from '../src/components/utils/setAuthToken';
+// import setAuthToken from '../src/components/utils/setAuthToken';
 import SubscribeState from './components/context/subscribe/SubscribeState';
 import CouponState from './components/context/coupon/CouponState';
 

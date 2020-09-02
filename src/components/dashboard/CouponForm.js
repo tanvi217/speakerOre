@@ -10,8 +10,10 @@ import {
   Row,
   Col,
   Divider,
+  DatePicker,
 } from 'antd';
 import CouponContext from '../context/coupon/couponContext';
+import SubscribeContext from '../context/subscribe/subscribeContext';
 
 const formItemLayout = {
   labelCol: {
@@ -54,44 +56,61 @@ const divider = {
 
 const CouponForm = () => {
   const couponContext = useContext(CouponContext);
+  const subscribeContext = useContext(SubscribeContext);
 
   const { createCoupon, editCoupon, clearCurrent, current } = couponContext;
+  const { getSubscriptionPlans, plans } = subscribeContext;
+
+  const [allPlans, setAllPlans] = useState([]);
+  const [allPlanIds, setAllPlanIds] = useState([]);
 
   const [coupon, setCoupon] = useState({
     name: '',
     code: '',
-    count: '',
+    count: null,
     option: 'amount',
-    plans: 'monthly',
-    percentage_value: '',
-    amount_value: '',
+    plans: allPlans,
+    percentage: null,
+    end_date: null,
+    price: null,
   });
 
   useEffect(() => {
     if (current !== null) {
-      setCoupon(current);
+      getSubscriptionPlans()
+        .then(() => {
+          let i = 0;
+          for (i = 0; i < plans.length; i++) {
+            setAllPlans([...allPlans, plans[i].name]);
+            setAllPlanIds((prevArray) => [...prevArray, plans[i].id]);
+          }
+        })
+        .then(() => {
+          setCoupon(current);
+        });
     } else {
-      setCoupon({
-        name: '',
-        code: '',
-        count: '',
-        option: 'amount',
-        plan: 'monthly',
-        percentage_value: '',
-        amount_value: '',
-      });
+      getSubscriptionPlans()
+        .then(() => {
+          let i = 0;
+          for (i = 0; i < plans.length; i++) {
+            setAllPlans((prevArray) => [...prevArray, plans[i].name]);
+            setAllPlanIds((prevArray) => [...prevArray, plans[i].id]);
+          }
+        })
+        .then(() => {
+          setCoupon({
+            name: '',
+            code: '',
+            count: null,
+            option: 'amount',
+            end_date: null,
+            plans: [],
+            percentage: null,
+            price: null,
+          });
+        });
     }
   }, [couponContext, current]);
-
-  const {
-    name,
-    code,
-    count,
-    option,
-    plan,
-    percentage_value,
-    amount_value,
-  } = coupon;
 
   const onFinish = (coupon) => {
     if (current === null) {
@@ -119,28 +138,21 @@ const CouponForm = () => {
         onFinish={onFinish}
         validateMessages={validateMessages}
         initialValues={{
-          name: name,
-          code: code,
-          count: count,
-          option: option,
-          plan: plan,
-          percentage_value: percentage_value,
-          amount_value: amount_value,
+          'coupon-name': coupon.name,
+          'coupon-code': coupon.code,
+          'coupon-count': coupon.count,
+          'end-date': coupon.end_date,
+          options: coupon.option,
+          'coupon-plans': coupon.plans,
+          'percentage-value': coupon.percentage,
+          'amount-value': coupon.price,
         }}
       >
-        <Form.Item
-          name='name'
-          label='Coupon Name'
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
+        <Form.Item name='coupon-name' label='Coupon Name'>
           <Input />
         </Form.Item>
         <Form.Item
-          name='code'
+          name='coupon-code'
           label='Coupon Code'
           rules={[
             {
@@ -150,38 +162,45 @@ const CouponForm = () => {
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          name='count'
-          label='Count'
-          rules={[
-            {
-              type: 'number',
-              required: true,
-            },
-          ]}
-        >
+        <Form.Item name='coupon-count' label='Count'>
           <InputNumber />
+        </Form.Item>
+        <Form.Item name='end-date' label='Expires on'>
+          <DatePicker />
         </Form.Item>
 
         <Form.Item
-          name='option'
+          name='options'
           label='Option'
           rules={[
             {
               required: true,
             },
           ]}
-          //   onValuesChange={() => setOption(value)}
         >
           <Radio.Group>
-            <Radio.Button value='amount'>Amount</Radio.Button>
-            <Radio.Button value='percentage'>Percentage</Radio.Button>
+            <Radio.Button
+              value='amount'
+              onChange={() => {
+                setCoupon({ ...coupon, option: 'amount' });
+              }}
+            >
+              Amount
+            </Radio.Button>
+            <Radio.Button
+              value='percentage'
+              onChange={() => {
+                setCoupon({ ...coupon, option: 'percentage' });
+              }}
+            >
+              Percentage
+            </Radio.Button>
           </Radio.Group>
         </Form.Item>
 
-        {option === 'percentage' && (
+        {coupon.option === 'percentage' && (
           <Form.Item
-            name='percentage_value'
+            name='percentage-value'
             label='Percentage'
             rules={[
               {
@@ -195,11 +214,10 @@ const CouponForm = () => {
           </Form.Item>
         )}
 
-        {option === 'amount' && (
+        {coupon.option === 'amount' && (
           <Form.Item
-            name='amount_value'
+            name='amount-value'
             label='Amount'
-            //   disable={option === 'percentage'}
             rules={[
               {
                 type: 'number',
@@ -210,39 +228,22 @@ const CouponForm = () => {
           </Form.Item>
         )}
 
-        <Form.Item name='plan' label='Applicable plans'>
+        <Form.Item name='coupon-plans' label='Applicable plans'>
           <Checkbox.Group>
             <Row>
-              <Col>
-                <Checkbox
-                  value='A'
-                  style={{
-                    lineHeight: '32px',
-                  }}
-                >
-                  Monthly
-                </Checkbox>
-              </Col>
-              <Col>
-                <Checkbox
-                  value='B'
-                  style={{
-                    lineHeight: '32px',
-                  }}
-                >
-                  Quaterly
-                </Checkbox>
-              </Col>
-              <Col>
-                <Checkbox
-                  value='C'
-                  style={{
-                    lineHeight: '32px',
-                  }}
-                >
-                  Yearly
-                </Checkbox>
-              </Col>
+              {allPlans.map((plan, id) => (
+                <Col key={id}>
+                  <Checkbox
+                    value={plan}
+                    style={{
+                      lineHeight: '32px',
+                    }}
+                    key={id}
+                  >
+                    {plan}
+                  </Checkbox>
+                </Col>
+              ))}
             </Row>
           </Checkbox.Group>
         </Form.Item>
@@ -250,13 +251,13 @@ const CouponForm = () => {
         {current ? (
           <Form.Item {...tailLayout}>
             <Button type='primary' htmlType='submit'>
-              Edit Plan
+              Edit coupon
             </Button>
           </Form.Item>
         ) : (
           <Form.Item {...tailLayout}>
             <Button type='primary' htmlType='submit'>
-              Add Plan
+              Add coupon
             </Button>
           </Form.Item>
         )}
