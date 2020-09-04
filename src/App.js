@@ -23,6 +23,7 @@ import EventsFilterState from './components/context/eventsFilter/EventsFilterSta
 // import setAuthToken from '../src/components/utils/setAuthToken';
 import SubscribeState from './components/context/subscribe/SubscribeState';
 import CouponState from './components/context/coupon/CouponState';
+import PaymentState from './components/context/payment/PaymentState';
 
 // import AuthContext from './components/context/auth/authContext';
 
@@ -41,33 +42,35 @@ const App = () => {
         <SubscribeState>
           <CouponState>
             <EventsFilterState>
-              <Router>
-                <Switch>
-                  <Route exact path='/' component={Home} />
-                  <Route exact path='/about' component={About} />
-                  <Route exact path='/subscribe' component={Subscribe} />
-                  <Route
-                    exact
-                    path='/subscribe/:subscription_id'
-                    component={SubscriptionDetail}
-                  />
-                  <Route exact path='/events' component={EventsPage} />
-                  <Route exact path='/events/:event_id' component={Event} />
-                  <Route exact path='/add_event' component={EventForm} />
-                  <Route
-                    exact
-                    path='/edit-event/:eventId'
-                    component={EditEventForm}
-                  />
-                  <PrivateRoute exact path='/profile' component={Profile} />
-                  <PrivateRouteDashboard
-                    exact
-                    path='/dashboard'
-                    component={Dashboard}
-                  />
-                  <Route component={NotFound}></Route>
-                </Switch>
-              </Router>
+              <PaymentState>
+                <Router>
+                  <Switch>
+                    <Route exact path='/' component={Home} />
+                    <Route exact path='/about' component={About} />
+                    <Route exact path='/subscribe' component={Subscribe} />
+                    <Route
+                      exact
+                      path='/subscribe/:subscription_id'
+                      component={SubscriptionDetail}
+                    />
+                    <Route exact path='/events' component={EventsPage} />
+                    <Route exact path='/events/:event_id' component={Event} />
+                    <Route exact path='/add_event' component={EventForm} />
+                    <Route
+                      exact
+                      path='/edit-event/:eventId'
+                      component={EditEventForm}
+                    />
+                    <PrivateRoute exact path='/profile' component={Profile} />
+                    <PrivateRouteDashboard
+                      exact
+                      path='/dashboard'
+                      component={Dashboard}
+                    />
+                    <Route component={NotFound}></Route>
+                  </Switch>
+                </Router>
+              </PaymentState>
             </EventsFilterState>
           </CouponState>
         </SubscribeState>

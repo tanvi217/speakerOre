@@ -26,6 +26,7 @@ import BreadcrumbHead from '../layout/BreadcrumbHead';
 import Footer from '../layout/Footer';
 import SubscribeContext from '../context/subscribe/subscribeContext';
 import AuthContext from '../context/auth/authContext';
+import PaymentContext from '../context/payment/paymentContext';
 
 import './style.css';
 
@@ -46,6 +47,8 @@ const SubscriptionDetail = ({ match }) => {
   }, []);
 
   const subscribeContext = useContext(SubscribeContext);
+  const authContext = useContext(AuthContext);
+  const paymentContext = useContext(PaymentContext);
 
   const {
     getSubscriptionPlan,
@@ -56,7 +59,7 @@ const SubscriptionDetail = ({ match }) => {
     getUpdatedPrice,
   } = subscribeContext;
 
-  const authContext = useContext(AuthContext);
+  const { startPayment, paymentError } = paymentContext;
 
   const { user } = authContext;
 
@@ -87,13 +90,15 @@ const SubscriptionDetail = ({ match }) => {
         } = response;
         try {
           // If the payment is successful, this handler function is called
-          const res = await axios.post('http://localhost:3001/api/payment', {
+          startPayment({
             razorpay_payment_id,
             razorpay_order_id,
             razorpay_signature,
           });
         } catch (e) {
           console.log(e);
+
+          message.error('Payment failed');
         }
       },
       theme: {
@@ -124,7 +129,6 @@ const SubscriptionDetail = ({ match }) => {
       );
     } catch (err) {
       setError('Invalid coupon code');
-      message.error('This is an error message');
     }
   };
 

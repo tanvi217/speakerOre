@@ -63,7 +63,6 @@ const SubscriptionForm = () => {
   useEffect(() => {
     if (current !== null) {
       setPlan(current);
-      console.log(plan);
     } else {
       setPlan({
         name: '',
@@ -76,8 +75,6 @@ const SubscriptionForm = () => {
   }, [subscribeContext, current]);
 
   const { name, about, duration, features, price } = plan;
-
-  console.log(plan);
 
   const onSubmit = (plan) => {
     if (current === null) {

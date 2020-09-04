@@ -1,10 +1,27 @@
 import React, { useContext, useEffect } from 'react';
 import 'antd/dist/antd.css';
-import { Table, Button, Divider, Spin, Popconfirm, Descriptions } from 'antd';
+import {
+  Table,
+  Button,
+  Divider,
+  Spin,
+  Popconfirm,
+  Descriptions,
+  Switch,
+} from 'antd';
 import CouponContext from '../context/coupon/couponContext';
 
 const divider = {
   color: '#000000',
+};
+
+const priceToIndianSystem = (price) => {
+  var x = price.toString();
+  var lastThree = x.substring(x.length - 3);
+  var otherNumbers = x.substring(0, x.length - 3);
+  if (otherNumbers != '') lastThree = ',' + lastThree;
+  var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree;
+  return res;
 };
 
 const GetCoupons = () => {
@@ -14,12 +31,17 @@ const GetCoupons = () => {
     getCoupons();
   }, []);
 
+  const onChange = (id) => {
+    toggleCouponVisibility(id);
+  };
+
   const {
     coupons,
     getCoupons,
     isLoading,
     deleteCoupon,
     setCurrent,
+    toggleCouponVisibility,
   } = couponContext;
 
   const columns = [
@@ -53,6 +75,17 @@ const GetCoupons = () => {
         </span>
       ),
     },
+    {
+      title: 'Enabled',
+      key: 'enabled',
+      dataIndex: '',
+      render: (text, record) => (
+        <Switch
+          defaultChecked={!record.disable}
+          onChange={() => onChange(record.id)}
+        />
+      ),
+    },
   ];
 
   return (
@@ -72,15 +105,36 @@ const GetCoupons = () => {
             expandable={{
               expandedRowRender: (record) => (
                 <Descriptions title={record.code}>
-                  <Descriptions.Item label='Expires on'>
-                    {record.end_date.toString()}
-                  </Descriptions.Item>
-                  <Descriptions.Item label='Coupon Count'>
-                    {record.count}
-                  </Descriptions.Item>
-                  <Descriptions.Item label='Mode'>
-                    {record.price} || {record.percentage}
-                  </Descriptions.Item>
+                  {record.name && (
+                    <Descriptions.Item label='Coupon name'>
+                      {record.name.toString()}
+                    </Descriptions.Item>
+                  )}
+                  {record.description && (
+                    <Descriptions.Item label='Coupon description'>
+                      {record.description.toString()}
+                    </Descriptions.Item>
+                  )}
+                  {record.end_date && (
+                    <Descriptions.Item label='Expires on'>
+                      {record.end_date.toString()}
+                    </Descriptions.Item>
+                  )}
+                  {record.count && (
+                    <Descriptions.Item label='Coupon Count'>
+                      {record.count}
+                    </Descriptions.Item>
+                  )}
+                  {record.price && (
+                    <Descriptions.Item label='Discount Amount'>
+                      Rs {priceToIndianSystem(record.price)}
+                    </Descriptions.Item>
+                  )}
+                  {record.percentage && (
+                    <Descriptions.Item label='Discount Percentage'>
+                      {record.percentage}%
+                    </Descriptions.Item>
+                  )}
                 </Descriptions>
               ),
             }}

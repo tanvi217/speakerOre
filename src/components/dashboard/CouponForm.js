@@ -11,6 +11,7 @@ import {
   Col,
   Divider,
   DatePicker,
+  message,
 } from 'antd';
 import CouponContext from '../context/coupon/couponContext';
 import SubscribeContext from '../context/subscribe/subscribeContext';
@@ -43,7 +44,7 @@ const tailLayout = {
 const validateMessages = {
   required: '${label} is required!',
   types: {
-    number: '${label} is not a validate number!',
+    number: '${label} is not a valid number!',
   },
   number: {
     range: '${label} must be between ${min} and ${max}',
@@ -58,18 +59,22 @@ const CouponForm = () => {
   const couponContext = useContext(CouponContext);
   const subscribeContext = useContext(SubscribeContext);
 
-  const { createCoupon, editCoupon, clearCurrent, current } = couponContext;
+  const {
+    createCoupon,
+    editCoupon,
+    clearCurrent,
+    current,
+    couponCreationError,
+  } = couponContext;
   const { getSubscriptionPlans, plans } = subscribeContext;
-
-  const [allPlans, setAllPlans] = useState([]);
-  const [allPlanIds, setAllPlanIds] = useState([]);
 
   const [coupon, setCoupon] = useState({
     name: '',
     code: '',
     count: null,
-    option: 'amount',
-    plans: allPlans,
+    limit: 'expiry_date',
+    offerOption: 'amount',
+    plans: [],
     percentage: null,
     end_date: null,
     price: null,
@@ -77,38 +82,23 @@ const CouponForm = () => {
 
   useEffect(() => {
     if (current !== null) {
-      getSubscriptionPlans()
-        .then(() => {
-          let i = 0;
-          for (i = 0; i < plans.length; i++) {
-            setAllPlans([...allPlans, plans[i].name]);
-            setAllPlanIds((prevArray) => [...prevArray, plans[i].id]);
-          }
-        })
-        .then(() => {
-          setCoupon(current);
-        });
+      getSubscriptionPlans().then(() => {
+        setCoupon(current);
+      });
     } else {
-      getSubscriptionPlans()
-        .then(() => {
-          let i = 0;
-          for (i = 0; i < plans.length; i++) {
-            setAllPlans((prevArray) => [...prevArray, plans[i].name]);
-            setAllPlanIds((prevArray) => [...prevArray, plans[i].id]);
-          }
-        })
-        .then(() => {
-          setCoupon({
-            name: '',
-            code: '',
-            count: null,
-            option: 'amount',
-            end_date: null,
-            plans: [],
-            percentage: null,
-            price: null,
-          });
+      getSubscriptionPlans().then(() => {
+        setCoupon({
+          name: '',
+          code: '',
+          count: null,
+          limit: 'expiry_date',
+          offerOption: 'amount',
+          end_date: null,
+          plans: [],
+          percentage: null,
+          price: null,
         });
+      });
     }
   }, [couponContext, current]);
 
@@ -116,6 +106,11 @@ const CouponForm = () => {
     if (current === null) {
       console.log(coupon);
       createCoupon(coupon);
+      if (couponCreationError) {
+        message.error('Coupon creation failed');
+      } else {
+        message.success('Coupon created successfully');
+      }
     } else {
       editCoupon(coupon);
     }
@@ -124,6 +119,17 @@ const CouponForm = () => {
 
   const clearAll = () => {
     clearCurrent();
+    setCoupon({
+      name: '',
+      code: '',
+      count: null,
+      limit: 'expiry_date',
+      offerOption: 'amount',
+      end_date: null,
+      plans: [],
+      percentage: null,
+      price: null,
+    });
   };
 
   return (
@@ -143,7 +149,8 @@ const CouponForm = () => {
           'coupon-code': coupon.code,
           'coupon-count': coupon.count,
           'end-date': coupon.end_date,
-          options: coupon.option,
+          'offer-option': coupon.offerOption,
+          limit: coupon.limit,
           'coupon-plans': coupon.plans,
           'percentage-value': coupon.percentage,
           'amount-value': coupon.price,
@@ -163,15 +170,67 @@ const CouponForm = () => {
         >
           <Input />
         </Form.Item>
-        <Form.Item name='coupon-count' label='Count'>
-          <InputNumber />
-        </Form.Item>
-        <Form.Item name='end-date' label='Expires on'>
-          <DatePicker />
-        </Form.Item>
 
         <Form.Item
-          name='options'
+          name='limit'
+          label='Expiry Type'
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Radio.Group>
+            <Radio.Button
+              value='expiry_date'
+              onChange={() => {
+                setCoupon({ ...coupon, limit: 'expiry_date' });
+              }}
+            >
+              Expiry Date
+            </Radio.Button>
+            <Radio.Button
+              value='count'
+              onChange={() => {
+                setCoupon({ ...coupon, limit: 'count' });
+              }}
+            >
+              Coupons count
+            </Radio.Button>
+          </Radio.Group>
+        </Form.Item>
+
+        {coupon.limit === 'count' && (
+          <Form.Item
+            name='coupon-count'
+            label='Count'
+            rules={[
+              {
+                type: 'number',
+                required: coupon.limit === 'count',
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+        )}
+
+        {coupon.limit === 'expiry_date' && (
+          <Form.Item
+            name='end-date'
+            label='Expires on'
+            rules={[
+              {
+                required: coupon.limit === 'expiry_date',
+              },
+            ]}
+          >
+            <DatePicker />
+          </Form.Item>
+        )}
+
+        <Form.Item
+          name='offer-option'
           label='Option'
           rules={[
             {
@@ -183,7 +242,7 @@ const CouponForm = () => {
             <Radio.Button
               value='amount'
               onChange={() => {
-                setCoupon({ ...coupon, option: 'amount' });
+                setCoupon({ ...coupon, offerOption: 'amount' });
               }}
             >
               Amount
@@ -191,7 +250,7 @@ const CouponForm = () => {
             <Radio.Button
               value='percentage'
               onChange={() => {
-                setCoupon({ ...coupon, option: 'percentage' });
+                setCoupon({ ...coupon, offerOption: 'percentage' });
               }}
             >
               Percentage
@@ -199,7 +258,7 @@ const CouponForm = () => {
           </Radio.Group>
         </Form.Item>
 
-        {coupon.option === 'percentage' && (
+        {coupon.offerOption === 'percentage' && (
           <Form.Item
             name='percentage-value'
             label='Percentage'
@@ -208,6 +267,7 @@ const CouponForm = () => {
                 type: 'number',
                 min: 0,
                 max: 100,
+                required: coupon.offerOption === 'percentage',
               },
             ]}
           >
@@ -215,13 +275,14 @@ const CouponForm = () => {
           </Form.Item>
         )}
 
-        {coupon.option === 'amount' && (
+        {coupon.offerOption === 'amount' && (
           <Form.Item
             name='amount-value'
             label='Amount'
             rules={[
               {
                 type: 'number',
+                required: coupon.offerOption === 'amount',
               },
             ]}
           >
@@ -229,7 +290,15 @@ const CouponForm = () => {
           </Form.Item>
         )}
 
-        <Form.Item name='coupon-plans' label='Applicable plans'>
+        <Form.Item
+          name='coupon-plans'
+          label='Applicable plans'
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
           <Checkbox.Group>
             <Row>
               {plans &&

@@ -6,6 +6,7 @@ import {
   CLEAR_CURRENT_COUPON,
   SET_CURRENT_COUPON,
   COUPON_LOADING,
+  CREATE_COUPON_FAIL,
 } from '../types';
 
 export default (state, action) => {
@@ -20,6 +21,12 @@ export default (state, action) => {
       return {
         ...state,
         coupons: [...state.coupons, action.payload],
+        couponCreationError: null,
+      };
+    case CREATE_COUPON_FAIL:
+      return {
+        ...state,
+        couponCreationError: action.payload,
       };
     case EDIT_COUPON:
       return {

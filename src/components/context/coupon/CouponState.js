@@ -3,12 +3,12 @@ import couponContext from './couponContext';
 import couponReducer from './couponReducer';
 import {
   GET_ALL_COUPONS,
-  CREATE_COUPON,
   EDIT_COUPON,
   DELETE_COUPON,
   CLEAR_CURRENT_COUPON,
   SET_CURRENT_COUPON,
   COUPON_LOADING,
+  CREATE_COUPON_FAIL,
 } from '../types';
 import axios from 'axios';
 
@@ -23,6 +23,7 @@ const CouponState = (props) => {
     coupons: [],
     isLoading: false,
     current: null,
+    couponCreationError: null,
   };
 
   const [state, dispatch] = useReducer(couponReducer, initialState);
@@ -41,44 +42,45 @@ const CouponState = (props) => {
     }
   };
 
-  const createCoupon = async ({
-    name,
-    code,
-    count,
-    end_date,
-    percentage,
-    price,
-    plans,
-  }) => {
+  const createCoupon = async (coupon) => {
     try {
       const formData = {
         coupon: {
-          name: name,
-          code: code,
-          count: count,
-          end_date: end_date,
-          percentage: percentage,
-          price: price,
+          name: coupon['coupon-name'],
+          code: coupon['coupon-code'],
+          count: coupon['coupon-count'],
+          end_date: coupon['end-date'],
+          percentage: coupon['percentage-value'],
+          price: coupon['amount-value'],
         },
-        plans: plans,
+        plans: coupon['coupon-plans'],
       };
-      const res = await axios.post(
-        'api/subscription/setcoupon',
-        formData,
-        config
-      );
+      await axios.post('api/subscription/setcoupon', formData, config);
     } catch (err) {
       console.log(err);
+      dispatch({ type: CREATE_COUPON_FAIL, payload: 'Coupon creation failed' });
     }
-    dispatch({ type: CREATE_COUPON });
   };
 
   const deleteCoupon = (id) => {
     dispatch({ type: DELETE_COUPON, payload: id });
   };
 
-  const editCoupon = (coupon) => {
-    dispatch({ type: EDIT_COUPON, payload: coupon });
+  const editCoupon = async (coupon) => {
+    try {
+      await axios.put(`api/subscription/coupon/${coupon.id}`, coupon, config);
+      dispatch({ type: EDIT_COUPON, payload: coupon });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const toggleCouponVisibility = async (id) => {
+    try {
+      await axios.put(`/api/subscription/coupon/toggle/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const clearCurrent = () => {
@@ -95,12 +97,14 @@ const CouponState = (props) => {
         coupons: state.coupons,
         isLoading: state.isLoading,
         current: state.current,
+        couponCreationError: state.couponCreationError,
         getCoupons,
         createCoupon,
         deleteCoupon,
         editCoupon,
         clearCurrent,
         setCurrent,
+        toggleCouponVisibility,
       }}
     >
       {props.children}

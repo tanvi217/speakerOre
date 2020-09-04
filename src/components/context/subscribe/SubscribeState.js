@@ -60,9 +60,7 @@ const SubscribeState = (props) => {
 
   const createSubscriptionPlan = async (plan) => {
     try {
-      console.log(plan);
       const res = await axios.post('/api/subscription', plan, config);
-      console.log(res);
       dispatch({ type: CREATE_SUBSCRIPTION_PLAN, payload: res.data });
     } catch (err) {
       console.log(err);
