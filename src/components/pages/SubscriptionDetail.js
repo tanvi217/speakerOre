@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useState, useContext } from 'react';
+import React, {
+  Fragment,
+  useEffect,
+  useState,
+  useContext,
+  useRef,
+} from 'react';
 import axios from 'axios';
 
 import {
@@ -9,6 +15,8 @@ import {
   Descriptions,
   Space,
   Input,
+  message,
+  Alert,
 } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import { CheckOutlined } from '@ant-design/icons';
@@ -39,19 +47,28 @@ const SubscriptionDetail = ({ match }) => {
 
   const subscribeContext = useContext(SubscribeContext);
 
-  const { getSubscriptionPlan, plan, isLoading } = subscribeContext;
+  const {
+    getSubscriptionPlan,
+    plan,
+    isLoading,
+    amount,
+    couponError,
+    getUpdatedPrice,
+  } = subscribeContext;
 
   const authContext = useContext(AuthContext);
 
   const { user } = authContext;
 
-  const [orderId, setOrderId] = useState(null);
-  const [couponDiscount, setCouponDiscount] = useState(0);
+  const couponCode = useRef('');
 
-  const openPayModal = (price) => {
+  const [orderId, setOrderId] = useState(null);
+  const [error, setError] = useState(null);
+
+  const openPayModal = () => {
     const rzp = new window.Razorpay({
       key: 'rzp_test_9jRuiwNriCv9d4',
-      amount: price * 100,
+      amount: amount * 100,
       currency: 'INR',
       name: 'SpeakerOre',
       description: 'Subscription plan payment',
@@ -96,6 +113,19 @@ const SubscriptionDetail = ({ match }) => {
   const fetchNewOrderID = async () => {
     const res = await axios.get('http://localhost:3001/api/payment');
     setOrderId(res.data.order_id);
+  };
+
+  const updatePrice = async () => {
+    try {
+      // console.log(couponCode.current.state.value);
+      const res = await getUpdatedPrice(
+        match.params.subscription_id,
+        couponCode.current.state.value
+      );
+    } catch (err) {
+      setError('Invalid coupon code');
+      message.error('This is an error message');
+    }
   };
 
   // Get order_id
@@ -160,27 +190,31 @@ const SubscriptionDetail = ({ match }) => {
                       {priceToIndianSystem(plan.price)}
                     </Descriptions.Item>
                     <Descriptions.Item label='Coupon Savings'>
-                      {priceToIndianSystem(couponDiscount)}
+                      {priceToIndianSystem(plan.price - amount)}
                     </Descriptions.Item>
                     <Descriptions.Item label='Order Total'>
-                      {priceToIndianSystem(plan.price - couponDiscount)}
+                      {priceToIndianSystem(amount)}
                     </Descriptions.Item>
                   </Descriptions>
 
                   <Button
                     block
                     className='yellow-button'
-                    onClick={openPayModal(plan.price - couponDiscount)}
+                    onClick={openPayModal}
                   >
                     Proceed to checkout
                   </Button>
-
                   <Search
                     placeholder='Apply coupon code'
                     enterButton='APPLY'
                     size='medium'
+                    ref={couponCode}
+                    onSearch={updatePrice}
                     // onSearch={value => console.log(value)}
                   />
+                  {(couponError || error) && (
+                    <Alert message='Invalid coupon' type='error' />
+                  )}
                 </Space>
               </Skeleton>
             )}

@@ -12,14 +12,12 @@ const GetCoupons = () => {
 
   useEffect(() => {
     getCoupons();
-    console.log(coupons);
   }, []);
 
   const {
     coupons,
     getCoupons,
     isLoading,
-    editCoupon,
     deleteCoupon,
     setCurrent,
   } = couponContext;
@@ -64,10 +62,10 @@ const GetCoupons = () => {
     >
       <Divider style={divider}>Existing Coupons</Divider>
 
-      {coupons.length === 0 ? (
-        'No discount coupons plans. Please create one.'
-      ) : (
-        <Spin spinning={isLoading}>
+      <Spin spinning={isLoading}>
+        {coupons.length === 0 ? (
+          'No discount coupons plans. Please create one.'
+        ) : (
           <Table
             bordered
             columns={columns}
@@ -89,8 +87,8 @@ const GetCoupons = () => {
             dataSource={coupons}
             rowKey='id'
           />
-        </Spin>
-      )}
+        )}
+      </Spin>
     </div>
   );
 };

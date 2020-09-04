@@ -32,13 +32,45 @@ const CouponState = (props) => {
   };
 
   const getCoupons = async () => {
-    setLoading();
-    const response = await axios.get('api/subscription/coupon', config);
-    dispatch({ type: GET_ALL_COUPONS, payload: response.data });
+    try {
+      setLoading();
+      const response = await axios.get('api/subscription/coupon', config);
+      dispatch({ type: GET_ALL_COUPONS, payload: response.data });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const createCoupon = (coupon) => {
-    dispatch({ type: CREATE_COUPON, payload: coupon });
+  const createCoupon = async ({
+    name,
+    code,
+    count,
+    end_date,
+    percentage,
+    price,
+    plans,
+  }) => {
+    try {
+      const formData = {
+        coupon: {
+          name: name,
+          code: code,
+          count: count,
+          end_date: end_date,
+          percentage: percentage,
+          price: price,
+        },
+        plans: plans,
+      };
+      const res = await axios.post(
+        'api/subscription/setcoupon',
+        formData,
+        config
+      );
+    } catch (err) {
+      console.log(err);
+    }
+    dispatch({ type: CREATE_COUPON });
   };
 
   const deleteCoupon = (id) => {

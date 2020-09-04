@@ -114,6 +114,7 @@ const CouponForm = () => {
 
   const onFinish = (coupon) => {
     if (current === null) {
+      console.log(coupon);
       createCoupon(coupon);
     } else {
       editCoupon(coupon);
@@ -231,19 +232,20 @@ const CouponForm = () => {
         <Form.Item name='coupon-plans' label='Applicable plans'>
           <Checkbox.Group>
             <Row>
-              {allPlans.map((plan, id) => (
-                <Col key={id}>
-                  <Checkbox
-                    value={plan}
-                    style={{
-                      lineHeight: '32px',
-                    }}
-                    key={id}
-                  >
-                    {plan}
-                  </Checkbox>
-                </Col>
-              ))}
+              {plans &&
+                plans.map((plan, id) => (
+                  <Col key={id}>
+                    <Checkbox
+                      value={plan.id}
+                      style={{
+                        lineHeight: '32px',
+                      }}
+                      key={plan.id}
+                    >
+                      {plan.name}
+                    </Checkbox>
+                  </Col>
+                ))}
             </Row>
           </Checkbox.Group>
         </Form.Item>

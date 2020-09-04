@@ -7,6 +7,9 @@ import {
   GET_SUBSCRIPTION_PLANS,
   GET_SPECIFIC_SUBSCRIPTION_PLAN,
   SET_PLAN_LOADING,
+  GET_UPDATED_PRICE,
+  CLEAR_COUPON_ERROR,
+  COUPON_ERROR,
 } from '../types';
 
 export default (state, action) => {
@@ -27,6 +30,7 @@ export default (state, action) => {
         ...state,
         isLoading: false,
         plan: action.payload,
+        amount: action.payload.price,
       };
     case CREATE_SUBSCRIPTION_PLAN:
       return {
@@ -54,6 +58,23 @@ export default (state, action) => {
       return {
         ...state,
         current: null,
+      };
+    case GET_UPDATED_PRICE:
+      return {
+        ...state,
+        amount: action.payload,
+        isLoading: false,
+      };
+    case COUPON_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        couponError: 'Invalid coupon',
+      };
+    case CLEAR_COUPON_ERROR:
+      return {
+        ...state,
+        couponError: null,
       };
     default:
       return state;

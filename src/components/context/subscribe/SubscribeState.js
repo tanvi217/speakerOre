@@ -11,6 +11,9 @@ import {
   GET_SUBSCRIPTION_PLANS,
   GET_SPECIFIC_SUBSCRIPTION_PLAN,
   SET_PLAN_LOADING,
+  COUPON_ERROR,
+  GET_UPDATED_PRICE,
+  CLEAR_COUPON_ERROR,
 } from '../types';
 
 const config = {
@@ -25,6 +28,8 @@ const SubscribeState = (props) => {
     plan: null,
     isLoading: false,
     current: null,
+    amount: null,
+    couponError: null,
   };
 
   const [state, dispatch] = useReducer(subscribeReducer, initialState);
@@ -64,6 +69,24 @@ const SubscribeState = (props) => {
     }
   };
 
+  const getUpdatedPrice = async (id, coupon) => {
+    try {
+      setLoading();
+      clearCouponError();
+      const res = await axios.get(
+        `/api/subscription/price/?plan=${id}&coupon_code=${coupon}`
+      );
+      dispatch({ type: GET_UPDATED_PRICE, payload: res.data.price });
+    } catch (err) {
+      console.log(err);
+      dispatch({ type: COUPON_ERROR });
+    }
+  };
+
+  const clearCouponError = () => {
+    dispatch({ type: CLEAR_COUPON_ERROR });
+  };
+
   const deleteSubscriptionPlan = (id) => {
     dispatch({ type: DELETE_SUBSCRIPTION_PLAN, payload: id });
   };
@@ -87,6 +110,8 @@ const SubscribeState = (props) => {
         isLoading: state.isLoading,
         plan: state.plan,
         current: state.current,
+        amount: state.amount,
+        couponError: state.couponError,
         getSubscriptionPlans,
         getSubscriptionPlan,
         createSubscriptionPlan,
@@ -94,6 +119,7 @@ const SubscribeState = (props) => {
         editSubscriptionPlan,
         setCurrent,
         clearCurrent,
+        getUpdatedPrice,
       }}
     >
       {props.children}
