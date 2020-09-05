@@ -68,6 +68,8 @@ const CouponForm = () => {
   } = couponContext;
   const { getSubscriptionPlans, plans } = subscribeContext;
 
+  // const [editable, setEditable] = useState(current);
+
   const [coupon, setCoupon] = useState({
     name: '',
     code: '',
@@ -83,7 +85,20 @@ const CouponForm = () => {
   useEffect(() => {
     if (current !== null) {
       getSubscriptionPlans().then(() => {
-        setCoupon(current);
+        setCoupon((prevState) => {
+          return {
+            ...prevState,
+            name: current.name,
+            code: current.code,
+            count: current.count,
+            limit: current.end_date ? 'expiry_date' : 'count',
+            offerOption: current.price ? 'amount' : 'percentage',
+            plans: current.plans,
+            percentage: current.percentage,
+            end_date: current.end_date,
+            price: current.price,
+          };
+        });
       });
     } else {
       getSubscriptionPlans().then(() => {
@@ -104,7 +119,6 @@ const CouponForm = () => {
 
   const onFinish = (coupon) => {
     if (current === null) {
-      console.log(coupon);
       createCoupon(coupon);
       if (couponCreationError) {
         message.error('Coupon creation failed');
