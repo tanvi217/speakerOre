@@ -17,6 +17,7 @@ export const GET_MY_EVENTS = 'GET_MY_EVENTS';
 export const GET_BOOKMARKED_EVENTS = 'GET_BOOKMARKED_EVENTS';
 export const POST_BOOKMARK = 'POST_BOOKMARK';
 export const GET_SPECIFIC_EVENT = 'GET_SPECIFIC_EVENT';
+export const EVENT_SEARCH = 'EVENT_SEARCH';
 
 /* Auth actions */
 export const SIGN_IN_GOOGLE = 'SIGN_IN_GOOGLE';

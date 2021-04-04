@@ -312,6 +312,7 @@ const CouponForm = () => {
               required: true,
             },
           ]}
+          defaultValue={coupon.plans}
         >
           <Checkbox.Group>
             <Row>

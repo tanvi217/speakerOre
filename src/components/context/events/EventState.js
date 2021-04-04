@@ -15,6 +15,7 @@ import {
   GET_BOOKMARKED_EVENTS,
   SET_LOADING,
   GET_SPECIFIC_EVENT,
+  EVENT_SEARCH,
 } from '../types';
 
 const config = {
@@ -75,6 +76,7 @@ const EventState = (props) => {
     event: {},
     current: null,
     currentEventId: null,
+    searchText: null,
     isLoading: true,
     isVisible: false,
   };
@@ -88,6 +90,13 @@ const EventState = (props) => {
   const getEvents = async () => {
     setLoading();
     const response = await axios.get('api/events/all', config);
+    console.log(response);
+    dispatch({ type: GET_ALL_EVENTS, payload: response.data });
+  };
+
+  const get10Events = async () => {
+    setLoading();
+    const response = await axios.get('api/events/all', config);
     dispatch({ type: GET_ALL_EVENTS, payload: response.data });
   };
 
@@ -95,6 +104,16 @@ const EventState = (props) => {
     setLoading();
     const response = await axios.get('api/events', config);
     dispatch({ type: GET_MY_EVENTS, payload: response.data });
+  };
+
+  const getSearchEvents = async (query) => {
+    setLoading();
+    const response = await axios.get(
+      `api/events/search?$search=${query}`,
+      config
+    );
+    console.log(response.data);
+    dispatch({ type: EVENT_SEARCH, payload: response.data });
   };
 
   const getBookmarkedEvents = async () => {
@@ -216,6 +235,7 @@ const EventState = (props) => {
         postBookmarkEvent,
         deleteBookmarkEvent,
         getSpecificEvent,
+        getSearchEvents,
       }}
     >
       {props.children}

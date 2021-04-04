@@ -1,33 +1,67 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import EventItem from './EventItem';
 import EventContext from '../context/events/eventContext';
 
-import { Spin } from 'antd';
+import { Spin, Input } from 'antd';
+
+const { Search } = Input;
 
 const Events = () => {
   const eventContext = useContext(EventContext);
 
-  const { events, isLoading, getEvents } = eventContext;
+  const [text, setText] = useState('');
+
+  const { events, isLoading, getEvents, getSearchEvents } = eventContext;
 
   useEffect(() => {
-    getEvents();
+    if (text === '') {
+      getEvents();
+    } else {
+      getSearchEvents(text);
+      setText('');
+    }
+    console.log(events);
   }, []);
+
+  const onSubmit = (e) => {
+    // e.preventDefault();
+    if (text !== '') {
+      getSearchEvents(text);
+      setText('');
+    }
+  };
+
+  const onChange = (e) => {
+    setText(e.target.value);
+  };
 
   if (isLoading) return <Spin tip='Loading...'></Spin>;
 
   if (events.length === 0) {
-    return <h4>Please add events.</h4>;
+    return <h4>No events to show.</h4>;
   }
 
   return (
-    <div className='cards'>
-      {events.map((event) => (
-        <EventItem
-          key={event.id}
-          event={event}
-          isLoading={isLoading}
-        ></EventItem>
-      ))}
+    <div>
+      <Search
+        size='default'
+        placeholder='Search'
+        onSearch={onSubmit}
+        onChange={onChange}
+        style={{ boxShadow: '0 0 10px 1px #E8E9EC', borderRadius: '12px' }}
+        loading={isLoading}
+      />
+      <br />
+      <br />
+      <div className='cards'>
+        {events.map((event) => (
+          <EventItem
+            key={event.id}
+            event={event}
+            isLoading={isLoading}
+          ></EventItem>
+        ))}
+      </div>
     </div>
   );
 };

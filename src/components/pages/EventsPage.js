@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useContext, useState, useEffect } from 'react';
 import Events from '../events/Events';
 import Archives from '../events/Archives';
 import Bookmark from '../events/Bookmark';
@@ -12,42 +12,48 @@ import 'antd/dist/antd.css';
 import './style.css';
 import { Layout, Button, Radio } from 'antd';
 import BreadcrumbHead from '../layout/BreadcrumbHead';
-import Background from '../../static/background.png';
 
 const { Content } = Layout;
-
-// const bg = {
-//   backgroundPosition: 'center',
-//   backgroundRepeat: 'no-repeat',
-//   backgroundSize: 'cover',
-//   backgroundImage: `url(${Background})`,
-//   boxShadow: 'inset 5px 10px 30px #E8E9EC',
-// };
 
 const buttonStyle = {
   background: '#f5cc23',
   borderColor: '#f5cc23',
   color: '#ffffff',
-  marginLeft: '10px',
+  position: 'relative',
 };
 
 const EventsPage = () => {
   const authContext = useContext(AuthContext);
   const { isSubscribed, role, show_modal, isAuthenticated } = authContext;
-  // console.log(role, isSubscribed);
 
   const [option, setOption] = useState('all');
+  const [isUserSubscribed, setIsUserSubscribed] = useState(isSubscribed);
 
   const onChange = (e) => {
     setOption(e.target.value);
   };
+
+  useEffect(() => {
+    if (
+      isSubscribed === true ||
+      isSubscribed === 'true' ||
+      role === 'MODERATOR' ||
+      role === 'RDTEAM'
+    ) {
+      setIsUserSubscribed(true);
+    } else {
+      setIsUserSubscribed(false);
+    }
+  }, [isSubscribed, role]);
 
   return (
     <Fragment>
       <Navbar heading={'Events'} />
       <BreadcrumbHead heading={['Events']} />
       <div>
-        <Content className={isSubscribed ? 'subscribed' : 'unsubscribed'}>
+        <Content
+          className={isUserSubscribed === true ? 'subscribed' : 'unsubscribed'}
+        >
           <Layout
             className='site-layout-background'
             style={{ padding: '2% 3%', position: 'relative' }}
@@ -73,7 +79,7 @@ const EventsPage = () => {
                 <Radio.Button value='all'>All</Radio.Button>
                 <Radio.Button value='bookmarks'>Bookmarks</Radio.Button>
                 <Radio.Button value='my_events'>My Events</Radio.Button>
-                {(role === 'moderator' || role === 'RDTEAM') && (
+                {(role === 'MODERATOR' || role === 'RDTEAM') && (
                   <Radio.Button value='archive'>Archive</Radio.Button>
                 )}
               </Radio.Group>
@@ -82,9 +88,9 @@ const EventsPage = () => {
               <EventSearch />
               <br />
               <br />
-              {option === 'all' && <Events />}
-              {option === 'bookmarks' && <Bookmark />}
-              {option === 'my_events' && <MyEvents />}
+              {option === 'all' && isUserSubscribed && <Events />}
+              {option === 'bookmarks' && isUserSubscribed && <Bookmark />}
+              {option === 'my_events' && isUserSubscribed && <MyEvents />}
               {(role === 'MODERATOR' || role === 'RDTEAM') &&
                 option === 'archive' && <Archives />}
             </Content>
@@ -92,10 +98,11 @@ const EventsPage = () => {
         </Content>
         <Footer />
       </div>
-
-      {!isSubscribed && (
+      {(!isSubscribed ||
+        isSubscribed === false ||
+        isSubscribed === 'false') && (
         <div className='bg-text'>
-          <Button size='large' href='/subscribe' style={buttonStyle}>
+          <Button href='/subscribe' style={buttonStyle}>
             {'Subscribe to check out events'}
           </Button>
           <br />

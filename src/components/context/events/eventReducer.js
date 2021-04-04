@@ -11,6 +11,7 @@ import {
   GET_BOOKMARKED_EVENTS,
   GET_SPECIFIC_EVENT,
   SET_LOADING,
+  EVENT_SEARCH,
 } from '../types';
 
 export default (state, action) => {
@@ -67,6 +68,13 @@ export default (state, action) => {
       return {
         ...state,
         events: state.events.filter((event) => event.id !== action.payload),
+      };
+
+    case EVENT_SEARCH:
+      return {
+        ...state,
+        events: action.payload,
+        isLoading: false,
       };
 
     case CLEAR_CURRENT_EVENT:

@@ -85,9 +85,11 @@ export default (state, action) => {
       return {
         ...state,
         token: null,
+        isSubscribed: false,
         isAuthenticated: false,
         loading: false,
         user: null,
+        role: null,
         error: null,
       };
     default:

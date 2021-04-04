@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import AuthContext from '../context/auth/authContext';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Menu, Button } from 'antd';
 import './nav_style.css';
 import {
@@ -42,6 +42,13 @@ const RightMenuAuth = ({ mode }) => {
   const authContext = useContext(AuthContext);
 
   const { logout, role } = authContext;
+
+  const history = useHistory();
+
+  const logoutRedirect = () => {
+    logout();
+    history.push('/');
+  };
 
   return (
     <Menu mode={mode} style={{ zIndex: 200 }}>
@@ -100,7 +107,7 @@ const RightMenuAuth = ({ mode }) => {
             <SettingOutlined />
             Settings
           </Menu.Item>
-          <Menu.Item key='logout' onClick={logout}>
+          <Menu.Item key='logout' onClick={logoutRedirect}>
             <LogoutOutlined />
             Logout
           </Menu.Item>
