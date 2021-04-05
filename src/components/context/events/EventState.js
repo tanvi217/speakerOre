@@ -109,7 +109,6 @@ const EventState = (props) => {
   const getSearchEvents = async (query) => {
     setLoading();
     const response = await axios.get(`api/events?search=${query}`, config);
-    console.log(response.data);
     dispatch({ type: EVENT_SEARCH, payload: response.data });
   };
 

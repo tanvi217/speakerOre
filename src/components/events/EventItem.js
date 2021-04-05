@@ -48,9 +48,9 @@ const EventItem = ({ event, isLoading }) => {
   const date_arr = [
     <CalendarOutlined style={{ color: '#328fce', fontSize: '20px' }} />,
     '  ',
-    start_time.toString(),
+    Date(start_time).toString(),
     ' - ',
-    end_time.toString(),
+    Date(end_time).toString(),
   ];
 
   return (
