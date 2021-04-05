@@ -85,9 +85,6 @@ const EventsPage = () => {
               </Radio.Group>
               <br />
               <br />
-              <EventSearch />
-              <br />
-              <br />
               {option === 'all' && isUserSubscribed && <Events />}
               {option === 'bookmarks' && isUserSubscribed && <Bookmark />}
               {option === 'my_events' && isUserSubscribed && <MyEvents />}
