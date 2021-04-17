@@ -146,6 +146,11 @@ const CouponForm = () => {
     });
   };
 
+  function disabledDate(current) {
+    // Can not select days before today and today
+    return current && current.valueOf() < Date.now();
+  }
+
   return (
     <div id='container' style={{ padding: '3% 15%', backgroundColor: 'white' }}>
       {current ? (
@@ -239,7 +244,7 @@ const CouponForm = () => {
               },
             ]}
           >
-            <DatePicker />
+            <DatePicker disabledDate={disabledDate} />
           </Form.Item>
         )}
 
