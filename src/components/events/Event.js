@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useEffect } from 'react';
+import React, { useContext, Fragment, useEffect, useState } from 'react';
 import EventContext from '../context/events/eventContext';
 import AuthContext from '../context/auth/authContext';
 import Navbar from '../layout/Navbar';
@@ -65,45 +65,21 @@ const text_style = {
   fontSize: '17px',
 };
 
-// var event = {
-//   summary: 'Google I/O 2015',
-//   location: '800 Howard St., San Francisco, CA 94103',
-//   description: "A chance to hear more about Google's developer products.",
-//   start: {
-//     dateTime: '2020-09-28T09:00:00-07:00',
-//     timeZone: 'America/Los_Angeles',
-//   },
-//   end: {
-//     dateTime: '2020-10-28T17:00:00-07:00',
-//     timeZone: 'America/Los_Angeles',
-//   },
-//   recurrence: ['RRULE:FREQ=DAILY;COUNT=2'],
-//   attendees: [{ email: 'lpage@example.com' }, { email: 'sbrin@example.com' }],
-//   reminders: {
-//     useDefault: false,
-//     overrides: [
-//       { method: 'email', minutes: 24 * 60 },
-//       { method: 'popup', minutes: 10 },
-//     ],
-//   },
-// };
-
 const Event = ({ match }) => {
   const eventContext = useContext(EventContext);
   const authContext = useContext(AuthContext);
 
-  const { event, getSpecificEvent, isLoading, showChangeModal } = eventContext;
-
-  const { defaultMessageTemplate } = authContext;
-  const { subject, body } = defaultMessageTemplate;
-
-  useEffect(() => {
-    getSpecificEvent(match.params.event_id);
-  }, []);
-
-  if (isLoading) return <Spin tip='loading...'></Spin>;
+  const {
+    event,
+    getSpecificEvent,
+    isLoading,
+    showChangeModal,
+    postBookmarkEvent,
+    deleteBookmarkEvent,
+  } = eventContext;
 
   const {
+    event_id,
     name,
     about,
     street,
@@ -119,6 +95,17 @@ const Event = ({ match }) => {
     email,
     website,
   } = event;
+
+  const { defaultMessageTemplate } = authContext;
+  const { subject, body } = defaultMessageTemplate;
+
+  const [isLiked, setIsLiked] = useState(event.isLiked);
+
+  useEffect(() => {
+    getSpecificEvent(match.params.event_id);
+  }, []);
+
+  if (isLoading) return <Spin tip='loading...'></Spin>;
 
   const loc =
     street + ', ' + city + ', ' + state + ', ' + country + '\n' + postalcode;
@@ -317,7 +304,26 @@ const Event = ({ match }) => {
                 >
                   E-mail organizer
                 </Button>
-                <Button>Bookmark this event</Button>
+                {localStorage.getItem('role').toString() != 'MODERATOR' &&
+                isLiked ? (
+                  <Button
+                    onClick={() => {
+                      deleteBookmarkEvent(event_id);
+                      setIsLiked(!isLiked);
+                    }}
+                  >
+                    Remove Bookmark
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      postBookmarkEvent(event_id);
+                      setIsLiked(!isLiked);
+                    }}
+                  >
+                    Bookmark
+                  </Button>
+                )}
               </Space>
             </Card>
           </div>
