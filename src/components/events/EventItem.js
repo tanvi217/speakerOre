@@ -24,7 +24,7 @@ const EventItem = ({ event, isLoading }) => {
 
   const { postBookmarkEvent, deleteBookmarkEvent } = eventContext;
 
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(event.isLiked);
 
   const {
     id,
@@ -71,7 +71,14 @@ const EventItem = ({ event, isLoading }) => {
             <span style={{ float: 'left', paddingLeft: '7px' }}>
               {name.toUpperCase()}
             </span>
-            {isLiked ? (
+            {console.log(
+              localStorage.getItem('role').toString(),
+              typeof localStorage.getItem('role').toString(),
+              typeof localStorage.getItem('role'),
+              localStorage.getItem('role') != 'MODERATOR'
+            )}
+            {localStorage.getItem('role').toString() != 'MODERATOR' &&
+            isLiked ? (
               <span style={{ float: 'right', paddingRight: '7px' }}>
                 <BookFilled
                   style={{

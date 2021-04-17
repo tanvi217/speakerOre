@@ -98,7 +98,7 @@ const EventState = (props) => {
   const getEventsByPage = async (pageNum) => {
     setLoading();
     const response = await axiosInstance.get(
-      `api/events?page=${pageNum}`,
+      `api/events/all?page=${pageNum}`,
       config
     );
     console.log(response.data);

@@ -22,7 +22,6 @@ const Events = () => {
 
   useEffect(() => {
     if (text === '') {
-      console.log('in if');
       getEventsByPage(pageNum);
       const page = pageNum + 1;
       const curEvents = data.concat(events);
@@ -31,7 +30,6 @@ const Events = () => {
       console.log('data: ', data, curEvents, page);
       console.log('events: ', events);
     } else {
-      console.log('in else');
       getSearchEvents(text);
       setText('');
       setPageNum(0);
