@@ -1,5 +1,6 @@
 import {
   CREATE_EVENT,
+  GET_ALL_CATEGORIES,
   EDIT_EVENT,
   DELETE_EVENT,
   SET_CURRENT_EVENT,
@@ -22,6 +23,12 @@ export default (state, action) => {
         ...state,
         isLoading: false,
         myEvents: action.payload,
+      };
+
+    case GET_ALL_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload,
       };
 
     case GET_EVENTS_BY_PAGE:

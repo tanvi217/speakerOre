@@ -17,6 +17,7 @@ import {
   SET_LOADING,
   GET_SPECIFIC_EVENT,
   EVENT_SEARCH,
+  GET_ALL_CATEGORIES,
 } from '../types';
 
 const config = {
@@ -30,6 +31,7 @@ const EventState = (props) => {
     events: [],
     myEvents: [],
     bookmarkedEvents: [],
+    curCategories: [],
     archives: [
       {
         id: 1,
@@ -93,6 +95,12 @@ const EventState = (props) => {
     const response = await axiosInstance.get('api/events/all', config);
     console.log(response);
     dispatch({ type: GET_ALL_EVENTS, payload: response.data });
+  };
+
+  const getCategories = async () => {
+    const response = await axiosInstance.get('api/events/category');
+    console.log(response.data);
+    dispatch({ type: GET_ALL_CATEGORIES, payload: response.data });
   };
 
   const getEventsByPage = async (pageNum) => {
@@ -218,6 +226,7 @@ const EventState = (props) => {
     <EventContext.Provider
       value={{
         events: state.events,
+        curCategories: state.curCategories,
         event: state.event,
         myEvents: state.myEvents,
         bookmarkedEvents: state.bookmarkedEvents,
@@ -227,6 +236,7 @@ const EventState = (props) => {
         isVisible: state.isVisible,
         currentEventId: state.currentEventId,
         createEvent,
+        getCategories,
         editEvent,
         deleteEvent,
         clearCurrent,

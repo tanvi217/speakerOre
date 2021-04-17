@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
+import axiosInstance from '../utils/axiosInstance';
 import { Form, Input, Select, AutoComplete, Button } from 'antd';
 
 const { Option } = Select;
@@ -31,6 +32,36 @@ const tailLayout = {
 };
 
 export class StepTwo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      curCategories: [],
+      curCategoriesNames: [],
+    };
+  }
+
+  componentDidMount() {
+    axiosInstance
+      .get(`/api/events/category`)
+      .then((response) => {
+        this.setState({ curCategories: response.data });
+      })
+      .then(() => {
+        const children = [];
+        for (let i = 0; i < this.state.curCategories.length; i++) {
+          children.push(
+            <Option key={this.state.curCategories[i].name}>
+              {this.state.curCategories[i].name}
+            </Option>
+          );
+        }
+        this.setState({ curCategoriesNames: children });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   onFinish = (values) => {
     this.props.nextStep();
   };
@@ -51,7 +82,6 @@ export class StepTwo extends Component {
       </Select>
     </Form.Item>
   );
-  children = [];
 
   render() {
     const {
@@ -62,7 +92,12 @@ export class StepTwo extends Component {
       email,
       description,
     } = this.props.values;
-    const { handleChange, handleChangeTag, prevStep } = this.props;
+    const {
+      handleChange,
+      handleChangeTag,
+      prevStep,
+      curCategories,
+    } = this.props;
     return (
       <Form
         {...formItemLayout}
@@ -87,7 +122,7 @@ export class StepTwo extends Component {
             onChange={handleChangeTag('categories')}
             placeholder='Categories'
           >
-            {this.children}
+            {this.state.curCategoriesNames}
           </Select>
         </Form.Item>
         <Form.Item

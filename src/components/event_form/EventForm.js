@@ -44,6 +44,8 @@ const EventForm = () => {
 
   const { current } = eventContext;
 
+  const [step, setStep] = useState(0);
+
   useEffect(() => {
     if (current !== null) {
       console.log(current);
@@ -129,8 +131,6 @@ const EventForm = () => {
     description: '',
   });
 
-  const [step, setStep] = useState(0);
-
   const nextStep = () => {
     setStep(step + 1);
   };
@@ -167,12 +167,11 @@ const EventForm = () => {
   };
 
   const handleChangeCategories = (input) => (selectedCategories) => {
+    console.log(selectedCategories);
     setStepTwoFields({ ...stepTwoFields, categories: selectedCategories });
   };
 
   const fields = Object.assign(stepOneFields, stepTwoFields);
-
-  //   console.log(stepOneFields, stepTwoFields);
 
   return (
     <Fragment>

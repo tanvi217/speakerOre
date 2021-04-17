@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
-import { List, Button, Form, message } from 'antd';
+import { List, Button, Form, message, Tag } from 'antd';
 import EventContext from '../context/events/eventContext';
 
 const tailLayout = {
@@ -29,6 +29,8 @@ const Confirmation = ({ values, prevStep }) => {
     latitude,
     longitude,
   } = values;
+
+  console.log(categories, typeof categories);
 
   const eventContext = useContext(EventContext);
 
@@ -64,7 +66,7 @@ const Confirmation = ({ values, prevStep }) => {
       clearCurrent();
     };
 
-    if (current) {
+    if (current == null) {
       createEvent(formData).then(() => {
         message.success('Event has been successfully submitted');
       });
@@ -93,7 +95,25 @@ const Confirmation = ({ values, prevStep }) => {
       street + ', ' + city + ', ' + state + '\n' + country + '\n' + postalCode,
     ],
     ['About', about],
-    ['Tags', categories],
+    [
+      'Tags',
+      <div>
+        {categories.map((tag, index) => (
+          <Tag
+            // color='#f5cc23'
+            key={index}
+            style={{
+              borderRadius: '32px',
+              display: 'inline-block',
+              padding: '3px 12px',
+              boxShadow: '0 0 10px 1px #E8E9EC',
+            }}
+          >
+            {tag.toUpperCase()}
+          </Tag>
+        ))}
+      </div>,
+    ],
     ['Phone', phone],
     ['Website', website],
     ['Email', email],
