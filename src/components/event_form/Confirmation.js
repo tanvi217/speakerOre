@@ -60,6 +60,10 @@ const Confirmation = ({ values, prevStep }) => {
       postalCode,
     };
 
+    const clearAll = () => {
+      clearCurrent();
+    };
+
     if (current) {
       createEvent(formData).then(() => {
         message.success('Event has been successfully submitted');
@@ -70,10 +74,6 @@ const Confirmation = ({ values, prevStep }) => {
       });
       clearAll();
     }
-
-    const clearAll = () => {
-      clearCurrent();
-    };
 
     // const responseStatus = await createEvent(formData);
     // console.log(responseStatus);

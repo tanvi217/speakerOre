@@ -11,6 +11,7 @@ import {
   SHOW_CHANGE_MODAL,
   CLOSE_CHANGE_MODAL,
   GET_ALL_EVENTS,
+  GET_EVENTS_BY_PAGE,
   GET_MY_EVENTS,
   GET_BOOKMARKED_EVENTS,
   SET_LOADING,
@@ -94,10 +95,11 @@ const EventState = (props) => {
     dispatch({ type: GET_ALL_EVENTS, payload: response.data });
   };
 
-  const get10Events = async () => {
+  const getEventsByPage = async (pageNum) => {
     setLoading();
-    const response = await axios.get('api/events/all', config);
-    dispatch({ type: GET_ALL_EVENTS, payload: response.data });
+    const response = await axios.get(`api/events?page=${pageNum}`, config);
+    console.log(response.data);
+    dispatch({ type: GET_EVENTS_BY_PAGE, payload: response.data });
   };
 
   const getMyEvents = async () => {
@@ -226,6 +228,7 @@ const EventState = (props) => {
         showChangeModal,
         closeChangeModal,
         getEvents,
+        getEventsByPage,
         getMyEvents,
         getBookmarkedEvents,
         postBookmarkEvent,

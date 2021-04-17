@@ -7,6 +7,7 @@ import {
   SHOW_CHANGE_MODAL,
   CLOSE_CHANGE_MODAL,
   GET_ALL_EVENTS,
+  GET_EVENTS_BY_PAGE,
   GET_MY_EVENTS,
   GET_BOOKMARKED_EVENTS,
   GET_SPECIFIC_EVENT,
@@ -23,6 +24,7 @@ export default (state, action) => {
         myEvents: action.payload,
       };
 
+    case GET_EVENTS_BY_PAGE:
     case GET_ALL_EVENTS:
       return {
         ...state,
