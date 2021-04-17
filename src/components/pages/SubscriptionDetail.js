@@ -161,7 +161,7 @@ const SubscriptionDetail = ({ match }) => {
                   <Divider />
                   {plan.features && (
                     <Meta
-                      description={plan.features.map((el) => (
+                      description={plan.features.split(',').map((el) => (
                         <div key={el} style={{ margin: '2.5% 2.5%' }}>
                           <CheckOutlined
                             style={{ fontSize: '16px', color: '#328fce' }}

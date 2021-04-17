@@ -45,7 +45,7 @@ const PlanItem = ({ plan, isLoading }) => {
         <Divider />
         {features && (
           <Meta
-            description={features.map((el) => (
+            description={features.split(',').map((el) => (
               <div key={el} style={{ margin: '2.5% 2.5%' }}>
                 <CheckOutlined style={{ fontSize: '16px', color: '#328fce' }} />
                 {el}
