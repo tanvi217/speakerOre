@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 import SubscribeContext from './subscribeContext';
 import subscribeReducer from './subscribeReducer';
 import {
@@ -41,7 +41,7 @@ const SubscribeState = (props) => {
   const getSubscriptionPlans = async () => {
     try {
       setLoading();
-      const res = await axios.get('/api/subscription', config);
+      const res = await axiosInstance.get('/api/subscription', config);
       dispatch({ type: GET_SUBSCRIPTION_PLANS, payload: res.data });
     } catch (err) {
       console.log(err);
@@ -51,7 +51,7 @@ const SubscribeState = (props) => {
   const getSubscriptionPlan = async (id) => {
     try {
       setLoading();
-      const res = await axios.get(`/api/subscription/${id}`, config);
+      const res = await axiosInstance.get(`/api/subscription/${id}`, config);
       dispatch({ type: GET_SPECIFIC_SUBSCRIPTION_PLAN, payload: res.data });
     } catch (err) {
       console.log(err);
@@ -60,7 +60,7 @@ const SubscribeState = (props) => {
 
   const createSubscriptionPlan = async (plan) => {
     try {
-      const res = await axios.post('/api/subscription', plan, config);
+      const res = await axiosInstance.post('/api/subscription', plan, config);
       dispatch({ type: CREATE_SUBSCRIPTION_PLAN, payload: res.data });
     } catch (err) {
       console.log(err);
@@ -71,7 +71,7 @@ const SubscribeState = (props) => {
     try {
       setLoading();
       clearCouponError();
-      const res = await axios.get(
+      const res = await axiosInstance.get(
         `/api/subscription/price/?plan=${id}&coupon_code=${coupon}`
       );
       dispatch({ type: GET_UPDATED_PRICE, payload: res.data.price });

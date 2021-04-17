@@ -10,7 +10,7 @@ import {
   COUPON_LOADING,
   CREATE_COUPON_FAIL,
 } from '../types';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 
 const config = {
   headers: {
@@ -35,7 +35,10 @@ const CouponState = (props) => {
   const getCoupons = async () => {
     try {
       setLoading();
-      const response = await axios.get('api/subscription/coupon', config);
+      const response = await axiosInstance.get(
+        'api/subscription/coupon',
+        config
+      );
       dispatch({ type: GET_ALL_COUPONS, payload: response.data });
     } catch (err) {
       console.log(err);
@@ -55,7 +58,7 @@ const CouponState = (props) => {
         },
         plans: coupon['coupon-plans'],
       };
-      await axios.post('api/subscription/setcoupon', formData, config);
+      await axiosInstance.post('api/subscription/setcoupon', formData, config);
     } catch (err) {
       console.log(err);
       dispatch({ type: CREATE_COUPON_FAIL, payload: 'Coupon creation failed' });
@@ -68,7 +71,11 @@ const CouponState = (props) => {
 
   const editCoupon = async (coupon) => {
     try {
-      await axios.put(`api/subscription/coupon/${coupon.id}`, coupon, config);
+      await axiosInstance.put(
+        `api/subscription/coupon/${coupon.id}`,
+        coupon,
+        config
+      );
       dispatch({ type: EDIT_COUPON, payload: coupon });
     } catch (err) {
       console.log(err);
@@ -77,7 +84,7 @@ const CouponState = (props) => {
 
   const toggleCouponVisibility = async (id) => {
     try {
-      await axios.put(`/api/subscription/coupon/toggle/${id}`);
+      await axiosInstance.put(`/api/subscription/coupon/toggle/${id}`);
     } catch (err) {
       console.log(err);
     }

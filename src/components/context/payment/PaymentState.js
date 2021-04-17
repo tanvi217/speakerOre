@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import paymentContext from './paymentContext';
 import paymentReducer from './paymentReducer';
 import { PAYMENT_ERROR } from '../types';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 
 const config = {
   headers: {
@@ -19,7 +19,7 @@ const PaymentState = (props) => {
 
   const startPayment = async (payment_details) => {
     try {
-      const res = await axios.post('api/payment', {
+      const res = await axiosInstance.post('api/payment', {
         razorpay_payment_id: payment_details.razorpay_payment_id,
         razorpay_order_id: payment_details.razorpay_order_id,
         razorpay_signature: payment_details.razorpay_signature,
@@ -31,7 +31,7 @@ const PaymentState = (props) => {
 
   const verifyPayment = async () => {
     try {
-      const res = await axios.get('/api/payment', config);
+      const res = await axiosInstance.get('/api/payment', config);
     } catch (err) {
       dispatch({ type: PAYMENT_ERROR, payload: 'PAYMENT FAIL' });
     }

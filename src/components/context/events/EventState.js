@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import EventContext from './eventContext';
 import eventReducer from './eventReducer';
 import moment from 'moment';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 
 import {
   CREATE_EVENT,
@@ -90,39 +90,45 @@ const EventState = (props) => {
 
   const getEvents = async () => {
     setLoading();
-    const response = await axios.get('api/events/all', config);
+    const response = await axiosInstance.get('api/events/all', config);
     console.log(response);
     dispatch({ type: GET_ALL_EVENTS, payload: response.data });
   };
 
   const getEventsByPage = async (pageNum) => {
     setLoading();
-    const response = await axios.get(`api/events?page=${pageNum}`, config);
+    const response = await axiosInstance.get(
+      `api/events?page=${pageNum}`,
+      config
+    );
     console.log(response.data);
     dispatch({ type: GET_EVENTS_BY_PAGE, payload: response.data });
   };
 
   const getMyEvents = async () => {
     setLoading();
-    const response = await axios.get('api/events', config);
+    const response = await axiosInstance.get('api/events', config);
     dispatch({ type: GET_MY_EVENTS, payload: response.data });
   };
 
   const getSearchEvents = async (query) => {
     setLoading();
-    const response = await axios.get(`api/events?search=${query}`, config);
+    const response = await axiosInstance.get(
+      `api/events?search=${query}`,
+      config
+    );
     dispatch({ type: EVENT_SEARCH, payload: response.data });
   };
 
   const getBookmarkedEvents = async () => {
     setLoading();
-    const response = await axios.get('api/events/bookmark', config);
+    const response = await axiosInstance.get('api/events/bookmark', config);
     dispatch({ type: GET_BOOKMARKED_EVENTS, payload: response.data });
   };
 
   const postBookmarkEvent = async (id) => {
     try {
-      await axios.post(`/api/events/bookmark/${id}`, config);
+      await axiosInstance.post(`/api/events/bookmark/${id}`, config);
     } catch (err) {
       console.log(err);
     }
@@ -131,9 +137,7 @@ const EventState = (props) => {
   const getSpecificEvent = async (id) => {
     try {
       setLoading();
-      axios.defaults.headers.common['Authorization'] =
-        'Bearer ' + localStorage.getItem('token');
-      const response = await axios.get(`/api/events/${id}`, config);
+      const response = await axiosInstance.get(`/api/events/${id}`, config);
       dispatch({ type: GET_SPECIFIC_EVENT, payload: response.data });
     } catch (err) {
       console.log(err);
@@ -142,9 +146,7 @@ const EventState = (props) => {
 
   const setCurrent = async (id) => {
     try {
-      axios.defaults.headers.common['Authorization'] =
-        'Bearer ' + localStorage.getItem('token');
-      const response = await axios.get(`/api/events/${id}`, config);
+      const response = await axiosInstance.get(`/api/events/${id}`, config);
       console.log(response.data);
       dispatch({
         type: SET_CURRENT_EVENT,
@@ -157,7 +159,7 @@ const EventState = (props) => {
 
   const deleteBookmarkEvent = async (id) => {
     try {
-      await axios.delete(`/api/events/bookmark/${id}`, config);
+      await axiosInstance.delete(`/api/events/bookmark/${id}`, config);
     } catch (err) {
       console.log(err);
     }
@@ -165,7 +167,7 @@ const EventState = (props) => {
 
   const createEvent = async (formData) => {
     try {
-      const res = await axios.post('/api/events', formData, config);
+      const res = await axiosInstance.post('/api/events', formData, config);
 
       console.log(res);
 
@@ -180,7 +182,7 @@ const EventState = (props) => {
 
   const deleteEvent = async (id) => {
     try {
-      const res = await axios.delete(`/api/events/${id}`, config);
+      const res = await axiosInstance.delete(`/api/events/${id}`, config);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -189,7 +191,11 @@ const EventState = (props) => {
 
   const editEvent = async (id, formData) => {
     try {
-      const res = await axios.put(`/api/events/${id}`, formData, config);
+      const res = await axiosInstance.put(
+        `/api/events/${id}`,
+        formData,
+        config
+      );
       console.log(res);
     } catch (err) {
       console.log(err);

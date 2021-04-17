@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 import authContext from './authContext';
 import authReducer from './authReducer';
 import firebase from 'firebase';
@@ -108,7 +108,7 @@ const AuthState = (props) => {
           idToken: result.credential.idToken,
           phone: result.credential.phoneNumber,
         };
-        const response = await axios.post(
+        const response = await axiosInstance.post(
           '/api/auth/login',
           userCredentials,
           config
@@ -142,7 +142,7 @@ const AuthState = (props) => {
           idToken: result.credential.idToken,
           phone: result.credential.phoneNumber,
         };
-        const response = await axios.post(
+        const response = await axiosInstance.post(
           '/api/auth/login',
           userCredentials,
           config
