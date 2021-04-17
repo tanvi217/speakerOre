@@ -14,6 +14,7 @@ import {
   GET_SPECIFIC_EVENT,
   SET_LOADING,
   EVENT_SEARCH,
+  GET_ALL_MOD_EVENTS,
 } from '../types';
 
 export default (state, action) => {
@@ -32,6 +33,7 @@ export default (state, action) => {
       };
 
     case GET_EVENTS_BY_PAGE:
+    case GET_ALL_MOD_EVENTS:
     case GET_ALL_EVENTS:
       return {
         ...state,

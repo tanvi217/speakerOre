@@ -21,6 +21,9 @@ export const GET_SPECIFIC_EVENT = 'GET_SPECIFIC_EVENT';
 export const EVENT_SEARCH = 'EVENT_SEARCH';
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES';
 
+/* Mod actions */
+export const GET_ALL_MOD_EVENTS = 'GET_ALL_MOD_EVENTS';
+
 /* Auth actions */
 export const SIGN_IN_GOOGLE = 'SIGN_IN_GOOGLE';
 export const SIGN_IN_FB = 'SIGN_IN_FB';

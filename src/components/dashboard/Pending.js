@@ -1,11 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'antd/dist/antd.css';
-import { Table, Button, Divider, Spin } from 'antd';
+import { Table, Button, Divider, Spin, Popconfirm } from 'antd';
 import EventContext from '../context/events/eventContext';
 
 const Pending = () => {
   const eventContext = useContext(EventContext);
-  const { events, isLoading } = eventContext;
+  const {
+    events,
+    isLoading,
+    updateEventStatus,
+    getAllEventsMod,
+  } = eventContext;
+
+  useEffect(() => {
+    getAllEventsMod();
+  }, []);
 
   const columns = [
     { title: 'Event Name', dataIndex: 'name', key: 'name' },
@@ -20,11 +29,35 @@ const Pending = () => {
             Edit
           </Button>
 
-          <Button style={{ marginRight: '1%' }}>Accept</Button>
+          <Popconfirm
+            title='Are you sure?'
+            okText='Yes'
+            cancelText='No'
+            onConfirm={() => {
+              updateEventStatus({
+                id: record.id,
+                status: 'APPROVED',
+              });
+            }}
+          >
+            <Button style={{ marginRight: '1%' }}>Approve</Button>
+          </Popconfirm>
 
-          <Button style={{ marginRight: '1%' }} type='danger' ghost>
-            Decline
-          </Button>
+          <Popconfirm
+            title='Are you sure?'
+            okText='Yes'
+            cancelText='No'
+            onConfirm={() => {
+              updateEventStatus({
+                id: record.id,
+                status: 'DECLINED',
+              });
+            }}
+          >
+            <Button style={{ marginRight: '1%' }} type='danger' ghost>
+              Decline
+            </Button>
+          </Popconfirm>
         </span>
       ),
     },

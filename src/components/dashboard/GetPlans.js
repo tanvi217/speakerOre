@@ -77,7 +77,7 @@ const GetPlans = () => {
                   <Descriptions.Item label='Plan Features'>
                     {record.features && (
                       <Meta
-                        description={record.features.map((el) => (
+                        description={record.features.split(',').map((el) => (
                           <div key={el}>
                             {el}
                             <br />

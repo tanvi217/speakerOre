@@ -18,6 +18,7 @@ import {
   GET_SPECIFIC_EVENT,
   EVENT_SEARCH,
   GET_ALL_CATEGORIES,
+  GET_ALL_MOD_EVENTS,
 } from '../types';
 
 const config = {
@@ -222,6 +223,25 @@ const EventState = (props) => {
     dispatch({ type: CLOSE_CHANGE_MODAL });
   };
 
+  // MODERATOR APIs
+  const updateEventStatus = async (formData) => {
+    try {
+      const res = await axiosInstance.put(
+        '/api/events/moderator',
+        formData,
+        config
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAllEventsMod = async () => {
+    setLoading();
+    const response = await axiosInstance.get('api/events/mod/all');
+    dispatch({ type: GET_ALL_MOD_EVENTS, payload: response.data });
+  };
+
   return (
     <EventContext.Provider
       value={{
@@ -251,6 +271,8 @@ const EventState = (props) => {
         deleteBookmarkEvent,
         getSpecificEvent,
         getSearchEvents,
+        updateEventStatus,
+        getAllEventsMod,
       }}
     >
       {props.children}
