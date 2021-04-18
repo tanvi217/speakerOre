@@ -21,43 +21,68 @@ const Events = () => {
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    if (text === '') {
-      getEventsByPage(pageNum);
-      const page = pageNum + 1;
-      const curEvents = data.concat(events);
-      setPageNum(page);
-      setData(curEvents);
-      console.log('data: ', data, curEvents, page);
-      console.log('events: ', events);
-    } else {
-      getSearchEvents(text);
-      setText('');
-      setPageNum(0);
-      setData(events);
+    if (pageNum === 0) {
+      if (text === '') {
+        getEventsByPage(pageNum).then(() => {
+          setPageNum(1);
+          setData(events);
+        });
+      } else {
+        getSearchEvents(pageNum, text).then(() => {
+          setPageNum(1);
+          setData(events);
+        });
+      }
+    } else if (text !== '') {
+      getSearchEvents(pageNum, text).then(() => {
+        setPageNum(1);
+        setData(events);
+      });
     }
-    console.log('events: ', events, data);
-    console.log('page no: ', pageNum);
-  }, []);
+  }, [text]);
 
   const handleInfiniteOnLoad = () => {
-    setLoading(true);
-    if (data.length > 5) {
-      console.log('loaded all events');
-      setData(data);
-      setLoading(false);
+    if (pageNum !== 0) {
+      setLoading(true);
+      if (text === '') {
+        (async function anyNameFunction() {
+          await getEventsByPage(pageNum);
+
+          if (events.length < 20) {
+            setData((data) => data.concat(events));
+            setLoading(false);
+            setHasMore(false);
+            return;
+          }
+
+          setPageNum((pageNum) => pageNum + 1);
+          setData((data) => data.concat(events));
+          setLoading(false);
+        })();
+      } else {
+        (async function anyNameFunction() {
+          await getSearchEvents(pageNum, text);
+          console.log('in search');
+          if (events.length < 20) {
+            setData((data) => data.concat(events));
+            setLoading(false);
+            setHasMore(false);
+            return;
+          }
+
+          setPageNum((pageNum) => pageNum + 1);
+          setData((data) => data.concat(events));
+          setLoading(false);
+        })();
+      }
+    } else {
       return;
     }
-    getEventsByPage(pageNum);
-    setData(data.concat(events));
-    setPageNum(pageNum + 1);
-    console.log(pageNum);
   };
 
   const onSubmit = (e) => {
-    // e.preventDefault();
     if (text !== '') {
-      getSearchEvents(text);
-      setText('');
+      setText(text);
       setPageNum(0);
     }
   };
@@ -66,10 +91,12 @@ const Events = () => {
     setText(e.target.value);
   };
 
-  if (isLoading) return <Spin tip='Loading...'></Spin>;
-
-  if (events.length === 0) {
-    return <h4>No events to show.</h4>;
+  if (events.length === 0 && data.length === 0) {
+    if (text === '') {
+      return <h4>No events to show.</h4>;
+    } else {
+      return <h4>No events with given search criteria.</h4>;
+    }
   }
 
   return (
@@ -80,17 +107,16 @@ const Events = () => {
         onSearch={onSubmit}
         onChange={onChange}
         style={{ boxShadow: '0 0 10px 1px #E8E9EC', borderRadius: '12px' }}
-        loading={isLoading}
       />
       <br />
       <br />
 
       <InfiniteScroll
-        initialLoad={false}
+        initialLoad={true}
         pageStart={pageNum}
         loadMore={handleInfiniteOnLoad}
         hasMore={!loading && hasMore}
-        useWindow={false}
+        useWindow={true}
       >
         <div className='cards'>
           {data.map((event) => (

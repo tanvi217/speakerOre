@@ -30,8 +30,6 @@ const Confirmation = ({ values, prevStep }) => {
     longitude,
   } = values;
 
-  console.log(categories, typeof categories);
-
   const eventContext = useContext(EventContext);
 
   const {

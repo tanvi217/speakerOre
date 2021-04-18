@@ -71,40 +71,34 @@ const EventItem = ({ event, isLoading }) => {
             <span style={{ float: 'left', paddingLeft: '7px' }}>
               {name.toUpperCase()}
             </span>
-            {console.log(
-              localStorage.getItem('role').toString(),
-              typeof localStorage.getItem('role').toString(),
-              typeof localStorage.getItem('role'),
-              localStorage.getItem('role') != 'MODERATOR'
-            )}
-            {localStorage.getItem('role').toString() != 'MODERATOR' &&
-            isLiked ? (
-              <span style={{ float: 'right', paddingRight: '7px' }}>
-                <BookFilled
-                  style={{
-                    color: '#328fce',
-                    fontSize: '20px',
-                  }}
-                  onClick={() => {
-                    deleteBookmarkEvent(id);
-                    setIsLiked(!isLiked);
-                  }}
-                />
-              </span>
-            ) : (
-              <span style={{ float: 'right', paddingRight: '7px' }}>
-                <BookOutlined
-                  style={{
-                    color: '#328fce',
-                    fontSize: '20px',
-                  }}
-                  onClick={() => {
-                    postBookmarkEvent(id);
-                    setIsLiked(!isLiked);
-                  }}
-                />
-              </span>
-            )}
+            {localStorage.getItem('role') !== 'MODERATOR' &&
+              (isLiked ? (
+                <span style={{ float: 'right', paddingRight: '7px' }}>
+                  <BookFilled
+                    style={{
+                      color: '#328fce',
+                      fontSize: '20px',
+                    }}
+                    onClick={() => {
+                      deleteBookmarkEvent(id);
+                      setIsLiked(!isLiked);
+                    }}
+                  />
+                </span>
+              ) : (
+                <span style={{ float: 'right', paddingRight: '7px' }}>
+                  <BookOutlined
+                    style={{
+                      color: '#328fce',
+                      fontSize: '20px',
+                    }}
+                    onClick={() => {
+                      postBookmarkEvent(id);
+                      setIsLiked(!isLiked);
+                    }}
+                  />
+                </span>
+              ))}
           </h3>
         </div>
         <br />

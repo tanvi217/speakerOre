@@ -106,12 +106,15 @@ const EventState = (props) => {
 
   const getEventsByPage = async (pageNum) => {
     setLoading();
-    const response = await axiosInstance.get(
-      `api/events/all?page=${pageNum}`,
-      config
-    );
-    console.log(response.data);
-    dispatch({ type: GET_EVENTS_BY_PAGE, payload: response.data });
+    try {
+      const response = await axiosInstance.get(
+        `api/events/all?page=${pageNum}`,
+        config
+      );
+      dispatch({ type: GET_EVENTS_BY_PAGE, payload: response.data });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const getMyEvents = async () => {
@@ -120,10 +123,10 @@ const EventState = (props) => {
     dispatch({ type: GET_MY_EVENTS, payload: response.data });
   };
 
-  const getSearchEvents = async (query) => {
+  const getSearchEvents = async (pageNum, query) => {
     setLoading();
     const response = await axiosInstance.get(
-      `api/events?search=${query}`,
+      `api/events?page=${pageNum}&search=${query}`,
       config
     );
     dispatch({ type: EVENT_SEARCH, payload: response.data });
