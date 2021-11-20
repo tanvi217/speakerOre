@@ -1,68 +1,84 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## General Info
 
-## Available Scripts
+SpeakerOre is a web application that provides event leads to speakers.
+User needs to have an active membership to access event leads.
+Any user can inform of events, these events need Moderator approval for making it to the web app.
 
-In the project directory, you can run:
+## Technologies
 
-### `yarn start`
+Project is created with:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- React JS library (React Hooks for state management)
+- Antd (For UI components)
+- Firebase (For Authentication)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Setup
 
-### `yarn test`
+To run this project:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+git clone https://github.com/tanvi217/speakerOre.git
+cd speakerore
+npm install
+npm run start
+```
 
-### `yarn build`
+- For backend, please follow the instructions in [speaker-ore-api](https://github.com/BrijeshBumrela/speaker-ore-api/blob/master/README.md)
+- For Authentication:
+  - Please follow the first 3 steps in [Google Signin using Firebase](https://www.freakyjolly.com/reactjs-sign-in-form-using-firebase-google-authentication/)
+  - Copy apiKey and authDomain from firebaseConfig in step 3 to .env.sample and move it to an .env file(REACT_APP_FIREBASE_API_KEY, REACT_APP_CLIENT_ID).
+  - Follow the section ["Enable Google Authentication in Firebase"](https://www.freakyjolly.com/reactjs-sign-in-form-using-firebase-google-authentication/#:~:text=Enable%20Google%20Authentication%20in%20Firebase)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Structure
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+├───components
+│   ├───context             // Modules for managing global state
+│   │   ├───auth
+│   │   ├───coupon
+│   │   ├───events
+│   │   ├───eventsFilter
+│   │   ├───mailing
+│   │   ├───payment
+│   │   └───subscribe
+│   ├───dashboard           // Components for Moderator Dashboard (Route: '/dashboard')
+│   ├───events              // Components for Displaying events (Route: '/events')
+│   ├───event_form          // Components for Event Creation form (Route: '/add_event')
+│   ├───home_sections       // Components for Landing page (Route: '/')
+│   ├───layout              // Components common to all pages - Navigation Bar, Footer..
+│   ├───pages               // Pages in the web-app
+│   ├───profile             // Components for user profile (Route: '/profile')
+│   ├───routing
+│   ├───subscribe           // Components for subscription plans (Route: '/subscribe')
+│   └───utils
+└───static
+App.js                      // Defines routes
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Issues, ToDo
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Home Page - Has to be made dynamic. Number of events, categories etc are static.
+- Auth - Fix log in with Facebook functionality
+- Events Page:
+  - Fix infinite scroll
+  - Fix search and call relevant APIs for filtering events
+  - Check other tabs and fix as neccessary
+- Event Detail Page:
+  - Implement functionality to add event to calendar (Google Calendar API maybe?)
+- Subscription Page - Test Razorpay flow
+- Profile Page
+  - Link with APIs for fetching user's current subscription plan, payment history
+  - Section for Events created by user (user events needs to be displayed here as
+    unsubscribed user doesn't have access to all events page)
+- Moderator Dashboard
+  - Link with APIs
+- Event Creation Page
+  - Appropriate Alert for sucessful/failed form submission
+  - Redirect to User submitted events page
+  - Create field for uploading images
+- All pages -
+  - Layout needs improvement
+  - Test all possible flows, handle exceptions
+  - Need to be all screen sizes compatible (Done for most pages)
+  - Need to be updated with relevant website content
+- _PS: This list is non-exhaustive_

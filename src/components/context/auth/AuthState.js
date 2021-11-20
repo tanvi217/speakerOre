@@ -19,7 +19,7 @@ import setAuthToken from '../../utils/setAuthToken';
 if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
-    authDomain: 'speakerore-e254d.firebaseapp.com',
+    authDomain: `${process.env.REACT_APP_AUTH_DOMAIN}`,
   });
 }
 
