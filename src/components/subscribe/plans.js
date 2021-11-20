@@ -4,6 +4,7 @@ import { Skeleton } from 'antd';
 import PlanItem from './PlanItem';
 import SubscribeContext from '../context/subscribe/subscribeContext';
 
+// eslint-disable-next-line
 const Plans = () => {
   const subscribeContext = useContext(SubscribeContext);
   const { plans, isLoading, getSubscriptionPlans } = subscribeContext;

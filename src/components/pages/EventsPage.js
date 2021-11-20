@@ -77,7 +77,9 @@ const EventsPage = () => {
                 }}
               >
                 <Radio.Button value='all'>All</Radio.Button>
-                <Radio.Button value='bookmarks'>Bookmarks</Radio.Button>
+                {role !== 'MODERATOR' && (
+                  <Radio.Button value='bookmarks'>Bookmarks</Radio.Button>
+                )}
                 <Radio.Button value='my_events'>My Events</Radio.Button>
                 {(role === 'MODERATOR' || role === 'RDTEAM') && (
                   <Radio.Button value='archive'>Archive</Radio.Button>
@@ -86,7 +88,9 @@ const EventsPage = () => {
               <br />
               <br />
               {option === 'all' && isUserSubscribed && <Events />}
-              {option === 'bookmarks' && isUserSubscribed && <Bookmark />}
+              {localStorage.getItem('role') !== 'MODERATOR' &&
+                option === 'bookmarks' &&
+                isUserSubscribed && <Bookmark />}
               {option === 'my_events' && isUserSubscribed && <MyEvents />}
               {(role === 'MODERATOR' || role === 'RDTEAM') &&
                 option === 'archive' && <Archives />}

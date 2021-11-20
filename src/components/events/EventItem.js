@@ -120,25 +120,25 @@ const EventItem = ({ event, isLoading }) => {
             ))}
           ></Meta>
           <br />
-          {categories && (
-            <Meta
-              description={categories.map((tag, index) => (
-                <Tag
-                  // color='#f5cc23'
-                  key={index}
-                  style={{
-                    borderRadius: '32px',
-                    display: 'inline-block',
-                    padding: '3px 12px',
-                    backgroundColor: '#ececec',
-                    border: 'none',
-                  }}
-                >
-                  {tag.toUpperCase()}
-                </Tag>
-              ))}
-            ></Meta>
-          )}
+          {categories !== null &&
+            // <Meta
+            //   description={categories.map((category, index) => (
+            //     <Tag
+            //       // color='#f5cc23'
+            //       key={index}
+            //       style={{
+            //         borderRadius: '32px',
+            //         display: 'inline-block',
+            //         padding: '3px 12px',
+            //         backgroundColor: '#ececec',
+            //         border: 'none',
+            //       }}
+            //     >
+            //       {category.category}
+            //     </Tag>
+            //   ))}
+            // ></Meta>
+            null}
           <br />
           <br />
           <Button type='primary' shape='round'>

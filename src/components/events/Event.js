@@ -267,6 +267,7 @@ const Event = ({ match }) => {
             <Change />
             <Card
               loading={isLoading}
+              l̥
               bordered='true'
               style={{
                 margin: '5% 0 0 0',
@@ -276,9 +277,7 @@ const Event = ({ match }) => {
             >
               <Space direction='vertical'>
                 <h3 style={heading}>Event Reminder</h3>
-                <Button type='primary' onClick={addEventToCalender}>
-                  Set reminder for this event
-                </Button>
+                <Button type='primary'>Set reminder for this event</Button>
               </Space>
             </Card>
             <Card
@@ -305,25 +304,25 @@ const Event = ({ match }) => {
                   E-mail organizer
                 </Button>
                 {localStorage.getItem('role').toString() != 'MODERATOR' &&
-                isLiked ? (
-                  <Button
-                    onClick={() => {
-                      deleteBookmarkEvent(event_id);
-                      setIsLiked(!isLiked);
-                    }}
-                  >
-                    Remove Bookmark
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={() => {
-                      postBookmarkEvent(event_id);
-                      setIsLiked(!isLiked);
-                    }}
-                  >
-                    Bookmark
-                  </Button>
-                )}
+                  (isLiked ? (
+                    <Button
+                      onClick={() => {
+                        deleteBookmarkEvent(event_id);
+                        setIsLiked(!isLiked);
+                      }}
+                    >
+                      Remove Bookmark
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => {
+                        postBookmarkEvent(event_id);
+                        setIsLiked(!isLiked);
+                      }}
+                    >
+                      Bookmark
+                    </Button>
+                  ))}
               </Space>
             </Card>
           </div>

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import EventItem from './EventItem';
 import EventContext from '../context/events/eventContext';
+import EventsFilterContext from '../context/eventsFilter/eventsFilterContext';
 
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -10,10 +11,12 @@ const { Search } = Input;
 
 const Events = () => {
   const eventContext = useContext(EventContext);
+  const eventsFilterContext = useContext(EventsFilterContext);
 
   const [text, setText] = useState('');
 
   const { events, isLoading, getEventsByPage, getSearchEvents } = eventContext;
+  const { filteredEvents } = eventsFilterContext;
 
   const [data, setData] = useState([]);
   const [pageNum, setPageNum] = useState(0);
@@ -40,6 +43,13 @@ const Events = () => {
       });
     }
   }, [text]);
+
+  useEffect(() => {
+    if (filteredEvents !== '') {
+      setData(filteredEvents);
+      setPageNum(1);
+    }
+  }, [filteredEvents]);
 
   const handleInfiniteOnLoad = () => {
     if (pageNum !== 0) {
@@ -113,7 +123,7 @@ const Events = () => {
 
       <InfiniteScroll
         initialLoad={true}
-        pageStart={pageNum}
+        pageStart={0}
         loadMore={handleInfiniteOnLoad}
         hasMore={!loading && hasMore}
         useWindow={true}

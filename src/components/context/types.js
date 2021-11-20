@@ -4,6 +4,7 @@ export const FILTER_EVENTS = 'FILTER_EVENTS';
 export const SHOW_FILTER_DRAWER = 'SHOW_FILTER_DRAWER';
 export const CLOSE_FILTER_DRAWER = 'CLOSE_FILTER_DRAWER';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
+
 export const SET_LOADING = 'SET_LOADING';
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const EDIT_EVENT = 'EDIT_EVENT';

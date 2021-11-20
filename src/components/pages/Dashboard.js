@@ -30,6 +30,7 @@ import './style.css';
 
 const { Content, Sider } = Layout;
 
+// eslint-disable-next-line
 const Dashboard = () => {
   const [display, setDisplay] = useState(<Users />);
 

@@ -61,7 +61,7 @@ const SubscriptionDetail = ({ match }) => {
 
   const { startPayment, paymentError } = paymentContext;
 
-  const { user } = authContext;
+  const { show_modal, isAuthenticated, user } = authContext;
 
   const couponCode = useRef('');
 
@@ -83,11 +83,8 @@ const SubscriptionDetail = ({ match }) => {
         contact: user.phoneNumber,
       },
       handler: async function (response) {
-        const {
-          razorpay_payment_id,
-          razorpay_order_id,
-          razorpay_signature,
-        } = response;
+        const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+          response;
         try {
           // If the payment is successful, this handler function is called
           startPayment({
@@ -204,7 +201,7 @@ const SubscriptionDetail = ({ match }) => {
                   <Button
                     block
                     className='yellow-button'
-                    onClick={openPayModal}
+                    onClick={isAuthenticated ? openPayModal : show_modal}
                   >
                     Proceed to checkout
                   </Button>
@@ -214,7 +211,6 @@ const SubscriptionDetail = ({ match }) => {
                     size='medium'
                     ref={couponCode}
                     onSearch={updatePrice}
-                    // onSearch={value => console.log(value)}
                   />
                   {(couponError || error) && (
                     <Alert message='Invalid coupon' type='error' />

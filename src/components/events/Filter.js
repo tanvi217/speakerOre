@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import { Radio, Layout, DatePicker, Select, Collapse, Checkbox } from 'antd';
 import EventsFilterContext from '../context/eventsFilter/eventsFilterContext';
@@ -38,13 +38,26 @@ const sideHeadings = {
 const EventFilter = () => {
   // eslint-disable-next-line
   const [filter, setFilter] = useState('');
-  //   const [filter_date, setFilter_date] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [filter_categories, setFilter_categories] = useState([]);
   const [filter_locations, setFilter_locations] = useState([]);
 
   const eventsFilterContext = useContext(EventsFilterContext);
 
-  const { categories, locations } = eventsFilterContext;
+  const {
+    categories,
+    locations,
+    filterStartDate,
+    filterEndDate,
+    getEventsByFilter,
+  } = eventsFilterContext;
+
+  useEffect(() => {
+    if (startDate !== '' || endDate !== '') {
+      getEventsByFilter(startDate, endDate);
+    }
+  }, [startDate, endDate]);
 
   const children = [];
   for (let i = 0; i < categories.length; i++) {
@@ -68,9 +81,14 @@ const EventFilter = () => {
     setFilter_locations(checkedValues);
   };
 
-  const onChangeDate = (dates, dateStrings) => {
-    console.log('From: ', dates);
-    console.log('From: ', dateStrings);
+  const onChangeStartDate = (dates, dateStrings) => {
+    setStartDate(dates.toISOString());
+    console.log('From: ', dates.toISOString());
+  };
+
+  const onChangeEndDate = (dates, dateStrings) => {
+    setEndDate(dates.toISOString());
+    console.log('To: ', dates.toISOString());
   };
 
   const disabledDate = (current) => {
@@ -131,7 +149,7 @@ const EventFilter = () => {
             // size='small'
             style={{ width: '100%', marginLeft: '1.5%' }}
             disabledDate={disabledDate}
-            onChange={onChangeDate}
+            onChange={onChangeStartDate}
           />
           <br />
           <br />
@@ -140,7 +158,7 @@ const EventFilter = () => {
             // size='small'
             style={{ width: '100%', marginLeft: '1.5%' }}
             disabledDate={disabledDate}
-            onChange={onChangeDate}
+            onChange={onChangeEndDate}
           />
         </Panel>
         <Panel
