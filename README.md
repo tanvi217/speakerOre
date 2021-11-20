@@ -26,7 +26,7 @@ npm run start
 - For backend, please follow the instructions in [speaker-ore-api](https://github.com/BrijeshBumrela/speaker-ore-api/blob/master/README.md)
 - For Authentication:
   - Please follow the first 3 steps in [Google Signin using Firebase](https://www.freakyjolly.com/reactjs-sign-in-form-using-firebase-google-authentication/)
-  - Copy apiKey and authDomain from firebaseConfig in step 3 to .env.sample and move it to an .env file(REACT_APP_FIREBASE_API_KEY, REACT_APP_CLIENT_ID).
+  - Copy apiKey and authDomain from firebaseConfig in step 3 to .env.sample(update REACT_APP_FIREBASE_API_KEY, REACT_APP_CLIENT_ID values) and move it to an .env file.
   - Follow the section ["Enable Google Authentication in Firebase"](https://www.freakyjolly.com/reactjs-sign-in-form-using-firebase-google-authentication/#:~:text=Enable%20Google%20Authentication%20in%20Firebase)
 
 ## Project Structure
